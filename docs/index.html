@@ -35,6 +35,38 @@ nb_path: "nbs/index.ipynb"
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can use fasterai to remove useless parameters in your PyTorch neural network</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">granularity</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">criteria</span><span class="p">)</span>
+<span class="n">pruner</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="n">sparsitiy</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But you can also use it as a fastai <code>Callback</code> to prune your model while it is training</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">sparsifier</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="p">,</span> <span class="n">granularity</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">sched_func</span><span class="p">)</span>
+<span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sparsifier</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
 </div>
  
 
