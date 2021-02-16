@@ -15,6 +15,9 @@ entries:
     - output: web,pdf
       title: Lottery Ticket Hypothesis
       url: tutorial.lottery_ticket.html
+    - output: web,pdf
+      title: Sparsify
+      url: tutorial.sparsify.html
     output: web
     title: fasterai
   output: web

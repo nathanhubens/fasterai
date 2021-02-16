@@ -2,6 +2,7 @@
   "fasterai": {
     "Overview": "/",
     "Sparsifier": "sparsifier.html",
-    "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html"
+    "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html",
+    "Sparsify": "tutorial.sparsify.html"
   }
 }
