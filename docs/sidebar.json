@@ -1,6 +1,7 @@
 {
   "fasterai": {
     "Overview": "/",
-    "module name here": "core.html"
+    "Sparsifier": "sparsifier.html",
+    "Title": "Untitled.html"
   }
 }

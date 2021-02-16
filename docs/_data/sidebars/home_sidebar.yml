@@ -10,8 +10,11 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: module name here
-      url: core.html
+      title: Sparsifier
+      url: sparsifier.html
+    - output: web,pdf
+      title: Title
+      url: Untitled.html
     output: web
     title: fasterai
   output: web

@@ -2,9 +2,9 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"Sparsifier": "01_sparsifier.ipynb"}
 
-modules = []
+modules = ["sparsifier.py"]
 
 doc_url = "https://nathanhubens.github.io/fasterai/"
 
