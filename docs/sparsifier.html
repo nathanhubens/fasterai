@@ -78,6 +78,13 @@ nb_path: "nbs/01_sparsifier.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here are what the filters of the first convolutional layer look like:</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -105,6 +112,46 @@ nb_path: "nbs/01_sparsifier.ipynb"
 width=577
 height=574
 >
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Indeed, we have a bunch (64 more precisely) of filters, represented by $7 \times 7$ images, i.e. with 3 channels, which corresponds to the weights of the first layer:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([64, 3, 7, 7])</pre>
 </div>
 
 </div>
@@ -147,6 +194,25 @@ height=574
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <a href="/fasterai/sparsifier.html#Sparsifier"><code>Sparsifier</code></a> class allows us to remove some (part of) the filters, that are considered to be less useful than others. This can be done by first creating an instance of the class, specifying:</p>
+<ul>
+<li>The <code>granularity</code>, i.e. the part of filters that you want to remove. Typically, we usually remove weights, vectors, kernels or even complete filters.</li>
+<li>The <code>method</code>, i.e. if you want to consider each layer independently (<code>local</code>), or compare the parameters to remove across the whole network (<code>global</code>).</li>
+<li>The <code>criteria</code>, i.e. the way to assess the usefulness of a parameter. Common methods compare parameters using their magnitude, the lowest magnitude ones considered to be less useful.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Once this is specified, just use the <a href="/fasterai/sparsifier.html#Sparsifier.prune"><code>Sparsifier.prune</code></a>, indicating the percentage of sparsity to you want to apply.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -211,6 +277,13 @@ height=574
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is for example how you would proceed to remove $80 \%$ of the weights of the network.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -230,6 +303,13 @@ height=574
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And here are what the first layer filters would look like.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -269,7 +349,14 @@ height=574
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pruning-Vectors-of-weights">Pruning Vectors of weights<a class="anchor-link" href="#Pruning-Vectors-of-weights"> </a></h2>
+<h2 id="Pruning-Vectors-of-vectors">Pruning Vectors of vectors<a class="anchor-link" href="#Pruning-Vectors-of-vectors"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And here is the method to remove entire vectors</p>
+
 </div>
 </div>
 </div>
@@ -335,6 +422,13 @@ height=574
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And the kernels</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -394,6 +488,13 @@ height=574
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Pruning-Filters">Pruning Filters<a class="anchor-link" href="#Pruning-Filters"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now entire filters</p>
+
 </div>
 </div>
 </div>
