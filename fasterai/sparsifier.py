@@ -4,6 +4,9 @@ __all__ = ['Sparsifier']
 
 # Cell
 class Sparsifier():
+    '''
+    Make a neural network sparse using the `prune` method
+    '''
     def __init__(self, model, granularity, method, criteria):
         store_attr()
         self._save_weights() # Save the original weights
