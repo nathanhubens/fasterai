@@ -12,6 +12,9 @@ entries:
     - output: web,pdf
       title: Sparsifier
       url: sparsifier.html
+    - output: web,pdf
+      title: Sparsify Callback
+      url: sparsify_callback.html
       subfolders:
       - output: web
         subfolderitems:
