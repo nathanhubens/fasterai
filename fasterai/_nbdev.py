@@ -2,9 +2,19 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"Sparsifier": "01_sparsifier.ipynb"}
+index = {"Sparsifier": "01_sparsifier.ipynb",
+         "SparsifyCallback": "02_sparsify_callback.ipynb",
+         "l1_norm": "0b_criteria.ipynb",
+         "grad_crit": "0b_criteria.ipynb",
+         "movement": "0b_criteria.ipynb",
+         "iterative": "0c_schedules.ipynb",
+         "one_shot": "0c_schedules.ipynb",
+         "sched_agp": "0c_schedules.ipynb"}
 
-modules = ["sparsifier.py"]
+modules = ["sparsifier.py",
+           "sparsify_callback.py",
+           "criteria.py",
+           "schedule.py"]
 
 doc_url = "https://nathanhubens.github.io/fasterai/"
 

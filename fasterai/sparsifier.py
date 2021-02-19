@@ -3,6 +3,14 @@
 __all__ = ['Sparsifier']
 
 # Cell
+from fastai.vision.all import *
+
+import torch
+import torch.nn as nn
+
+from .criteria import *
+
+# Cell
 class Sparsifier():
     '''
     Make a neural network sparse using the `prune` method
