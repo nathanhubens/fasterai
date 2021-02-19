@@ -63,24 +63,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="s1">&#39;cuda:0&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dls</span> <span class="o">=</span> <span class="n">ImageDataLoaders</span><span class="o">.</span><span class="n">from_name_func</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">label_func</span><span class="p">,</span> <span class="n">item_tfms</span><span class="o">=</span><span class="n">Resize</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dls</span> <span class="o">=</span> <span class="n">ImageDataLoaders</span><span class="o">.</span><span class="n">from_name_func</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">label_func</span><span class="p">,</span> <span class="n">item_tfms</span><span class="o">=</span><span class="n">Resize</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -189,24 +172,24 @@ reset_end: If you want to reset your weights at the end of training to get your 
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.660738</td>
-      <td>0.858218</td>
-      <td>0.773342</td>
-      <td>00:12</td>
+      <td>0.598849</td>
+      <td>0.967493</td>
+      <td>0.796346</td>
+      <td>00:11</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.341397</td>
-      <td>0.230324</td>
-      <td>0.897158</td>
-      <td>00:12</td>
+      <td>0.360594</td>
+      <td>0.246451</td>
+      <td>0.899188</td>
+      <td>00:11</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.182328</td>
-      <td>0.195520</td>
-      <td>0.926252</td>
-      <td>00:12</td>
+      <td>0.207419</td>
+      <td>0.232675</td>
+      <td>0.910014</td>
+      <td>00:11</td>
     </tr>
   </tbody>
 </table>
@@ -329,24 +312,24 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.728038</td>
-      <td>0.410208</td>
-      <td>0.834912</td>
-      <td>00:22</td>
+      <td>0.643979</td>
+      <td>0.461272</td>
+      <td>0.833559</td>
+      <td>00:25</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.378442</td>
-      <td>0.261121</td>
-      <td>0.899865</td>
-      <td>00:24</td>
+      <td>0.348356</td>
+      <td>0.283664</td>
+      <td>0.873478</td>
+      <td>00:25</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.201008</td>
-      <td>0.228645</td>
-      <td>0.910690</td>
-      <td>00:21</td>
+      <td>0.189725</td>
+      <td>0.212729</td>
+      <td>0.918133</td>
+      <td>00:22</td>
     </tr>
   </tbody>
 </table>
@@ -482,7 +465,7 @@ Final Sparsity: 50.00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x7f6ea57a1358&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7ff55029d2b0&gt;</pre>
 </div>
 
 </div>
