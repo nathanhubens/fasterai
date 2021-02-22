@@ -5,27 +5,24 @@
 # Instead edit ../../sidebar.json
 entries:
 - folders:
+  - output: web,pdf
+    title: Overview
+    url: /
+  - output: web,pdf
+    title: Sparsifier
+    url: sparsifier.html
+  - output: web,pdf
+    title: Sparsify Callback
+    url: sparsify_callback.html
   - folderitems:
-    - output: web,pdf
-      title: Overview
-      url: /
-    - output: web,pdf
-      title: Sparsifier
-      url: sparsifier.html
-    - output: web,pdf
-      title: Sparsify Callback
-      url: sparsify_callback.html
       subfolders:
       - output: web
         subfolderitems:
         - output: web,pdf
           title: Lottery Ticket Hypothesis
           url: tutorial.lottery_ticket.html
-        - output: web,pdf
-          title: Sparsify
-          url: tutorial.one_shot.html
-        title: Tutorials
+        title: Lottery Ticket Hypothesis
     output: web
-    title: fasterai
+    title: Tutorials
   output: web
   title: Sidebar

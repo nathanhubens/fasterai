@@ -71,4 +71,4 @@ class SparsifyCallback(Callback):
 
 
     def _set_sparsity(self):
-        self.current_sparsity = self.sched_func(start=0., end=self.sparsity, pos=(1+self.train_iter-self.start_iter)/(self.total_iters-self.start_iter))
+        self.current_sparsity = self.sched_func(start=0., end=self.sparsity, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter))

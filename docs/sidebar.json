@@ -1,13 +1,18 @@
 {
-  "fasterai": {
     "Overview": "/",
     "Sparsifier": "sparsifier.html",
     "Sparsify Callback": "sparsify_callback.html",
-    "": {
-	"Tutorials": {
-		"Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html",
-		"Sparsify": "tutorial.one_shot.html"
-	}
+    "Tutorials": {
+        "":{
+            "Pruning Schedules": {
+                "One-Shot Pruning": "tutorial.one_shot.html",
+                "Iterative Pruning": "tutorial.iterative.html"
+           }
+       },
+        "":{
+            "Lottery Ticket Hypothesis": {
+                "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html"
+        }
+      }
     }
-  }
 }
