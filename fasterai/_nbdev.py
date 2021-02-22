@@ -2,7 +2,7 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"Sparsifier": "01_sparsifier.ipynb",
+index = {"Sparsifier": "01a_sparsifier.ipynb",
          "SparsifyCallback": "02_sparsify_callback.ipynb",
          "l1_norm": "0b_criteria.ipynb",
          "grad_crit": "0b_criteria.ipynb",
