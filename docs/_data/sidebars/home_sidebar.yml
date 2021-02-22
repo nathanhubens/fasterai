@@ -10,17 +10,17 @@ entries:
     url: /
   - output: web,pdf
     title: Sparsifier
-    url: sparsifier.html
+    url: /sparsifier.html
   - output: web,pdf
     title: Sparsify Callback
-    url: sparsify_callback.html
+    url: /sparsify_callback.html
   - folderitems:
       subfolders:
       - output: web
         subfolderitems:
         - output: web,pdf
           title: Lottery Ticket Hypothesis
-          url: tutorial.lottery_ticket.html
+          url: /tutorial.lottery_ticket.html
         title: Lottery Ticket Hypothesis
     output: web
     title: Tutorials
