@@ -46,7 +46,7 @@ nb_path: "nbs/01_pruning_overview.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include image.html alt="drawing" width="700" max-width="700" file="/fasterai/imgs/pruning.pdf" %}</p>
+<p><img src="/fasterai/imgs/pruning.pdf" alt="pruning"></p>
 
 </div>
 </div>
@@ -54,7 +54,7 @@ nb_path: "nbs/01_pruning_overview.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Granularity"><strong>Granularity</strong><a class="anchor-link" href="#Granularity"> </a></h3><p>Neural network pruning can come in many fashion, represented in the image below:</p>
-<p>{% include image.html alt="drawing" width="700" max-width="700" file="/fasterai/imgs/granularity.pdf" %}</p>
+<p><img src="/fasterai/imgs/granularity.pdf" alt="granularity"></p>
 <p>You can either be very precise and remove each weight independently or remove bigger chunks at a time. The more fine-grained (or <em>unstructured</em>) the pruning, the more precise the process will be, but the more difficult it will be to get any acceleration. On the other hand, removing bigger chunks at a time (<em>structured pruning</em>) will be less accurate, but will make life easier for any sparse matrix computation libraries. So granularity of pruning will be a trade-off between precision and acceleration.</p>
 
 </div>
