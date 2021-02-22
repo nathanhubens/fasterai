@@ -1,7 +1,10 @@
 {
-    "Overview": "/",
-    "Sparsifier": "/sparsifier.html",
-    "Sparsify Callback": "/sparsify_callback.html",
+
+    "Getting started": {
+            "Overview": "/",
+            "Sparsifier": "/sparsifier.html",
+            "Sparsify Callback": "/sparsify_callback.html"
+        },
     "Tutorials": {
             "Pruning Schedules": {
                 "One-Shot Pruning": "/tutorial.one_shot.html",

@@ -5,15 +5,18 @@
 # Instead edit ../../sidebar.json
 entries:
 - folders:
-  - output: web,pdf
-    title: Overview
-    url: /
-  - output: web,pdf
-    title: Sparsifier
-    url: /sparsifier.html
-  - output: web,pdf
-    title: Sparsify Callback
-    url: /sparsify_callback.html
+  - folderitems:
+    - output: web,pdf
+      title: Overview
+      url: /
+    - output: web,pdf
+      title: Sparsifier
+      url: /sparsifier.html
+    - output: web,pdf
+      title: Sparsify Callback
+      url: /sparsify_callback.html
+    output: web
+    title: Getting started
   - folderitems:
     - output: web
       subfolders:
