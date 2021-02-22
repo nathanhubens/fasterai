@@ -35,7 +35,7 @@ class SparsifyCallback(Callback):
     def before_fit(self):
         print(f'Pruning of {self.granularity} until a sparsity of {self.sparsity}%')
         self.sparsifier = Sparsifier(self.learn.model, self.granularity, self.method, self.criteria)
-        self.n_batches = math.floor(len(learn.dls.dataset)/learn.dls.bs)
+        self.n_batches = math.floor(len(self.learn.dls.dataset)/self.learn.dls.bs)
         self.total_iters = self.n_epoch * self.n_batches
         self.start_iter = self.start_epoch * self.n_batches
 

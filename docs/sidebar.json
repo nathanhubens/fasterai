@@ -6,7 +6,7 @@
     "": {
 	"Tutorials": {
 		"Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html",
-		"Sparsify": "tutorial.sparsify.html"
+		"Sparsify": "tutorial.one_shot.html"
 	}
     }
   }

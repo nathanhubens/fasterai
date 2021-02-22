@@ -23,7 +23,7 @@ entries:
           url: tutorial.lottery_ticket.html
         - output: web,pdf
           title: Sparsify
-          url: tutorial.sparsify.html
+          url: tutorial.one_shot.html
         title: Tutorials
     output: web
     title: fasterai
