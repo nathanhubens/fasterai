@@ -1,8 +1,13 @@
 {
 
-    "Overview": "/",
-    "Sparsifier": "sparsifier.html",
-    "Sparsify Callback": "sparsify_callback.html",
+    "Getting started": {
+        "Overview": "/"
+    },
+    "Make your network sparse": {
+        "Sparsifier": "sparsifier.html",
+        "Sparsify Callback": "sparsify_callback.html"
+    },
+    
     "Tutorials": {
             "Overview": "overview.html",
             "":{
