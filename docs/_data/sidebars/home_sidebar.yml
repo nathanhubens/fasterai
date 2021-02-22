@@ -13,9 +13,6 @@ entries:
     title: Getting started
   - folderitems:
     - output: web,pdf
-      title: Overview
-      url: pruning_overview.html
-    - output: web,pdf
       title: Sparsifier
       url: sparsifier.html
     - output: web,pdf
