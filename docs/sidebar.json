@@ -4,6 +4,7 @@
         "Overview": "/"
     },
     "Make your network sparse": {
+        "Overview": "pruning_overview.html",
         "Sparsifier": "sparsifier.html",
         "Sparsify Callback": "sparsify_callback.html"
     },
