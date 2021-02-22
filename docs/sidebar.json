@@ -3,24 +3,15 @@
     "Getting started": {
         "Overview": "/"
     },
-    "Make your network sparse": {
+    "Sparse": {
         "Sparsifier": "sparsifier.html",
         "Sparsify Callback": "sparsify_callback.html"
     },
     
     "Tutorials": {
             "Overview": "overview.html",
-            "":{
-                "Pruning Schedules": {
-                    "One-Shot Pruning": "tutorial.one_shot.html",
-                    "Iterative Pruning": "tutorial.iterative.html"
-                }
-            },
-            "empty1":{
-                "Lottery Ticket Hypothesis": {
-                    "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html"
-                }
-            }
+            "Pruning Schedules": "tutorial.schedules.html",
+            "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html"
     }
     
 }
