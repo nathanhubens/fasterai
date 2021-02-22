@@ -15,7 +15,9 @@ entries:
     title: Sparsify Callback
     url: sparsify_callback.html
   - folderitems:
-    - output: web
+    - output: web,pdf
+      title: Overview
+      url: overview.html
       subfolders:
       - output: web
         subfolderitems:
@@ -32,6 +34,7 @@ entries:
           title: Lottery Ticket Hypothesis
           url: tutorial.lottery_ticket.html
         title: Lottery Ticket Hypothesis
-      title: Tutorials
+    output: web
+    title: Tutorials
   output: web
   title: Sidebar

@@ -3,15 +3,19 @@
     "Overview": "/",
     "Sparsifier": "sparsifier.html",
     "Sparsify Callback": "sparsify_callback.html",
-    "":{
-        "Tutorials": {
+    "Tutorials": {
+            "Overview": "overview.html",
+            "":{
                 "Pruning Schedules": {
                     "One-Shot Pruning": "tutorial.one_shot.html",
                     "Iterative Pruning": "tutorial.iterative.html"
-                },
+                }
+            },
+            "empty1":{
                 "Lottery Ticket Hypothesis": {
                     "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html"
                 }
-        }
+            }
     }
+    
 }
