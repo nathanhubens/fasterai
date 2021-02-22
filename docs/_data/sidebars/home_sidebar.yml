@@ -17,20 +17,21 @@ entries:
   - folderitems:
     - output: web
       subfolders:
-      - output: web,pdf
-        title: One-Shot Pruning
-        url: tutorial.one_shot.html
-      - output: web,pdf
-        title: Iterative Pruning
-        url: tutorial.iterative.html
-      title: Pruning Schedules
-    - output: web
-      subfolders:
-      - output: web,pdf
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: One-Shot Pruning
+          url: tutorial.one_shot.html
+        - output: web,pdf
+          title: Iterative Pruning
+          url: tutorial.iterative.html
+        title: Pruning Schedules
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: Lottery Ticket Hypothesis
+          url: tutorial.lottery_ticket.html
         title: Lottery Ticket Hypothesis
-        url: tutorial.lottery_ticket.html
-      title: Lottery Ticket Hypothesis
-    output: web
-    title: Tutorials
+      title: Tutorials
   output: web
   title: Sidebar
