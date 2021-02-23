@@ -7,7 +7,7 @@ description: A library to make neural networks lighter and faster with fastai
 # Set to false to disable KaTeX math
 use_math: true
 # Add Google analytics id if you have one and want to use it here
-google_analytics: 263229689
+google_analytics: G-424WWZFZ5F
 # See http://nbdev.fast.ai/search for help with adding Search
 google_search:
 
