@@ -101,17 +101,9 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>) :: <code>Callback</code></p>
+<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>) :: <code>Callback</code></p>
 </blockquote>
-<p>sparsity: The percentage of sparsity you want in your final model (between 0 and 100)
-granularity: The granularity the pruning will be operating on ('weights', 'vector', 'kernel', 'filters')
-method: The method of selection of the parameters ('local' or 'global')
-criteria: The criteria of selection ('l1', 'grad', 'movement')
-sched_func: The scheduling function for the pruning ('one_shot', 'iterative', 'annealing_cos', 'gradual', ...)
-start_epoch: The epoch you want to start pruning the network
-start_reset: When doing Lottery Ticket Hypothesis, the epoch you want to start resetting weights to their original values (set to 0 if you don't want to reset the weights)
-rewind: When doing Lottery Ticket Hypothesis with Rewind, the epoch you want to reset you weights to.
-reset_end: If you want to reset your weights at the end of training to get your winning ticket.</p>
+<p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
 
 </div>
 
@@ -189,24 +181,24 @@ reset_end: If you want to reset your weights at the end of training to get your 
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.646708</td>
-      <td>0.379118</td>
-      <td>0.845061</td>
-      <td>00:13</td>
+      <td>0.685760</td>
+      <td>1.191403</td>
+      <td>0.826116</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.330284</td>
-      <td>0.223118</td>
-      <td>0.900541</td>
-      <td>00:11</td>
+      <td>0.409567</td>
+      <td>0.314207</td>
+      <td>0.881597</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.177318</td>
-      <td>0.194608</td>
-      <td>0.926928</td>
-      <td>00:11</td>
+      <td>0.219406</td>
+      <td>0.222819</td>
+      <td>0.913396</td>
+      <td>00:08</td>
     </tr>
   </tbody>
 </table>
@@ -276,7 +268,7 @@ reset_end: If you want to reset your weights at the end of training to get your 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">l1_norm</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_agp</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">l1_norm</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_agp</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -329,24 +321,24 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.671438</td>
-      <td>0.637727</td>
-      <td>0.830853</td>
-      <td>00:42</td>
+      <td>0.613291</td>
+      <td>0.440225</td>
+      <td>0.863329</td>
+      <td>00:11</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.370707</td>
-      <td>0.242434</td>
-      <td>0.897835</td>
-      <td>00:42</td>
+      <td>0.326938</td>
+      <td>0.215635</td>
+      <td>0.907984</td>
+      <td>00:11</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.207271</td>
-      <td>0.229154</td>
-      <td>0.914073</td>
-      <td>00:33</td>
+      <td>0.176516</td>
+      <td>0.203821</td>
+      <td>0.924222</td>
+      <td>00:11</td>
     </tr>
   </tbody>
 </table>
@@ -482,7 +474,7 @@ Final Sparsity: 50.00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x7f4b1fbcc668&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7f4b1f3eb908&gt;</pre>
 </div>
 
 </div>

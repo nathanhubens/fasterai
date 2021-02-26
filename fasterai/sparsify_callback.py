@@ -14,26 +14,15 @@ import torch.nn.functional as F
 
 # Cell
 class SparsifyCallback(Callback):
-    '''
-    sparsity: The percentage of sparsity you want in your final model (between 0 and 100)
-    granularity: The granularity the pruning will be operating on ('weights', 'vector', 'kernel', 'filters')
-    method: The method of selection of the parameters ('local' or 'global')
-    criteria: The criteria of selection ('l1', 'grad', 'movement')
-    sched_func: The scheduling function for the pruning ('one_shot', 'iterative', 'annealing_cos', 'gradual', ...)
-    start_epoch: The epoch you want to start pruning the network
-    start_reset: When doing Lottery Ticket Hypothesis, the epoch you want to start resetting weights to their original values (set to 0 if you don't want to reset the weights)
-    rewind: When doing Lottery Ticket Hypothesis with Rewind, the epoch you want to reset you weights to.
-    reset_end: If you want to reset your weights at the end of training to get your winning ticket.
-    '''
 
-    def __init__(self, sparsity, granularity, method, criteria, sched_func, start_epoch=0, lth=False, rewind_epoch=0, reset_end=False):
+    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, lth=False, rewind_epoch=0, reset_end=False):
         store_attr()
-        self.current_sparsity, self.previous_sparsity = 0,0
+        self.current_sparsity, self.previous_sparsity = 0, 0
 
         assert self.start_epoch>=self.rewind_epoch, 'You must rewind to an epoch before the start of the pruning process'
 
     def before_fit(self):
-        print(f'Pruning of {self.granularity} until a sparsity of {self.sparsity}%')
+        print(f'Pruning of {self.granularity} until a sparsity of {self.end_sparsity}%')
         self.sparsifier = Sparsifier(self.learn.model, self.granularity, self.method, self.criteria)
         self.n_batches = math.floor(len(self.learn.dls.dataset)/self.learn.dls.bs)
         self.total_iters = self.n_epoch * self.n_batches
@@ -53,7 +42,7 @@ class SparsifyCallback(Callback):
                     print(f'Resetting Weights to their epoch {self.rewind_epoch} values')
                     self.sparsifier._reset_weights()
 
-        self.previous_sparsity = self.current_sparsity
+            self.previous_sparsity = self.current_sparsity
 
     def before_step(self):
         if self.epoch>=self.start_epoch:
@@ -71,4 +60,4 @@ class SparsifyCallback(Callback):
 
 
     def _set_sparsity(self):
-        self.current_sparsity = self.sched_func(start=0., end=self.sparsity, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter))
+        self.current_sparsity = self.sched_func(start=self.start_sparsity, end=self.end_sparsity, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter))

@@ -81,14 +81,7 @@ class Sparsifier():
         Compute the binary masks
         '''
         if self.method == 'global':
-            global_weight = []
-
-            for k, m in enumerate(model.modules()):
-                if isinstance(m, nn.Conv2d):
-                    w = self.criteria(m, self.granularity)
-                    global_weight.append(w)
-
-            global_weight = torch.cat([i.view(-1) for i in global_weight])
+            global_weight = torch.cat([self.criteria(m, self.granularity).view(-1) for m in model.modules() if isinstance(m, nn.Conv2d)])
             threshold = torch.quantile(global_weight, sparsity/100) # Compute the threshold globally
 
         elif self.method == 'local':
