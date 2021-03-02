@@ -4,6 +4,8 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"Sparsifier": "01a_sparsifier.ipynb",
          "SparsifyCallback": "02_sparsify_callback.ipynb",
+         "KnowledgeDistillation": "05_knowledge_distillation.ipynb",
+         "DistillationLoss": "05_knowledge_distillation.ipynb",
          "l1_norm": "0b_criteria.ipynb",
          "grad_crit": "0b_criteria.ipynb",
          "movement": "0b_criteria.ipynb",
@@ -14,6 +16,7 @@ index = {"Sparsifier": "01a_sparsifier.ipynb",
 
 modules = ["sparsifier.py",
            "sparsify_callback.py",
+           "distillation_callback.py",
            "criteria.py",
            "schedule.py"]
 
