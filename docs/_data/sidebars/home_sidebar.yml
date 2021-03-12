@@ -18,6 +18,9 @@ entries:
     - output: web,pdf
       title: Sparsify Callback
       url: sparsify_callback.html
+    - output: web,pdf
+      title: Schedules
+      url: schedules.html
     output: web
     title: Sparse
   - folderitems:

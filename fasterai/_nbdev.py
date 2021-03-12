@@ -9,10 +9,9 @@ index = {"Sparsifier": "01a_sparsifier.ipynb",
          "l1_norm": "0b_criteria.ipynb",
          "grad_crit": "0b_criteria.ipynb",
          "movement": "0b_criteria.ipynb",
-         "iterative": "0c_schedules.ipynb",
          "one_shot": "0c_schedules.ipynb",
-         "sched_agp": "0c_schedules.ipynb",
-         "dsd": "0c_schedules.ipynb"}
+         "iterative": "0c_schedules.ipynb",
+         "sched_agp": "0c_schedules.ipynb"}
 
 modules = ["sparse/sparsifier.py",
            "sparse/sparsify_callback.py",
