@@ -26,36 +26,6 @@ nb_path: "nbs/01a_sparsifier.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Exception in thread Thread-3:
-Traceback (most recent call last):
-  File &#34;/home/HubensN/miniconda3/envs/dl/lib/python3.7/threading.py&#34;, line 917, in _bootstrap_inner
-    self.run()
-  File &#34;/home/HubensN/miniconda3/envs/dl/lib/python3.7/site-packages/ipykernel/heartbeat.py&#34;, line 93, in run
-    self._bind_socket()
-  File &#34;/home/HubensN/miniconda3/envs/dl/lib/python3.7/site-packages/ipykernel/heartbeat.py&#34;, line 74, in _bind_socket
-    self._try_bind_socket()
-  File &#34;/home/HubensN/miniconda3/envs/dl/lib/python3.7/site-packages/ipykernel/heartbeat.py&#34;, line 61, in _try_bind_socket
-    return self.socket.bind(&#39;%s://%s&#39; % (self.transport, self.ip) + c + str(self.port))
-  File &#34;/home/HubensN/miniconda3/envs/dl/lib/python3.7/site-packages/zmq/sugar/socket.py&#34;, line 172, in bind
-    super().bind(addr)
-  File &#34;zmq/backend/cython/socket.pyx&#34;, line 540, in zmq.backend.cython.socket.Socket.bind
-  File &#34;zmq/backend/cython/checkrc.pxd&#34;, line 28, in zmq.backend.cython.checkrc._check_rc
-zmq.error.ZMQError: Address already in use
-
-Matplotlib is building the font cache; this may take a moment.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -218,7 +188,7 @@ height=574
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Sparsifier" class="doc_header"><code>class</code> <code>Sparsifier</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparsifier.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sparsifier</code>(<strong><code>model</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>)</p>
+<h2 id="Sparsifier" class="doc_header"><code>class</code> <code>Sparsifier</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsifier.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Sparsifier</code>(<strong><code>model</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>)</p>
 </blockquote>
 <p>Make a neural network sparse using the <code>prune</code> method</p>
 
@@ -269,7 +239,7 @@ height=574
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Sparsifier.prune" class="doc_header"><code>Sparsifier.prune</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparsifier.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Sparsifier.prune</code>(<strong><code>sparsity</code></strong>)</p>
+<h4 id="Sparsifier.prune" class="doc_header"><code>Sparsifier.prune</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsifier.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Sparsifier.prune</code>(<strong><code>sparsity</code></strong>)</p>
 </blockquote>
 
 </div>

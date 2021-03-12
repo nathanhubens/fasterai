@@ -14,11 +14,11 @@ index = {"Sparsifier": "01a_sparsifier.ipynb",
          "sched_agp": "0c_schedules.ipynb",
          "dsd": "0c_schedules.ipynb"}
 
-modules = ["sparsifier.py",
-           "sparsify_callback.py",
-           "distillation_callback.py",
-           "criteria.py",
-           "schedule.py"]
+modules = ["sparse/sparsifier.py",
+           "sparse/sparsify_callback.py",
+           "distill/distillation_callback.py",
+           "sparse/criteria.py",
+           "sparse/schedule.py"]
 
 doc_url = "https://nathanhubens.github.io/fasterai/"
 
