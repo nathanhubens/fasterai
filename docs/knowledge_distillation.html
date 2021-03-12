@@ -276,11 +276,7 @@ $$<p>With $p^{\tau}$ being the softened predictions of the student and teacher</
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="KnowledgeDistillation" class="doc_header"><code>class</code> <code>KnowledgeDistillation</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/distill/distillation_callback.py#L9" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KnowledgeDistillation</code>(<strong><code>teacher</code></strong>, <strong><code>T</code></strong>:<code>float</code>=<em><code>20.0</code></em>, <strong><code>α</code></strong>:<code>float</code>=<em><code>0.7</code></em>) :: <code>Callback</code></p>
 </blockquote>
-<p>Callback to perform Knowledge Distillation between a teacher and a student model</p>
 <p>Implementation inspired by <a href="https://github.com/peterliht/knowledge-distillation-pytorch/">https://github.com/peterliht/knowledge-distillation-pytorch/</a></p>
-<p>Attributes:
-    T: The temperature used to "soften" the softmax
-    α: The weighting parameter between classification and teacher loss</p>
 
 </div>
 
@@ -303,7 +299,7 @@ $$<p>With $p^{\tau}$ being the softened predictions of the student and teacher</
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="DistillationLoss" class="doc_header"><code>DistillationLoss</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/distill/distillation_callback.py#L27" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>DistillationLoss</code>(<strong><code>y</code></strong>, <strong><code>labels</code></strong>, <strong><code>teacher_scores</code></strong>, <strong><code>T</code></strong>, <strong><code>alpha</code></strong>)</p>
+<h4 id="DistillationLoss" class="doc_header"><code>DistillationLoss</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/distill/distillation_callback.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>DistillationLoss</code>(<strong><code>y</code></strong>, <strong><code>labels</code></strong>, <strong><code>teacher_scores</code></strong>, <strong><code>T</code></strong>, <strong><code>alpha</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -325,7 +321,13 @@ $$<p>With $p^{\tau}$ being the softened predictions of the student and teacher</
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The first step is then to train the teacher model</p>
+<h2 id="Example">Example<a class="anchor-link" href="#Example"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The first step is then to train the teacher model.</p>
 
 </div>
 </div>
@@ -429,7 +431,7 @@ $$<p>With $p^{\tau}$ being the softened predictions of the student and teacher</
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Without-KD">Without KD<a class="anchor-link" href="#Without-KD"> </a></h2>
+<h3 id="Without-KD">Without KD<a class="anchor-link" href="#Without-KD"> </a></h3>
 </div>
 </div>
 </div>
@@ -524,7 +526,7 @@ $$<p>With $p^{\tau}$ being the softened predictions of the student and teacher</
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="With-KD">With KD<a class="anchor-link" href="#With-KD"> </a></h2>
+<h3 id="With-KD">With KD<a class="anchor-link" href="#With-KD"> </a></h3>
 </div>
 </div>
 </div>

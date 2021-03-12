@@ -7,13 +7,7 @@ from fastai.vision.all import *
 
 # Cell
 class KnowledgeDistillation(Callback):
-    """Callback to perform Knowledge Distillation between a teacher and a student model
-
-    Implementation inspired by https://github.com/peterliht/knowledge-distillation-pytorch/
-
-    Attributes:
-        T: The temperature used to "soften" the softmax
-        α: The weighting parameter between classification and teacher loss
+    """Implementation inspired by https://github.com/peterliht/knowledge-distillation-pytorch/
     """
     def __init__(self, teacher, T:float=20., α:float=0.7):
         store_attr()
