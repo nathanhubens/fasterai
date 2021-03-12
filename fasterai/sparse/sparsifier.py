@@ -8,7 +8,7 @@ from fastai.vision.all import *
 import torch
 import torch.nn as nn
 
-from ..criteria import *
+from .criteria import *
 
 # Cell
 class Sparsifier():

@@ -5,8 +5,8 @@ __all__ = ['SparsifyCallback']
 # Cell
 from fastai.vision.all import *
 from fastai.callback.all import *
-from ..sparsifier import *
-from ..criteria import *
+from .sparsifier import *
+from .criteria import *
 
 import torch
 import torch.nn as nn
