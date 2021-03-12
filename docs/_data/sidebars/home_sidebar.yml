@@ -18,11 +18,14 @@ entries:
     - output: web,pdf
       title: Sparsify Callback
       url: sparsify_callback.html
+    output: web
+    title: Sparse
+  - folderitems:
     - output: web,pdf
       title: Knowledge Distillation
       url: knowledge_distillation.html
     output: web
-    title: Sparse
+    title: Distill
   - folderitems:
     - output: web,pdf
       title: Overview

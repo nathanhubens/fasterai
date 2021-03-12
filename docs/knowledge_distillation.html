@@ -46,6 +46,187 @@ nb_path: "nbs/05_knowledge_distillation.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Knowledge Distillation, sometimes called teacher-student training, is a compression method in which a small (the student) model is trained to mimic the behaviour of a larger (the teacher) model.</p>
+<p>The main goal is to reveal what is called the <strong>Dark Knowledge</strong> hidden in the teacher model.</p>
+<p>If we take the same <a href="https://www.ttic.edu/dl/dark14.pdf">example</a> provided by Geoffrey Hinton et al., we have</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The main problem of classification is that the output activation function (softmax) will, by design, make a single value really high and squash others.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+p_{i}=\frac{\exp \left(z_{i}\right)}{\sum_{j} \exp \left(z_{j}\right)}
+$$<p>With $p_i$ the probability of class $i$, computed from the logits $z$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is an example to illustrate this phenomenon:</p>
+<p>Let's say that we have trained a model to discriminate between the following 5 classes: [cow, dog, plane, cat, car]</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And here is the output of the final layer (the logits) when the model is fed a new input image:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By judging on the predictions, the model seems confident that the input data is a dog and quite confident that it is definitely not a plane nor a car, with predictions for cow and cat being moderately high.</p>
+<p>So the model not only has learned to recognize a dog in the image, but also that a dog is very different from a car and a plane and share similarities with cats and cows. This information is what is called <strong>dark knowledge</strong> !</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When passing those predictions through a softmax, we have:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">hard_preds</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">);</span> <span class="n">predictions</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([0.0864, 0.6386, 0.0388, 0.2126, 0.0236])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is accuenting the differences that we had earlier, discarding some of the dark knowledge acquired earlier. The way to keep this knowledge is to "soften" our softmax outputs, by adding a <strong>temperature</strong> parameter. The higher the temperature, the softer the predictions.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">soft_predictions</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">hard_preds</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">);</span> <span class="n">soft_predictions</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([0.1751, 0.3410, 0.1341, 0.2363, 0.1135])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{% include note.html content='if the Temperature is equal to 1, then we have regular softmax' %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When applying Knowledge Distillation, we want to keep the <strong>Dark Knowledge</strong> that the teacher model has acquired during its training but not rely entirely on it. So we combine two losses:</p>
+<ul>
+<li>The Teacher loss between the softened predictions of the teacher and the softened predictions of the student</li>
+<li>The Classification loss, which is the regular loss between hard labels and hard predictions</li>
+</ul>
+<p>The combination between those losses are weighted by an additional parameter α, as:</p>
+$$
+L_{K D}=\alpha  * \text { CrossEntropy }\left(p_{S}^{\tau}, p_{T}^{\tau}\right)+(1-\alpha) * \text { CrossEntropy }\left(p_{S}, y_{\text {true }}\right)
+$$<p>With $p^{\tau}$ being the softened predictions of the student and teacher</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>{% include note.html content='In practice, the distillation loss will be a <a href="http://cs230.stanford.edu/files_winter_2018/projects/6940224.pdf">bit different</a> in the implementation' %}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fasterai/imgs/distill.pdf" alt="distill" title="Knowledge Distillation"></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -75,6 +256,13 @@ nb_path: "nbs/05_knowledge_distillation.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This can be done with fastai, using the Callback system !</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -88,7 +276,11 @@ nb_path: "nbs/05_knowledge_distillation.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h2 id="KnowledgeDistillation" class="doc_header"><code>class</code> <code>KnowledgeDistillation</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/distill/distillation_callback.py#L9" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KnowledgeDistillation</code>(<strong><code>teacher</code></strong>, <strong><code>T</code></strong>:<code>float</code>=<em><code>20.0</code></em>, <strong><code>α</code></strong>:<code>float</code>=<em><code>0.7</code></em>) :: <code>Callback</code></p>
 </blockquote>
-<p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
+<p>Callback to perform Knowledge Distillation between a teacher and a student model</p>
+<p>Implementation inspired by <a href="https://github.com/peterliht/knowledge-distillation-pytorch/">https://github.com/peterliht/knowledge-distillation-pytorch/</a></p>
+<p>Attributes:
+    T: The temperature used to "soften" the softmax
+    α: The weighting parameter between classification and teacher loss</p>
 
 </div>
 
@@ -111,7 +303,7 @@ nb_path: "nbs/05_knowledge_distillation.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="DistillationLoss" class="doc_header"><code>DistillationLoss</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/distill/distillation_callback.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>DistillationLoss</code>(<strong><code>y</code></strong>, <strong><code>labels</code></strong>, <strong><code>teacher_scores</code></strong>, <strong><code>T</code></strong>, <strong><code>alpha</code></strong>)</p>
+<h4 id="DistillationLoss" class="doc_header"><code>DistillationLoss</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/distill/distillation_callback.py#L27" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>DistillationLoss</code>(<strong><code>y</code></strong>, <strong><code>labels</code></strong>, <strong><code>teacher_scores</code></strong>, <strong><code>T</code></strong>, <strong><code>alpha</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -131,6 +323,13 @@ nb_path: "nbs/05_knowledge_distillation.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The first step is then to train the teacher model</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -234,6 +433,13 @@ nb_path: "nbs/05_knowledge_distillation.ipynb"
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is how the student model would perform without being helped by the teacher</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -319,6 +525,13 @@ nb_path: "nbs/05_knowledge_distillation.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="With-KD">With KD<a class="anchor-link" href="#With-KD"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now with the help of the teacher</p>
+
 </div>
 </div>
 </div>
