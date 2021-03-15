@@ -5,6 +5,10 @@ __all__ = ['KnowledgeDistillation', 'DistillationLoss']
 # Cell
 from fastai.vision.all import *
 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 # Cell
 class KnowledgeDistillation(Callback):
     """Implementation inspired by https://github.com/peterliht/knowledge-distillation-pytorch/

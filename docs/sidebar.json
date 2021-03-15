@@ -12,9 +12,9 @@
     	"Knowledge Distillation": "knowledge_distillation.html"
     },
     "Tutorials": {
-            "Overview": "overview.html",
             "Pruning Schedules": "tutorial.schedules.html",
-            "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html"
+            "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html",
+	    "Knowledge Distillation": "tutorial.knowledge_distillation.html"
     }
     
 }

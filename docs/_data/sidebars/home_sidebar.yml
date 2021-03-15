@@ -31,14 +31,14 @@ entries:
     title: Distill
   - folderitems:
     - output: web,pdf
-      title: Overview
-      url: overview.html
-    - output: web,pdf
       title: Pruning Schedules
       url: tutorial.schedules.html
     - output: web,pdf
       title: Lottery Ticket Hypothesis
       url: tutorial.lottery_ticket.html
+    - output: web,pdf
+      title: Knowledge Distillation
+      url: tutorial.knowledge_distillation.html
     output: web
     title: Tutorials
   output: web

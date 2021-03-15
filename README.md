@@ -2,9 +2,11 @@
 > A library to make neural networks lighter and smaller
 
 
+`fasterai` is a library created to make neural network smaller and faster. It essentially relies on common compression techniques for networks such as pruning, knowledge distillation, ...
+
 ## How to use
 
-You can use fasterai to remove useless parameters in your PyTorch neural network
+You can use `fasterai` to remove useless parameters in your PyTorch neural network
 
 ```python
 pruner = Sparsifier(model, granularity, method, criteria)
