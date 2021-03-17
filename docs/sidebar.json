@@ -14,7 +14,8 @@
     "Tutorials": {
             "Pruning Schedules": "tutorial.schedules.html",
             "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html",
-	    "Knowledge Distillation": "tutorial.knowledge_distillation.html"
+	    "Knowledge Distillation": "tutorial.knowledge_distillation.html",
+	    "Pruning Transformers": "tutorial.transformers.html"
     }
     
 }
