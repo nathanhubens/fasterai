@@ -39,6 +39,9 @@ entries:
     - output: web,pdf
       title: Knowledge Distillation
       url: tutorial.knowledge_distillation.html
+    - output: web,pdf
+      title: Pruning Transformers
+      url: tutorial.transformers.html
     output: web
     title: Tutorials
   output: web
