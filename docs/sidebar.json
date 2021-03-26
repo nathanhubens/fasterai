@@ -6,7 +6,8 @@
     "Sparse": {
         "Sparsifier": "sparsifier.html",
         "Sparsify Callback": "sparsify_callback.html",
-	"Schedules": "schedules.html"
+	"Schedules": "schedules.html",
+	"Criteria": "criteria.html"
     },
     "Distill":{
     	"Knowledge Distillation": "knowledge_distillation.html"

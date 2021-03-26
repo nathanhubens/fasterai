@@ -15,7 +15,7 @@ class Sparsifier():
     '''
     Make a neural network sparse using the `prune` method
     '''
-    def __init__(self, model, granularity, method, criteria):
+    def __init__(self, model, granularity, method, criteria, selection='large'):
         store_attr()
         self._save_weights() # Save the original weights
 
@@ -23,7 +23,7 @@ class Sparsifier():
         for k, m in enumerate(self.model.modules()):
             if isinstance(m, nn.Conv2d):
                 weight = self.criteria(m, self.granularity)
-                mask = self._compute_mask(self.model, weight, sparsity)
+                mask = self._compute_mask(self.model, weight, sparsity, selection)
                 m.register_buffer("_mask", mask) # Put the mask into a buffer
                 self._apply(m)
 
@@ -76,7 +76,7 @@ class Sparsifier():
                 del m._buffers["_init_weights"]
 
 
-    def _compute_mask(self, model, weight, sparsity):
+    def _compute_mask(self, model, weight, sparsity, selection):
         '''
         Compute the binary masks
         '''
@@ -92,6 +92,8 @@ class Sparsifier():
         # Make sure we don't remove every weight of a given layer
         if threshold > weight.max(): threshold = weight.max()
 
-        mask = weight.ge(threshold).to(dtype=weight.dtype)
+        if selection=='large': mask = weight.ge(threshold).to(dtype=weight.dtype)
+        elif selection=='small': mask = weight.lt(threshold).to(dtype=weight.dtype)
+
 
         return mask
