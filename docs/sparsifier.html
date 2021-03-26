@@ -289,7 +289,7 @@ height=558
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">resnet18</span><span class="p">()</span>
-<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">l1_norm</span><span class="p">)</span>
+<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">large_final</span><span class="p">)</span>
 <span class="n">pruner</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
 </pre></div>
 
@@ -379,7 +379,7 @@ height=558
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">resnet18</span><span class="p">()</span>
-<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;vector&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">l1_norm</span><span class="p">)</span>
+<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;vector&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">large_final</span><span class="p">)</span>
 <span class="n">pruner</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
 </pre></div>
 
@@ -448,7 +448,7 @@ height=558
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">resnet18</span><span class="p">()</span>
-<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;kernel&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">l1_norm</span><span class="p">)</span>
+<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;kernel&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">large_final</span><span class="p">)</span>
 <span class="n">pruner</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
 </pre></div>
 
@@ -517,7 +517,7 @@ height=558
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">resnet18</span><span class="p">()</span>
-<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">l1_norm</span><span class="p">)</span>
+<span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">large_final</span><span class="p">)</span>
 <span class="n">pruner</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
 </pre></div>
 
