@@ -38,21 +38,84 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
+<h2 id="&#128218;Project-Documentation">&#128218;<a href="https://nathanhubens.github.io/fasterai/">Project Documentation</a><a class="anchor-link" href="#&#128218;Project-Documentation"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>You can use <code>fasterai</code> to remove useless parameters in your PyTorch neural network</p>
+<p>Visit <a href="https://nathanhubens.github.io/fasterai/">Read The Docs Project Page</a> or read following README to know more about using Fasterai</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="n">pruner</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">granularity</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">criteria</span><span class="p">)</span>
-<span class="n">pruner</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="n">sparsitiy</span><span class="p">)</span>
+<h2 id="&#128230;-Available-Methods">&#128230; Available Methods<a class="anchor-link" href="#&#128230;-Available-Methods"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-Pruning">1. Pruning<a class="anchor-link" href="#1.-Pruning"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Make your model sparse (i.e. prune it) according to a:</p>
+<ul>
+<li><strong>Sparsity: </strong> the amount of weights that will be replaced by 0</li>
+<li><strong>Granularity: </strong> the granularity at which you operate the pruning (removing weights, vectors, kernels, filters)</li>
+<li><strong>Method: </strong> prune either each layer independantly (local pruning) or the whole model (global pruning)</li>
+<li><strong>Criteria: </strong> the criteria used to select the weights to remove (magnitude, movement, ...)</li>
+<li><strong>Schedule: </strong> which schedule you want to use for pruning (one shot, iterative, gradual, ...)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-Knowledge-Distillation">2. Knowledge Distillation<a class="anchor-link" href="#2.-Knowledge-Distillation"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Distill the knowledge acquired by a big model into a smaller one</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.-Lottery-Ticket-Hypothesis">3. Lottery Ticket Hypothesis<a class="anchor-link" href="#3.-Lottery-Ticket-Hypothesis"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Find the winning ticket in you network, <em>i.e.</em> the initial subnetwork able to attain at least similar performances than the network as a whole.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#127937;-Quick-Start">&#127937; Quick Start<a class="anchor-link" href="#&#127937;-Quick-Start"> </a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-Create-your-model-with-fastai">1. Create your model with fastai<a class="anchor-link" href="#1.-Create-your-model-with-fastai"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -60,16 +123,43 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>But you can also use it as a fastai <code>Callback</code> to prune your model while it is training</p>
+<h3 id="2.-Get-you-Fasterai-Callback">2. Get you Fasterai Callback<a class="anchor-link" href="#2.-Get-you-Fasterai-Callback"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="p">,</span> <span class="n">granularity</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">sched_func</span><span class="p">)</span>
+</pre></div>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="n">sparsifier</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="p">,</span> <span class="n">granularity</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">sched_func</span><span class="p">)</span>
-<span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sparsifier</span><span class="p">)</span>
+<h3 id="3.-Train-you-model-to-make-it-sparse-!">3. Train you model to make it sparse !<a class="anchor-link" href="#3.-Train-you-model-to-make-it-sparse-!"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="&#128221;-Citing">&#128221; Citing<a class="anchor-link" href="#&#128221;-Citing"> </a></h3>
+<pre><code>@misc{Hubens:2020,
+  Author = {Nathan Hubens},
+  Title = {Fasterai},
+  Year = {2020},
+  Publisher = {GitHub},
+  Journal = {GitHub repository},
+  Howpublished = {\url{https://github.com/nathanhubens/fasterai}}
+}</code></pre>
 
 </div>
 </div>

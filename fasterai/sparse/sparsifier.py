@@ -93,6 +93,5 @@ class Sparsifier():
         if threshold > weight.max(): threshold = weight.max()
 
         mask = weight.ge(threshold).to(dtype=weight.dtype)
-        mask = weight.ge(threshold).to(dtype=weight.dtype)
 
         return mask
