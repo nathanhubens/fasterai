@@ -27,7 +27,7 @@ Distill the knowledge acquired by a big model into a smaller one.
 
 Find the winning ticket in you network, *i.e.* the initial subnetwork able to attain at least similar performances than the network as a whole.
 
-# 🏁 Quick Start
+## 🏁 Quick Start
 
 ### 1. Create your model with fastai
 
