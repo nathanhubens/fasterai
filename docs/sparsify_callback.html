@@ -101,7 +101,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>) :: <code>Callback</code></p>
+<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
 
@@ -181,24 +181,24 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.685760</td>
-      <td>1.191403</td>
-      <td>0.826116</td>
-      <td>00:08</td>
+      <td>0.682230</td>
+      <td>0.456991</td>
+      <td>0.817997</td>
+      <td>02:45</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.409567</td>
-      <td>0.314207</td>
-      <td>0.881597</td>
-      <td>00:09</td>
+      <td>0.350599</td>
+      <td>0.279497</td>
+      <td>0.890392</td>
+      <td>00:18</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.219406</td>
-      <td>0.222819</td>
-      <td>0.913396</td>
-      <td>00:08</td>
+      <td>0.180494</td>
+      <td>0.236174</td>
+      <td>0.910690</td>
+      <td>00:44</td>
     </tr>
   </tbody>
 </table>
@@ -212,6 +212,13 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's now try adding some sparsity in our model</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -237,13 +244,6 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Here is for example how to implement the <a href="https://arxiv.org/pdf/1710.01878.pdf">Automated Gradual Pruning</a> schedule.</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -251,24 +251,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sched_agp</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span> <span class="k">return</span> <span class="n">end</span> <span class="o">+</span> <span class="n">start</span> <span class="o">-</span> <span class="n">end</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_agp</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_cos</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -299,7 +282,6 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Pruning of weight until a sparsity of 50%
-Saving Weights at epoch 0
 </pre>
 </div>
 </div>
@@ -321,24 +303,24 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.613291</td>
-      <td>0.440225</td>
-      <td>0.863329</td>
-      <td>00:11</td>
+      <td>0.703133</td>
+      <td>0.466754</td>
+      <td>0.836942</td>
+      <td>00:47</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.326938</td>
-      <td>0.215635</td>
-      <td>0.907984</td>
-      <td>00:11</td>
+      <td>0.364494</td>
+      <td>0.267957</td>
+      <td>0.901218</td>
+      <td>00:42</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.176516</td>
-      <td>0.203821</td>
-      <td>0.924222</td>
-      <td>00:11</td>
+      <td>0.203669</td>
+      <td>0.219770</td>
+      <td>0.921516</td>
+      <td>00:53</td>
     </tr>
   </tbody>
 </table>
@@ -349,8 +331,9 @@ Saving Weights at epoch 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: 35.19%
-Sparsity at the end of epoch 1: 48.15%
+<pre>Saving Weights at epoch 0
+Sparsity at the end of epoch 0: 12.50%
+Sparsity at the end of epoch 1: 37.50%
 Sparsity at the end of epoch 2: 50.00%
 Final Sparsity: 50.00
 </pre>
@@ -370,6 +353,37 @@ Final Sparsity: 50.00
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For more information about the pruning schedules, take a look at the <a href="https://nathanhubens.github.io/fasterai/schedules.html">Schedules section</a> !</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is for example how to implement the <a href="https://arxiv.org/pdf/1710.01878.pdf">Automated Gradual Pruning</a> schedule.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sched_agp</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span> <span class="k">return</span> <span class="n">end</span> <span class="o">+</span> <span class="n">start</span> <span class="o">-</span> <span class="n">end</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>When pruning a neural network, there are 3 main schedules that are used:</p>

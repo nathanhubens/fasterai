@@ -348,7 +348,7 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
             }
         </style>
       <progress value='662' class='' max='662' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.00% [662/662 00:06<00:00]
+      100.00% [662/662 00:09<00:00]
     </div>
     
 </div>
@@ -581,16 +581,13 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@patch_to</span><span class="p">(</span><span class="n">Sparsifier</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">prune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sparsity</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">prune_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sparsity</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">modules</span><span class="p">()):</span>
         <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;Conv1D&#39;</span><span class="p">:</span>
-            <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">granularity</span><span class="p">)</span>
-            <span class="n">mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_mask</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">sparsity</span><span class="p">)</span>
-            <span class="n">m</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;_mask&quot;</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="c1"># Put the mask into a buffer</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_apply</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prune_layer</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sparsity</span><span class="p">)</span>
             
 <span class="nd">@patch_to</span><span class="p">(</span><span class="n">Sparsifier</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">mask_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_mask_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">modules</span><span class="p">()):</span>
         <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;Conv1D&#39;</span><span class="p">:</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s2">&quot;_mask&quot;</span><span class="p">)</span>
@@ -619,12 +616,14 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@patch_to</span><span class="p">(</span><span class="n">SparsifyCallback</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@patch_to</span><span class="p">(</span><span class="n">SparsifyCallback</span><span class="p">)</span> 
 <span class="k">def</span> <span class="nf">before_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Pruning of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">granularity</span><span class="si">}</span><span class="s1"> until a sparsity of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_sparsity</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">sparsifier</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">granularity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epoch</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span>
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epoch</span><span class="p">,</span> <span class="s1">&#39;Your end_epoch must be smaller than total number of epoch&#39;</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">total_iters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epoch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">n_batches</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">sparsifier</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">granularity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">total_iters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">n_batches</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">start_iter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_epoch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">n_batches</span>
 </pre></div>
 
@@ -711,10 +710,10 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>3.105212</td>
-      <td>2.847042</td>
-      <td>17.236725</td>
-      <td>07:44</td>
+      <td>3.164866</td>
+      <td>2.845635</td>
+      <td>17.212484</td>
+      <td>07:45</td>
     </tr>
   </tbody>
 </table>
@@ -763,7 +762,7 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn @-@ shaped head. It is the most common type of unicorn in the United States.&#39;</pre>
+<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn on its head.\n\nA unicorn is a magical creature with a rainbow tail and a horn&#39;</pre>
 </div>
 
 </div>
@@ -781,9 +780,24 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_agp</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_cos</span><span class="p">)</span>
+</pre></div>
 
-<span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -818,10 +832,10 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>3.276928</td>
-      <td>2.875845</td>
-      <td>17.740412</td>
-      <td>17:07</td>
+      <td>3.126173</td>
+      <td>2.883994</td>
+      <td>17.885572</td>
+      <td>17:21</td>
     </tr>
   </tbody>
 </table>
@@ -880,7 +894,7 @@ Final Sparsity: 30.00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn on its head. The unicorn is a member of the &lt;unk&gt; &lt;unk&gt; family,&#39;</pre>
+<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn @-@ shaped head. It is a member of the &lt;unk&gt; family of unicorns&#39;</pre>
 </div>
 
 </div>

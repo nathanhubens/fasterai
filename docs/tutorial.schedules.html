@@ -69,32 +69,20 @@ nb_path: "nbs/04a_tutorial.schedules.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>In the SparsifyCallback, there are several parameters to 'shape' our pruning schedule:</p>
+<ul>
+<li><code>start_sparsity</code>: the initial sparsity of our model, generally kept at 0 as after initialization, our weights are generally non-zero.</li>
+<li><code>end_sparsity</code>: the target sparsity at the end of the training </li>
+<li><code>start_epoch</code>: we can decide to start pruning right from the beginning or let it train a bit before removing weights.</li>
+<li><code>sched_func</code>: this is where the general shape of the schedule is specified as it specifies how the sparsity evolves along the training. You can either use a schedule <a href="https://docs.fast.ai/callback.schedule.html#Annealing">available</a> in fastai our even coming with your own !</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="One-Shot-Pruning">One-Shot Pruning<a class="anchor-link" href="#One-Shot-Pruning"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The simplest way to perform pruning is called One-Shot Pruning. It consists of the following three steps:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>You first need to train a network</li>
-<li>You then need to remove some weights (depending on your criteria, needs,...)</li>
-<li>You fine-tune the remaining weights to recover from the loss of parameters.</li>
-</ol>
-<p>With fasterai, this is really easy to do. Let's illustrate it by an example:</p>
 
 </div>
 </div>
@@ -141,7 +129,7 @@ nb_path: "nbs/04a_tutorial.schedules.ipynb"
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">resnet18</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">accuracy</span><span class="p">)</span>
 <span class="n">learn</span><span class="o">.</span><span class="n">unfreeze</span><span class="p">()</span>
 
-<span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -168,24 +156,45 @@ nb_path: "nbs/04a_tutorial.schedules.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.640964</td>
-      <td>0.633472</td>
-      <td>0.846414</td>
-      <td>00:12</td>
+      <td>0.759337</td>
+      <td>0.812965</td>
+      <td>0.797700</td>
+      <td>00:54</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.331340</td>
-      <td>0.272124</td>
-      <td>0.895129</td>
-      <td>00:12</td>
+      <td>0.422725</td>
+      <td>0.257852</td>
+      <td>0.891069</td>
+      <td>00:45</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.181170</td>
-      <td>0.211167</td>
-      <td>0.912720</td>
-      <td>00:12</td>
+      <td>0.250840</td>
+      <td>0.243515</td>
+      <td>0.901218</td>
+      <td>00:51</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.164107</td>
+      <td>0.205869</td>
+      <td>0.921516</td>
+      <td>00:44</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.099849</td>
+      <td>0.158837</td>
+      <td>0.941813</td>
+      <td>00:58</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>0.054930</td>
+      <td>0.156183</td>
+      <td>0.940460</td>
+      <td>00:44</td>
     </tr>
   </tbody>
 </table>
@@ -201,271 +210,26 @@ nb_path: "nbs/04a_tutorial.schedules.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>There are two main ways that you can perform One-Shot Pruning with fasterai.</p>
+<h2 id="One-Shot-Pruning">One-Shot Pruning<a class="anchor-link" href="#One-Shot-Pruning"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The simplest way to perform pruning is called One-Shot Pruning. It consists of the following three steps:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <ol>
-<li>You already possess a trained network and want to prune it</li>
-<li>You don't possess such a network and have to train it from scratch</li>
+<li>You first need to train a network</li>
+<li>You then need to remove some weights (depending on your criteria, needs,...)</li>
+<li>You fine-tune the remaining weights to recover from the loss of parameters.</li>
 </ol>
+<p>With fasterai, this is really easy to do. Let's illustrate it by an example:</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.-You-possess-a-trained-network">1. You possess a trained network<a class="anchor-link" href="#1.-You-possess-a-trained-network"> </a></h3><p>In this case, the step 1) of the One-Shot Pruning process is already done. But you still need to prune the network and then fine-tune it.</p>
-<p>Let's say we want to remove $80 \%$ of the weights of our network. This can be done as:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">large_final</span><span class="p">)</span>
-<span class="n">sp</span><span class="o">.</span><span class="n">prune</span><span class="p">(</span><span class="mi">80</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">validate</span><span class="p">();</span> <span class="n">acc</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.8179972767829895</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Obviously, as we removed a good part of trained weights, the perfomance of the network is degraded. This can be solved by retraining our pruned network, making sure that the pruned weights keep their 0 value.</p>
-<p>We don't want to update the sparsity level anymore so we have to create a schedule that returns a constant value. Such a schedule exists in fasterai and is called <a href="/fasterai/schedules.html#one_shot"><code>one_shot</code></a> and is defined as:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">one_shot</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span> <span class="k">return</span> <span class="n">end</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can pass the same arguments to our callback than those used by the Sparsifier.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">one_shot</span><span class="p">)</span>
-
-<span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Pruning of weight until a sparsity of 80%
-Saving Weights at epoch 0
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th>epoch</th>
-      <th>train_loss</th>
-      <th>valid_loss</th>
-      <th>accuracy</th>
-      <th>time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>0.199193</td>
-      <td>0.281678</td>
-      <td>0.903248</td>
-      <td>01:36</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>0.167149</td>
-      <td>0.207365</td>
-      <td>0.916103</td>
-      <td>01:35</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>0.083820</td>
-      <td>0.196808</td>
-      <td>0.928281</td>
-      <td>01:34</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: 80.00%
-Sparsity at the end of epoch 1: 80.00%
-Sparsity at the end of epoch 2: 80.00%
-Final Sparsity: 80.00
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can also check where the pruned weights are in the network</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">modules</span><span class="p">()):</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sparsity in </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="mf">100.</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span><span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">nelement</span><span class="p">())</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity in Conv2d 2: 38.85%
-Sparsity in Conv2d 8: 55.18%
-Sparsity in Conv2d 11: 50.22%
-Sparsity in Conv2d 14: 48.10%
-Sparsity in Conv2d 17: 49.92%
-Sparsity in Conv2d 21: 53.43%
-Sparsity in Conv2d 24: 60.85%
-Sparsity in Conv2d 27: 42.36%
-Sparsity in Conv2d 30: 60.02%
-Sparsity in Conv2d 33: 62.29%
-Sparsity in Conv2d 37: 65.71%
-Sparsity in Conv2d 40: 70.78%
-Sparsity in Conv2d 43: 61.05%
-Sparsity in Conv2d 46: 74.60%
-Sparsity in Conv2d 49: 77.16%
-Sparsity in Conv2d 53: 77.67%
-Sparsity in Conv2d 56: 82.73%
-Sparsity in Conv2d 59: 59.82%
-Sparsity in Conv2d 62: 80.74%
-Sparsity in Conv2d 65: 91.73%
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>{% include note.html content='Using Sparsifier to prune the network is not necessary as it will also be called in the Callback. This was used here to better illustrate all the steps.' %}</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.-You-don't-possess-a-trained-network">2. You don't possess a trained network<a class="anchor-link" href="#2.-You-don't-possess-a-trained-network"> </a></h3>
 </div>
 </div>
 </div>
@@ -489,8 +253,8 @@ Sparsity in Conv2d 65: 91.73%
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this case, your network needs to be trained before pruning.</p>
-<p>You only need to create the Callback with the <a href="/fasterai/schedules.html#one_shot"><code>one_shot</code></a> schedule and set the <code>start_epoch</code> argument, i.e. how many epochs you want to train your network before pruning it.</p>
+<p>In this case, your network needs to be trained before pruning. This training can be done independently from the pruning callback, or simulated by the <code>start_epoch</code> that will delay the pruning process.</p>
+<p>You thus only need to create the Callback with the <a href="/fasterai/schedules.html#one_shot"><code>one_shot</code></a> schedule and set the <code>start_epoch</code> argument, i.e. how many epochs you want to train your network before pruning it.</p>
 
 </div>
 </div>
@@ -502,7 +266,7 @@ Sparsity in Conv2d 65: 91.73%
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">one_shot</span><span class="p">,</span> <span class="n">start_epoch</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">one_shot</span><span class="p">,</span> <span class="n">start_epoch</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -539,8 +303,7 @@ Sparsity in Conv2d 65: 91.73%
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Pruning of weight until a sparsity of 80%
-Saving Weights at epoch 0
+<pre>Pruning of weight until a sparsity of 50%
 </pre>
 </div>
 </div>
@@ -562,45 +325,45 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.702169</td>
-      <td>0.456472</td>
-      <td>0.870095</td>
-      <td>00:11</td>
+      <td>0.703619</td>
+      <td>0.438618</td>
+      <td>0.860622</td>
+      <td>00:41</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.410011</td>
-      <td>0.288117</td>
-      <td>0.881597</td>
-      <td>00:11</td>
+      <td>0.424384</td>
+      <td>0.291602</td>
+      <td>0.879567</td>
+      <td>00:31</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.250258</td>
-      <td>0.252269</td>
-      <td>0.889716</td>
-      <td>00:12</td>
+      <td>0.263394</td>
+      <td>0.215711</td>
+      <td>0.912043</td>
+      <td>00:30</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.145373</td>
-      <td>0.176909</td>
-      <td>0.933694</td>
-      <td>01:37</td>
+      <td>0.159872</td>
+      <td>0.167506</td>
+      <td>0.935047</td>
+      <td>00:33</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.083379</td>
-      <td>0.201312</td>
-      <td>0.929635</td>
-      <td>01:34</td>
+      <td>0.092143</td>
+      <td>0.167791</td>
+      <td>0.934371</td>
+      <td>00:36</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.054683</td>
-      <td>0.208249</td>
+      <td>0.057932</td>
+      <td>0.175380</td>
       <td>0.933694</td>
-      <td>01:36</td>
+      <td>00:34</td>
     </tr>
   </tbody>
 </table>
@@ -611,13 +374,14 @@ Saving Weights at epoch 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: 0.00%
+<pre>Saving Weights at epoch 0
+Sparsity at the end of epoch 0: 0.00%
 Sparsity at the end of epoch 1: 0.00%
 Sparsity at the end of epoch 2: 0.00%
-Sparsity at the end of epoch 3: 80.00%
-Sparsity at the end of epoch 4: 80.00%
-Sparsity at the end of epoch 5: 80.00%
-Final Sparsity: 80.00
+Sparsity at the end of epoch 3: 50.00%
+Sparsity at the end of epoch 4: 50.00%
+Sparsity at the end of epoch 5: 50.00%
+Final Sparsity: 50.00
 </pre>
 </div>
 </div>
@@ -628,13 +392,6 @@ Final Sparsity: 80.00
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Actually, doing the training and pruning in a single cycle works even better !</p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
@@ -740,7 +497,7 @@ Final Sparsity: 80.00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">iterative</span><span class="p">,</span> <span class="n">start_epoch</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">iterative</span><span class="p">,</span> <span class="n">start_epoch</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -777,8 +534,7 @@ Final Sparsity: 80.00
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Pruning of weight until a sparsity of 80%
-Saving Weights at epoch 0
+<pre>Pruning of weight until a sparsity of 50%
 </pre>
 </div>
 </div>
@@ -800,45 +556,45 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.678416</td>
-      <td>0.811682</td>
-      <td>0.843031</td>
-      <td>00:12</td>
+      <td>0.670763</td>
+      <td>0.548071</td>
+      <td>0.841678</td>
+      <td>00:30</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.448310</td>
-      <td>0.305697</td>
-      <td>0.878214</td>
-      <td>00:12</td>
+      <td>0.411234</td>
+      <td>0.330112</td>
+      <td>0.859946</td>
+      <td>00:32</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.243350</td>
-      <td>0.223050</td>
-      <td>0.905954</td>
-      <td>00:11</td>
+      <td>0.274881</td>
+      <td>0.231136</td>
+      <td>0.904601</td>
+      <td>00:31</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.140957</td>
-      <td>0.207141</td>
-      <td>0.929635</td>
-      <td>01:37</td>
+      <td>0.171761</td>
+      <td>0.174502</td>
+      <td>0.933018</td>
+      <td>00:33</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.082162</td>
-      <td>0.199370</td>
-      <td>0.927605</td>
-      <td>01:34</td>
+      <td>0.096163</td>
+      <td>0.161670</td>
+      <td>0.939784</td>
+      <td>00:32</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.068106</td>
-      <td>0.171238</td>
-      <td>0.930988</td>
-      <td>01:36</td>
+      <td>0.051960</td>
+      <td>0.175950</td>
+      <td>0.937077</td>
+      <td>00:34</td>
     </tr>
   </tbody>
 </table>
@@ -849,13 +605,14 @@ Saving Weights at epoch 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: 0.00%
+<pre>Saving Weights at epoch 0
+Sparsity at the end of epoch 0: 0.00%
 Sparsity at the end of epoch 1: 0.00%
 Sparsity at the end of epoch 2: 0.00%
-Sparsity at the end of epoch 3: 26.67%
-Sparsity at the end of epoch 4: 53.33%
-Sparsity at the end of epoch 5: 80.00%
-Final Sparsity: 80.00
+Sparsity at the end of epoch 3: 16.67%
+Sparsity at the end of epoch 4: 33.33%
+Sparsity at the end of epoch 5: 50.00%
+Final Sparsity: 50.00
 </pre>
 </div>
 </div>
@@ -879,6 +636,30 @@ Final Sparsity: 80.00
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is for example how to implement the <a href="https://arxiv.org/pdf/1710.01878.pdf">Automated Gradual Pruning</a> schedule.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sched_agp</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span> <span class="k">return</span> <span class="n">end</span> <span class="o">+</span> <span class="n">start</span> <span class="o">-</span> <span class="n">end</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -904,7 +685,7 @@ Final Sparsity: 80.00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_agp</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_agp</span><span class="p">,</span> <span class="n">start_epoch</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -941,8 +722,7 @@ Final Sparsity: 80.00
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Pruning of weight until a sparsity of 80%
-Saving Weights at epoch 0
+<pre>Pruning of weight until a sparsity of 50%
 </pre>
 </div>
 </div>
@@ -964,45 +744,45 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.620968</td>
-      <td>0.493531</td>
-      <td>0.855886</td>
-      <td>01:34</td>
+      <td>0.671158</td>
+      <td>0.562014</td>
+      <td>0.839648</td>
+      <td>00:29</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.395395</td>
-      <td>0.336614</td>
-      <td>0.877537</td>
-      <td>01:36</td>
+      <td>0.402615</td>
+      <td>0.426159</td>
+      <td>0.839648</td>
+      <td>00:30</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.255663</td>
-      <td>0.199090</td>
-      <td>0.921516</td>
-      <td>01:33</td>
+      <td>0.258190</td>
+      <td>0.245725</td>
+      <td>0.905277</td>
+      <td>00:33</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.157263</td>
-      <td>0.181541</td>
-      <td>0.924222</td>
-      <td>01:35</td>
+      <td>0.186045</td>
+      <td>0.238705</td>
+      <td>0.898512</td>
+      <td>00:32</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.099781</td>
-      <td>0.169471</td>
-      <td>0.933694</td>
-      <td>01:33</td>
+      <td>0.104698</td>
+      <td>0.178128</td>
+      <td>0.929635</td>
+      <td>00:34</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.062961</td>
-      <td>0.175360</td>
+      <td>0.066841</td>
+      <td>0.169343</td>
       <td>0.937077</td>
-      <td>01:36</td>
+      <td>00:32</td>
     </tr>
   </tbody>
 </table>
@@ -1013,13 +793,14 @@ Saving Weights at epoch 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: 33.70%
-Sparsity at the end of epoch 1: 56.30%
-Sparsity at the end of epoch 2: 70.00%
-Sparsity at the end of epoch 3: 77.04%
-Sparsity at the end of epoch 4: 79.63%
-Sparsity at the end of epoch 5: 80.00%
-Final Sparsity: 80.00
+<pre>Saving Weights at epoch 0
+Sparsity at the end of epoch 0: 0.00%
+Sparsity at the end of epoch 1: 0.00%
+Sparsity at the end of epoch 2: 0.00%
+Sparsity at the end of epoch 3: 35.19%
+Sparsity at the end of epoch 4: 48.15%
+Sparsity at the end of epoch 5: 50.00%
+Final Sparsity: 50.00
 </pre>
 </div>
 </div>
@@ -1094,7 +875,7 @@ Final Sparsity: 80.00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.legend.Legend at 0x7f6d4a39ecf8&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x7fcf605043d0&gt;</pre>
 </div>
 
 </div>

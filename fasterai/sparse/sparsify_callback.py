@@ -15,7 +15,7 @@ import torch.nn.functional as F
 # Cell
 class SparsifyCallback(Callback):
 
-    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, lth=False, rewind_epoch=0, reset_end=False):
+    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, end_epoch=None, lth=False, rewind_epoch=0, reset_end=False):
         store_attr()
         self.current_sparsity, self.previous_sparsity = 0, 0
 
@@ -23,9 +23,12 @@ class SparsifyCallback(Callback):
 
     def before_fit(self):
         print(f'Pruning of {self.granularity} until a sparsity of {self.end_sparsity}%')
+        self.end_epoch = self.n_epoch if self.end_epoch is None else self.end_epoch
+        assert self.end_epoch <= self.n_epoch, 'Your end_epoch must be smaller than total number of epoch'
+
         self.sparsifier = Sparsifier(self.learn.model, self.granularity, self.method, self.criteria)
         self.n_batches = math.floor(len(self.learn.dls.dataset)/self.learn.dls.bs)
-        self.total_iters = self.n_epoch * self.n_batches
+        self.total_iters = self.end_epoch * self.n_batches
         self.start_iter = self.start_epoch * self.n_batches
 
     def before_epoch(self):
@@ -35,8 +38,8 @@ class SparsifyCallback(Callback):
 
     def before_batch(self):
         if self.epoch>=self.start_epoch:
-            self._set_sparsity()
-            self.sparsifier.prune(self.current_sparsity)
+            if self.epoch < self.end_epoch: self._set_sparsity()
+            self.sparsifier.prune_model(self.current_sparsity)
 
             if self.lth and self.current_sparsity!=self.previous_sparsity: # If sparsity has changed, the network has been pruned
                     print(f'Resetting Weights to their epoch {self.rewind_epoch} values')
@@ -46,18 +49,16 @@ class SparsifyCallback(Callback):
 
     def before_step(self):
         if self.epoch>=self.start_epoch:
-            self.sparsifier.mask_grad()
+            self.sparsifier._mask_grad()
 
     def after_epoch(self):
         print(f'Sparsity at the end of epoch {self.epoch}: {self.current_sparsity:.2f}%')
-
 
     def after_fit(self):
         print(f'Final Sparsity: {self.current_sparsity:.2f}')
         if self.reset_end:
             self.sparsifier._reset_weights()
         self.sparsifier._clean_buffers() # Remove buffers at the end of training
-
 
     def _set_sparsity(self):
         self.current_sparsity = self.sched_func(start=self.start_sparsity, end=self.end_sparsity, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter))
