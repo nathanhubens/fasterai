@@ -5,7 +5,7 @@ __all__ = ['Sparsifier']
 # Cell
 import torch
 import torch.nn as nn
-
+from fastcore.basics import store_attr
 from .criteria import *
 
 # Cell
