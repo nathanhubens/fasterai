@@ -62,3 +62,5 @@ learn.fit_one_cycle(n_epochs, cbs=sp_cb)
   Howpublished = {\url{https://github.com/nathanhubens/fasterai}}
 }
 ```
+
+![footer](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=footer)
