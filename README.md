@@ -1,6 +1,8 @@
-# Fasterai
-> A library to make neural networks lighter and smaller
+# Title
 
+
+
+![header](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=header&text=fasterai%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=A%20Library%20to%20make%20smaller%20and%20faster%20neural%20networks&descAlignY=51&descAlign=62)
 
 `fasterai` is a library created to make neural network smaller and faster. It essentially relies on common compression techniques for networks such as pruning, knowledge distillation, ...
 
