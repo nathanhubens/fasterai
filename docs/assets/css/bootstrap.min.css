@@ -1937,15 +1937,6 @@ pre {
     background-color: #f5f5f5;
     border: 1px solid #ccc;
     border-radius: 4px;
-
-    code {
-        padding: 0;
-        /*font-size: inherit;*/
-        /*olor: inherit;*/
-        white-space: pre-wrap;
-        /*background-color: transparent;*/
-        /*border-radius: 0*/
-    }
 }
 
 .pre-scrollable {
