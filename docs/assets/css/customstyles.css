@@ -354,7 +354,7 @@ li.dropdownActive a {
 }
 
 .post-content .rssfeedLink {
-    color: #248EC2;
+    color: 008080;
 }
 
 footer {
@@ -451,7 +451,7 @@ ul#mysidebar {
 }
 
 .nav li.thirdlevel > a {
-    color: #248EC2;
+    color: 008080;
     font-weight:bold;
     padding-left:20px;
     background-color: whitesmoke !important;
@@ -569,7 +569,7 @@ section table tr.danger, table tr.preference, table tr.preference > td.sorting_1
 }
 
 table.profile thead tr th {
-    background-color: #248ec2;
+    background-color: 008080;
 }
 
 table.request thead tr th {
@@ -631,7 +631,7 @@ i.border {
 }
 
 a[data-toggle] {
-    color: #248EC2;
+    color: 008080;
 }
 
 .summary {
@@ -655,7 +655,7 @@ h4 {color: #000000; font-weight:normal; font-size:120%; font-weight:bold;}
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    background-color: #248ec2;
+    background-color: 008080;
     color: white;
 }
 
@@ -770,7 +770,7 @@ ol.series li {
 
 /* not sure if using this ...*/
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-color: #248ec2 !important;
+    border-color: 008080 !important;
 }
 
 #mysidebar .nav ul {
