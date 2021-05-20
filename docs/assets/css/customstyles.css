@@ -1321,7 +1321,7 @@ details.description:not([open]) summary::after {
 details.description summary {
     text-align: right;
     font-size: 15px;
-    color: #337ab7;
+    color: #008080;
     cursor: pointer;
 }
 
