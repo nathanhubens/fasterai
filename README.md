@@ -51,6 +51,13 @@ learn.fit_one_cycle(n_epochs, cbs=sp_cb)
 
 > More about other methods in the [tutorials section](https://nathanhubens.github.io/fasterai/tutorial.schedules.html)
 
+## 🪛 Installation
+
+
+```
+pip install git+https://github.com/nathanhubens/fasterai.git
+```
+
 ## 📝 Citing
 ```
 @misc{Hubens:2020,
