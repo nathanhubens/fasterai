@@ -67,8 +67,8 @@ nb_path: "nbs/06_bn_folding.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$\begin{aligned} \mu_{\mathcal{B}} &amp; \leftarrow \frac{1}{m} \sum_{i=1}^{m} x_{i} \\ \sigma_{\mathcal{B}}^{2} &amp; \leftarrow \frac{1}{m} \sum_{i=1}^{m}\left(x_{i}-\mu_{\mathcal{B}}\right)^{2} \\ \widehat{x}_{i} &amp; \leftarrow \frac{x_{i}-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^{2}+\epsilon}} \\ y_{i} &amp; \leftarrow \gamma \widehat{x}_{i}+\beta \equiv \mathrm{BN}_{\gamma, \beta}\left(x_{i}\right) \end{aligned}$</p>
-
+$$
+\begin{aligned}\mu_{\mathcal{B}} &amp; \leftarrow \frac{1}{m} \sum_{i=1}^{m} x_{i} \\ \sigma_{\mathcal{B}}^{2} &amp; \leftarrow \frac{1}{m} \sum_{i=1}^{m}\left(x_{i}-\mu_{\mathcal{B}}\right)^{2} \\ \widehat{x}_{i} &amp; \leftarrow \frac{x_{i}-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^{2}+\epsilon}} \\ y_{i} &amp; \leftarrow \gamma \widehat{x}_{i}+\beta \equiv \mathrm{BN}_{\gamma, \beta}\left(x_{i}\right) \end{aligned}$$
 </div>
 </div>
 </div>
@@ -92,7 +92,9 @@ nb_path: "nbs/06_bn_folding.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$\begin{aligned} z &amp;=W * x+b \\ \mathrm{out} &amp;=\gamma \cdot \frac{z-\mu}{\sqrt{\sigma^{2}+\epsilon}}+\beta \end{aligned}$</p>
+<p>{% raw %}
+$$\begin{aligned} z &amp;=W * x+b \\ \mathrm{out} &amp;=\gamma \cdot \frac{z-\mu}{\sqrt{\sigma^{2}+\epsilon}}+\beta \end{aligned}$$
+{% endraw %}</p>
 
 </div>
 </div>
@@ -106,7 +108,9 @@ nb_path: "nbs/06_bn_folding.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$\begin{aligned} w_{\text {fold }} &amp;=\gamma \cdot \frac{W}{\sqrt{\sigma^{2}+\epsilon}} \\ b_{\text {fold }} &amp;=\gamma \cdot \frac{b-\mu}{\sqrt{\sigma^{2}+\epsilon}}+\beta \end{aligned}$</p>
+<p>{% raw %}
+$$\begin{aligned} w_{\text {fold }} &amp;=\gamma \cdot \frac{W}{\sqrt{\sigma^{2}+\epsilon}} \\ b_{\text {fold }} &amp;=\gamma \cdot \frac{b-\mu}{\sqrt{\sigma^{2}+\epsilon}}+\beta \end{aligned}$$
+{% endraw %}</p>
 
 </div>
 </div>

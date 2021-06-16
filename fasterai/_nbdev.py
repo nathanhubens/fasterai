@@ -33,6 +33,7 @@ modules = ["sparse/sparsifier.py",
            "sparse/pruner.py",
            "distill/distillation_callback.py",
            "misc/bn_folding.py",
+           "misc/fc_decomposer.py",
            "sparse/criteria.py",
            "sparse/schedule.py"]
 

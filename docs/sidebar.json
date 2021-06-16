@@ -14,7 +14,8 @@
     	"Knowledge Distillation": "knowledge_distillation.html"
     },
     "Misc":{
-	"Batch Normalization Folding": "bn_folding.html"
+	"Batch Normalization Folding": "bn_folding.html",
+	"FC Layer Decomposer": "fc_decomposer.html"
     },
     "Tutorials": {
             "Pruning Schedules": "tutorial.schedules.html",
