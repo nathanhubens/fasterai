@@ -29,6 +29,21 @@ nb_path: "nbs/06b_fc_decomposer.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can factorize our big fully-connected layers and replace them by an approximation of two smaller layers. The idea is to make an SVD decomposition of the weight matrix, which will express the original matrix in a product of 3 matrices: $U \Sigma V^T$
+With $\Sigma$ being a diagonal matrix with non-negative values along its diagonal (the singular values). We then define a value $k$ of singular values to keep and modify matrices $U$ and $V^T$ accordingly. The resulting will be an approximation of the initial matrix.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fasterai/imgs/svd.pdf" alt="alt text" title="SVD Decomposition"></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -368,6 +383,13 @@ nb_path: "nbs/06b_fc_decomposer.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see compare the amount of parameters before/after:</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -436,7 +458,14 @@ nb_path: "nbs/06b_fc_decomposer.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>But most importantly, has the exact same perfomance as before:</p>
+<p>This represents a decrease of ~40M parameters !</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now this is an approximation, so it isn't really lossless and we should expect to see a performance drop, which will be bigger as we keep fewer singular values. Here we have:</p>
 
 </div>
 </div>
