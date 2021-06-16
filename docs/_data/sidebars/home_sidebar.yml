@@ -37,6 +37,12 @@ entries:
     title: Distill
   - folderitems:
     - output: web,pdf
+      title: Batch Normalization Folding
+      url: bn_folding.html
+    output: web
+    title: Misc
+  - folderitems:
+    - output: web,pdf
       title: Pruning Schedules
       url: tutorial.schedules.html
     - output: web,pdf
