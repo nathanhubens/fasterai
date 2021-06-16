@@ -13,6 +13,9 @@
     "Distill":{
     	"Knowledge Distillation": "knowledge_distillation.html"
     },
+    "Misc":{
+	"Batch Normalization Folding": "bn_folding.html"
+    },
     "Tutorials": {
             "Pruning Schedules": "tutorial.schedules.html",
             "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html",
