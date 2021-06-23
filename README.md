@@ -6,11 +6,11 @@
 
 `fasterai` is a library created to make neural network smaller and faster. It essentially relies on common compression techniques for networks such as pruning, knowledge distillation, ...
 
-## 📚[Project Documentation](https://nathanhubens.github.io/fasterai/)
+## [Project Documentation](https://nathanhubens.github.io/fasterai/)
 
 Visit [Read The Docs Project Page](https://nathanhubens.github.io/fasterai/) or read following README to know more about using Fasterai
 
-## 📦 Available Methods
+##  Available Methods
 
 ### 1. Pruning
 
@@ -29,7 +29,7 @@ Distill the knowledge acquired by a big model into a smaller one.
 
 Find the winning ticket in you network, *i.e.* the initial subnetwork able to attain at least similar performances than the network as a whole.
 
-## 🏁 Quick Start
+##  Quick Start
 
 ### 1. Create your model with fastai
 
@@ -51,14 +51,14 @@ learn.fit_one_cycle(n_epochs, cbs=sp_cb)
 
 > More about other methods in the [tutorials section](https://nathanhubens.github.io/fasterai/tutorial.schedules.html)
 
-## 🪛 Installation
+##  Installation
 
 
 ```
 pip install git+https://github.com/nathanhubens/fasterai.git
 ```
 
-## 📝 Citing
+##  Citing
 ```
 @misc{Hubens:2020,
   Author = {Nathan Hubens},
