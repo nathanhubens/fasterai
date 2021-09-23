@@ -58,6 +58,12 @@ learn.fit_one_cycle(n_epochs, cbs=sp_cb)
 pip install git+https://github.com/nathanhubens/fasterai.git
 ```
 
+or 
+
+```
+pip install fasterai
+```
+
 ##  Citing
 ```
 @misc{Hubens:2020,
