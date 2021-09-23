@@ -1,0 +1,34 @@
+package:
+  name: fasterai
+  version: 0.1.1
+source:
+  sha256: f006f6ab5be4a0029c446ab2a816053a89a94dfcec36cd9f2443afb18d4adaa5
+  url: https://files.pythonhosted.org/packages/87/dc/232926b41a177479bb0dd882444ae4df2930853b9427cda59b34949fa06a/fasterai-0.1.1.tar.gz
+about:
+  dev_url: https://nathanhubens.github.io
+  doc_url: https://nathanhubens.github.io
+  home: https://nathanhubens.github.io
+  license: Apache Software
+  license_family: APACHE
+  summary: A library to make neural networks lighter and faster with fastai
+build:
+  noarch: python
+  number: '0'
+  script: '{{ PYTHON }} -m pip install . -vv'
+extra:
+  recipe-maintainers:
+  - nathanhubens
+requirements:
+  host:
+  - pip
+  - python
+  - packaging
+  - fastai>=2.2
+  run:
+  - pip
+  - python
+  - packaging
+  - fastai>=2.2
+test:
+  imports:
+  - fasterai
