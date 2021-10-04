@@ -14,7 +14,7 @@ def iterative(start, end, pos, n_steps=3):
     return start + ((end-start)/n_steps)*(np.ceil((pos)*n_steps))
 
 # Cell
-def sched_agp(start, end, pos): return end + start - end * (1 - pos)**3
+def sched_agp(start, end, pos): return end + (start - end) * (1 - pos)**3
 
 # Cell
 def sched_onecycle(start, end, pos, α=14, β=6):
