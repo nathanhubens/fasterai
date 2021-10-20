@@ -12,27 +12,22 @@ from fastcore.basics import *
 from fastcore.imports import *
 
 # Cell
-granularities = {'channel':1, 'vector':2, 'row':3, 'kernel':(2,3), 'filter':(1,2,3)}
+granularities = {'weight':0, 'shared_weight':0, 'channel':1, 'column':2, 'row':3, 'kernel':(2,3), 'filter':(1,2,3)}
 
 class Criteria():
     def __init__(self, f, needs_init=False, needs_update=False, output_f=None, return_init=False):
         store_attr()
         assert (needs_init and needs_update)==False, "The init values will be overwritten by the updating ones."
 
-    def __call__(self, m, granularity):
+    def __call__(self, m, g):
         if self.needs_update and hasattr(m, '_old_weights') == False:
             m.register_buffer("_old_weights", m._init_weights.clone()) # If the previous value of weights is not known, take the initial value
 
-        if granularity == 'weight':
-            wf = self.f(m.weight)
-            if self.needs_init: wi = self.f(m._init_weights)
-            elif self.needs_update: wi = self.f(m._old_weights)
-
-        elif granularity in granularities:
-            dim = granularities[granularity]
-            wf = self.f(m.weight).mean(dim=dim, keepdim=True)
-            if self.needs_init: wi = self.f(m._init_weights).mean(dim=dim, keepdim=True)
-            elif self.needs_update: wi = self.f(m._old_weights).mean(dim=dim, keepdim=True)
+        if g in granularities:
+            dim = granularities[g]
+            wf = self.f(m.weight) if g=='weight' else self.f(m.weight).mean(dim=dim, keepdim=True)
+            if self.needs_init: wi = self.f(m._init_weights) if g=='weight' else self.f(m._init_weights).mean(dim=dim, keepdim=True)
+            if self.needs_update: wi = self.f(m._old_weights) if g=='weight' else self.f(m._old_weights).mean(dim=dim, keepdim=True)
 
         else: raise NameError('Invalid Granularity')
 

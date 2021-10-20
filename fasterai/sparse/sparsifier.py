@@ -15,59 +15,55 @@ class Sparsifier():
         store_attr()
         self._save_weights() # Save the original weights
 
-    def prune_layer(self, module, sparsity):
-        weight = self.criteria(module, self.granularity)
+    def prune_layer(self, m, sparsity):
+        weight = self.criteria(m, self.granularity)
         mask = self._compute_mask(self.model, weight, sparsity)
-        module.register_buffer("_mask", mask) # Put the mask into a buffer
-        self._apply(module)
+        m.register_buffer("_mask", mask) # Put the mask into a buffer
+        self._apply(m)
 
     def prune_model(self, sparsity):
-        for k, m in enumerate(self.model.modules()):
-            if isinstance(m, nn.Conv2d):
-                self.prune_layer(m, sparsity)
+        for m in self.model.modules():
+            if isinstance(m, nn.Conv2d): self.prune_layer(m, sparsity)
 
-    def _apply(self, module):
-        mask = getattr(module, "_mask")
-        module.weight.data.mul_(mask)
-
-        if self.granularity == 'filter': # If we remove complete filters, we want to remove the bias as well
-            if module.bias is not None:
-                module.bias.data.mul_(mask.squeeze())
+    def _apply(self, m):
+        mask = getattr(m, "_mask", None)
+        if mask is not None: m.weight.data.mul_(mask)
+        if self.granularity == 'filter' and m.bias is not None:
+            if mask is not None: m.bias.data.mul_(mask.squeeze()) # We want to prune the bias when pruning filters
 
     def _mask_grad(self):
-        for k, m in enumerate(self.model.modules()):
+        for m in self.model.modules():
             if isinstance(m, nn.Conv2d) and hasattr(m, '_mask'):
                 mask = getattr(m, "_mask")
-                if m.weight.grad is not None: # In case some layers are freezed
-                    m.weight.grad.mul_(mask)
-
-                if self.granularity == 'filter': # If we remove complete filters, we want to remove the bias as well
-                        if m.bias.grad is not None: # In case some layers are freezed
-                            m.bias.grad.mul_(mask.squeeze())
+                if m.weight.grad is not None: m.weight.grad.mul_(mask)
+                if self.granularity == 'filter' and m.bias is not None:
+                    if m.bias.grad is not None: m.bias.grad.mul_(mask.squeeze())
 
     def _reset_weights(self):
-        for k, m in enumerate(self.model.modules()):
-            if isinstance(m, nn.Linear):
-                init_weights = getattr(m, "_init_weights")
-                m.weight.data = init_weights.clone()
-            if isinstance(m, nn.Conv2d):
-                init_weights = getattr(m, "_init_weights")
-                m.weight.data = init_weights.clone()
-                self._apply(m) # Reset the weights and apply the current mask
+        for m in self.model.modules():
+            if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
+                init_weights = getattr(m, "_init_weights", m.weight)
+                init_biases = getattr(m, "_init_biases", m.bias)
+
+                with torch.no_grad():
+                    if m.weight is not None: m.weight.copy_(init_weights)
+                    if m.bias is not None: m.bias.copy_(init_biases)
+
+                self._apply(m)
+
+            if isinstance(m, nn.BatchNorm2d) or isinstance(m, nn.BatchNorm1d): m.reset_parameters()
 
     def _save_weights(self):
-        for k, m in enumerate(self.model.modules()):
+        for m in self.model.modules():
             if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
                 m.register_buffer("_init_weights", m.weight.clone())
+                if m.bias is not None: m.register_buffer("_init_biases", m.bias.clone())
 
     def _clean_buffers(self):
-        for k, m in enumerate(self.model.modules()):
-            if isinstance(m, nn.Conv2d) and hasattr(m, '_mask'):
-                del m._buffers["_mask"]
-
-            if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
-                del m._buffers["_init_weights"]
-
+        for m in self.model.modules():
+            if hasattr(m, '_mask'): del m._buffers["_mask"]
+            if hasattr(m, '_init_weights'): del m._buffers["_init_weights"]
+            if hasattr(m, '_init_biases'): del m._buffers["_init_biases"]
 
     def _compute_mask(self, model, weight, sparsity):
         if self.method == 'global':
