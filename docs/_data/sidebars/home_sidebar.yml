@@ -31,6 +31,12 @@ entries:
     title: Sparse
   - folderitems:
     - output: web,pdf
+      title: Regularizer Callback
+      url: regularizer.html
+    output: web
+    title: Regularization
+  - folderitems:
+    - output: web,pdf
       title: Knowledge Distillation
       url: knowledge_distillation.html
     output: web
