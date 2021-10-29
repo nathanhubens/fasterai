@@ -10,6 +10,9 @@
 	"Criteria": "criteria.html",
 	"Pruner": "pruner.html"
     },
+    "Regularization":{
+	"Regularizer Callback": "regularizer.html"
+    },
     "Distill":{
     	"Knowledge Distillation": "knowledge_distillation.html"
     },
