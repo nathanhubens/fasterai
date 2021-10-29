@@ -12,7 +12,7 @@ from fastcore.basics import *
 from fastcore.imports import *
 
 # Cell
-granularities = {'weight':0, 'shared_weight':0, 'channel':1, 'column':2, 'row':3, 'kernel':(2,3), 'filter':(1,2,3), 'shared_channel':(0,1), 'shared_column': (0,2), 'shared_row': (0,3), 'vertical_slice': (1,2), 'horizontal_slice': (1,3), 'shared_vertical_slice': (0,1,2), 'shared_horizontal_slice': (0, 1, 3), 'shared_kernel': (0,2,3)}
+granularities = {'weight':0, 'shared_weight':0, 'channel':1, 'column':2, 'row':3, 'kernel':(2,3), 'filter':(1,2,3), 'shared_channel':(0,1), 'shared_column': (0,2), 'shared_row': (0,3), 'vertical_slice': (1,2), 'horizontal_slice': (1,3), 'shared_vertical_slice': (0,1,2), 'shared_horizontal_slice': (0, 1, 3), 'shared_kernel': (0,2,3), 'layer':(0,1,2,3)}
 
 class Criteria():
     def __init__(self, f, needs_init=False, needs_update=False, output_f=None, return_init=False):
