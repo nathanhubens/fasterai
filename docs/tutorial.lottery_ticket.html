@@ -106,6 +106,20 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Could not do one pass in your dataloader, there is something wrong in it
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -245,6 +259,13 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>We now have our accuracy $a_A$ of $76\%$ and our training time $t_A$ of $5$ epochs</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>To find the lottery ticket, we will perform iterative pruning but, at each pruning step we will re-initialize the remaining weights to their original values (i.e. before training).</p>
 
 </div>
@@ -293,7 +314,7 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can pass the parameters <code>lth=True</code> to make the weights of the network reset to their original value after each pruning step, i.e. step 4) of the LTH. To empirically validate the LTH, we need to retrain the found "lottery ticket" after the pruning phase. This can be done by setting the <code>end_epoch</code> parameter, which will control the epoch at which we stop the pruning process. The fine-tuning phase thus happening during <code>total_epoch-end_epoch</code>.</p>
+<p>We can pass the parameters <code>lth=True</code> to make the weights of the network reset to their original value after each pruning step, i.e. step 4) of the LTH. To empirically validate the LTH, we need to retrain the found "lottery ticket" after the pruning phase. Lottery tickets are usually found following an iterative pruning schedule. We set the <code>start_epoch</code> parameter to $5$ to begin the pruning process after $5$ epochs.</p>
 
 </div>
 </div>
@@ -317,7 +338,7 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>So here, we will first pretrain our model for 1 epoch (<code>start_epoch=1</code>), perform the LTH process during 3 epochs (<code>end_epoch-start_epoch</code>), then the found lottery ticket for 6 epochs (<code>total_epoch-end_epoch</code>). If the final accuracy is higher than the baseline then we have found a "winning lottery ticket".</p>
+<p>As our <a href="/fasterai/schedules.html#iterative"><code>iterative</code></a> schedule makes $3$ pruning steps, it means that we have to train our network for <code>start_epoch</code> + $3*t_B$, so $20$ epochs in order to get our LTH. After each step, the remaining weights will be reinitialized to their original value</p>
 
 </div>
 </div>
@@ -949,6 +970,24 @@ Saving Weights at epoch 0
 
 
 <div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      <progress value='10' class='' max='20' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      50.00% [10/20 01:29<01:29]
+    </div>
+    
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
@@ -962,146 +1001,94 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.587182</td>
-      <td>0.617454</td>
-      <td>0.653586</td>
-      <td>00:08</td>
+      <td>0.589365</td>
+      <td>0.631311</td>
+      <td>0.615697</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.543216</td>
-      <td>0.689823</td>
-      <td>0.718539</td>
-      <td>00:08</td>
+      <td>0.546770</td>
+      <td>0.584942</td>
+      <td>0.683356</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.516071</td>
-      <td>0.550590</td>
-      <td>0.705683</td>
-      <td>00:08</td>
+      <td>0.511409</td>
+      <td>0.606133</td>
+      <td>0.653586</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.470385</td>
-      <td>0.759532</td>
-      <td>0.566982</td>
-      <td>00:08</td>
+      <td>0.467947</td>
+      <td>0.672923</td>
+      <td>0.721922</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.443852</td>
-      <td>0.608897</td>
-      <td>0.751015</td>
-      <td>00:08</td>
+      <td>0.430712</td>
+      <td>0.539805</td>
+      <td>0.746279</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.552131</td>
-      <td>0.564474</td>
-      <td>0.715832</td>
+      <td>0.536384</td>
+      <td>0.903583</td>
+      <td>0.672530</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>0.510690</td>
-      <td>0.546589</td>
-      <td>0.732747</td>
+      <td>0.495911</td>
+      <td>0.519432</td>
+      <td>0.723951</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>0.468867</td>
-      <td>0.571830</td>
-      <td>0.679296</td>
+      <td>0.454623</td>
+      <td>0.767602</td>
+      <td>0.714479</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>0.425871</td>
-      <td>0.535260</td>
-      <td>0.734777</td>
+      <td>0.415555</td>
+      <td>0.497875</td>
+      <td>0.780108</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>0.386654</td>
-      <td>0.495325</td>
-      <td>0.764547</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>0.486236</td>
-      <td>0.549312</td>
-      <td>0.707037</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td>0.433474</td>
-      <td>0.543789</td>
-      <td>0.707037</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td>0.380443</td>
-      <td>0.673880</td>
-      <td>0.777402</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>13</td>
-      <td>0.366553</td>
-      <td>0.387486</td>
-      <td>0.813938</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>14</td>
-      <td>0.317037</td>
-      <td>0.432606</td>
-      <td>0.788904</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>15</td>
-      <td>0.400861</td>
-      <td>0.507487</td>
-      <td>0.765900</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>16</td>
-      <td>0.338845</td>
-      <td>0.458387</td>
-      <td>0.792963</td>
-      <td>00:11</td>
-    </tr>
-    <tr>
-      <td>17</td>
-      <td>0.300142</td>
-      <td>0.608675</td>
-      <td>0.773342</td>
-      <td>00:11</td>
-    </tr>
-    <tr>
-      <td>18</td>
-      <td>0.284395</td>
-      <td>0.445842</td>
-      <td>0.783491</td>
-      <td>00:10</td>
-    </tr>
-    <tr>
-      <td>19</td>
-      <td>0.237855</td>
-      <td>0.495823</td>
-      <td>0.809202</td>
+      <td>0.384450</td>
+      <td>0.501667</td>
+      <td>0.751691</td>
       <td>00:10</td>
     </tr>
   </tbody>
-</table>
+</table><p>
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      <progress value='2' class='' max='24' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      8.33% [2/24 00:01<00:12 0.4800]
+    </div>
+    
 </div>
 
 </div>
@@ -1121,18 +1108,6 @@ Sparsity at the end of epoch 7: 16.67%
 Sparsity at the end of epoch 8: 16.67%
 Sparsity at the end of epoch 9: 16.67%
 Resetting Weights to their epoch 0 values
-Sparsity at the end of epoch 10: 33.33%
-Sparsity at the end of epoch 11: 33.33%
-Sparsity at the end of epoch 12: 33.33%
-Sparsity at the end of epoch 13: 33.33%
-Sparsity at the end of epoch 14: 33.33%
-Resetting Weights to their epoch 0 values
-Sparsity at the end of epoch 15: 50.00%
-Sparsity at the end of epoch 16: 50.00%
-Sparsity at the end of epoch 17: 50.00%
-Sparsity at the end of epoch 18: 50.00%
-Sparsity at the end of epoch 19: 50.00%
-Final Sparsity: 50.00
 </pre>
 </div>
 </div>
@@ -1174,7 +1149,7 @@ Final Sparsity: 50.00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(#2) [3.123504400253296,0.3288227319717407]</pre>
+<pre>(#2) [0.6401445865631104,0.6650879383087158]</pre>
 </div>
 
 </div>
