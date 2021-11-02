@@ -190,62 +190,30 @@ With $\Sigma$ being a diagonal matrix with non-negative values along its diagona
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">FC_Decomposer</span><span class="p">:</span>
+<div class="output_wrapper">
+<div class="output">
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        
-    <span class="k">def</span> <span class="nf">decompose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">percent_removed</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-
-        <span class="n">new_model</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-
-        <span class="n">module_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">_modules</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">module_names</span><span class="p">):</span>
-
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">_modules</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">new_model</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decompose</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">percent_removed</span><span class="p">)</span>
-
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">):</span>
-                    <span class="c1"># Folded BN</span>
-                    <span class="n">layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SVD</span><span class="p">(</span><span class="n">new_model</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">percent_removed</span><span class="p">)</span>
-
-                    <span class="c1"># Replace old weight values</span>
-                    <span class="n">new_model</span><span class="o">.</span><span class="n">_modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer</span> <span class="c1"># Replace the FC Layer by the decomposed version</span>
-        <span class="k">return</span> <span class="n">new_model</span>
+<div class="output_area">
 
 
-    <span class="k">def</span> <span class="nf">SVD</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">percent_removed</span><span class="p">):</span>
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="FC_Decomposer" class="doc_header"><code>class</code> <code>FC_Decomposer</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/misc/fc_decomposer.py#L14" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FC_Decomposer</code>()</p>
+</blockquote>
 
-        <span class="n">W</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span>
-        <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
-        <span class="n">L</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mf">1.</span><span class="o">-</span><span class="n">percent_removed</span><span class="p">)</span><span class="o">*</span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">W1</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,:</span><span class="n">L</span><span class="p">]</span>
-        <span class="n">W2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">S</span><span class="p">[:</span><span class="n">L</span><span class="p">])</span> <span class="o">@</span> <span class="n">V</span><span class="p">[:,:</span><span class="n">L</span><span class="p">]</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
-        <span class="n">layer_1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">in_features</span><span class="p">,</span> 
-                    <span class="n">out_features</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">layer_1</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">W2</span>
+</div>
 
-        <span class="n">layer_2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">L</span><span class="p">,</span> 
-                    <span class="n">out_features</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">out_features</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">layer_2</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">W1</span>
+</div>
 
-        <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> 
-            <span class="n">layer_2</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">*</span><span class="n">layer</span><span class="o">.</span><span class="n">out_features</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">layer_2</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span>
-
-        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">layer_1</span><span class="p">,</span> <span class="n">layer_2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
