@@ -101,7 +101,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>) :: <code>Callback</code></p>
+<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
 
@@ -181,24 +181,24 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.682230</td>
-      <td>0.456991</td>
-      <td>0.817997</td>
-      <td>02:45</td>
+      <td>0.622748</td>
+      <td>0.415529</td>
+      <td>0.835589</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.350599</td>
-      <td>0.279497</td>
-      <td>0.890392</td>
-      <td>00:18</td>
+      <td>0.328581</td>
+      <td>0.299027</td>
+      <td>0.891746</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.180494</td>
-      <td>0.236174</td>
-      <td>0.910690</td>
-      <td>00:44</td>
+      <td>0.173837</td>
+      <td>0.219676</td>
+      <td>0.903924</td>
+      <td>00:09</td>
     </tr>
   </tbody>
 </table>
@@ -282,6 +282,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Pruning of weight until a sparsity of 50%
+Saving Weights at epoch 0
 </pre>
 </div>
 </div>
@@ -303,24 +304,24 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.703133</td>
-      <td>0.466754</td>
-      <td>0.836942</td>
-      <td>00:47</td>
+      <td>0.629220</td>
+      <td>0.381072</td>
+      <td>0.845061</td>
+      <td>00:10</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.364494</td>
-      <td>0.267957</td>
-      <td>0.901218</td>
-      <td>00:42</td>
+      <td>0.374266</td>
+      <td>0.255751</td>
+      <td>0.895805</td>
+      <td>00:10</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.203669</td>
-      <td>0.219770</td>
-      <td>0.921516</td>
-      <td>00:53</td>
+      <td>0.191138</td>
+      <td>0.224797</td>
+      <td>0.909337</td>
+      <td>00:10</td>
     </tr>
   </tbody>
 </table>
@@ -331,8 +332,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Saving Weights at epoch 0
-Sparsity at the end of epoch 0: 12.50%
+<pre>Sparsity at the end of epoch 0: 12.50%
 Sparsity at the end of epoch 1: 37.50%
 Sparsity at the end of epoch 2: 50.00%
 Final Sparsity: 50.00

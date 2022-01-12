@@ -15,7 +15,7 @@ import torch.nn.functional as F
 # Cell
 class SparsifyCallback(Callback):
 
-    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, end_epoch=None, lth=False, rewind_epoch=0, reset_end=False):
+    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, end_epoch=None, lth=False, rewind_epoch=0, reset_end=False, model=None):
         store_attr()
         self.current_sparsity, self.previous_sparsity = 0, 0
 
@@ -26,7 +26,8 @@ class SparsifyCallback(Callback):
         self.end_epoch = self.n_epoch if self.end_epoch is None else self.end_epoch
         assert self.end_epoch <= self.n_epoch, 'Your end_epoch must be smaller than total number of epoch'
 
-        self.sparsifier = Sparsifier(self.learn.model, self.granularity, self.method, self.criteria)
+        model = self.learn.model if self.model is None else self.model # Pass a model if you don't want the whole model to be pruned
+        self.sparsifier = Sparsifier(model, self.granularity, self.method, self.criteria)
         self.n_batches = math.floor(len(self.learn.dls.dataset)/self.learn.dls.bs)
         self.total_iters = self.end_epoch * self.n_batches
         self.start_iter = self.start_epoch * self.n_batches
