@@ -101,7 +101,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>) :: <code>Callback</code></p>
+<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>layer_type</code></strong>=<em><code>Conv2d</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
 
@@ -181,23 +181,23 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.622748</td>
-      <td>0.415529</td>
-      <td>0.835589</td>
+      <td>0.638240</td>
+      <td>0.332206</td>
+      <td>0.860622</td>
       <td>00:09</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.328581</td>
-      <td>0.299027</td>
-      <td>0.891746</td>
+      <td>0.350760</td>
+      <td>0.293145</td>
+      <td>0.881597</td>
       <td>00:09</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.173837</td>
-      <td>0.219676</td>
-      <td>0.903924</td>
+      <td>0.172899</td>
+      <td>0.218561</td>
+      <td>0.917456</td>
       <td>00:09</td>
     </tr>
   </tbody>
@@ -239,7 +239,14 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>You can use any scheduling function already <a href="https://docs.fast.ai/callback.schedule.html#Annealing">available</a> in fastai or come up with your own !</p>
+<p>The <a href="/fasterai/sparsify_callback.html#SparsifyCallback"><code>SparsifyCallback</code></a> requires a new argument compared to the <a href="/fasterai/sparsifier.html#Sparsifier"><code>Sparsifier</code></a>. Indeed, we need to know the pruning schedule that we should follow during training in order to prune the parameters accordingly.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can use any scheduling function already <a href="https://docs.fast.ai/callback.schedule.html#Annealing">available</a> in fastai or come up with your own ! For more information about the pruning schedules, take a look at the <a href="https://nathanhubens.github.io/fasterai/schedules.html">Schedules section</a>.</p>
 
 </div>
 </div>
@@ -304,23 +311,23 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.629220</td>
-      <td>0.381072</td>
-      <td>0.845061</td>
+      <td>0.657653</td>
+      <td>0.402650</td>
+      <td>0.836942</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.374266</td>
-      <td>0.255751</td>
-      <td>0.895805</td>
+      <td>0.339864</td>
+      <td>0.290034</td>
+      <td>0.882273</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.191138</td>
-      <td>0.224797</td>
-      <td>0.909337</td>
+      <td>0.189623</td>
+      <td>0.201507</td>
+      <td>0.916103</td>
       <td>00:10</td>
     </tr>
   </tbody>
@@ -355,42 +362,16 @@ Final Sparsity: 50.00
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For more information about the pruning schedules, take a look at the <a href="https://nathanhubens.github.io/fasterai/schedules.html">Schedules section</a> !</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Here is for example how to implement the <a href="https://arxiv.org/pdf/1710.01878.pdf">Automated Gradual Pruning</a> schedule.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sched_agp</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span> <span class="k">return</span> <span class="n">end</span> <span class="o">+</span> <span class="n">start</span> <span class="o">-</span> <span class="n">end</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">pos</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>When pruning a neural network, there are 3 main schedules that are used:</p>
+<p>On top of that, the <a href="/fasterai/sparsify_callback.html#SparsifyCallback"><code>SparsifyCallback</code></a>can also take many optionnal arguments:</p>
 <ul>
-<li><strong>One-Shot Pruning:</strong> starting from a trained network, prune the network to desired sparsity and fine-tune it.</li>
-<li><strong>Iterative Pruning:</strong> starting from a trained network, alternate pruning and fine-tuning steps until desired sparsity.</li>
-<li><strong>Gradual Pruning:</strong> inject the pruning operation directly in the training process.</li>
+<li><code>start_sparsity</code>: the sparsity that the schedule will use as a starting point (default to 0)</li>
+<li><code>start_epoch</code>: the epoch at which the schedule will start pruning (default to 0)</li>
+<li><code>end_epoch</code>: the epoch at which the schedule will stop pruning (default to the training epochs passed in <code>fit</code>)</li>
+<li><code>lth</code>: whether training using the Lottery Ticket Hypothesis, i.e. reset the weights to their original value at each pruning step (more information in the Lottery Ticket Hypothesis section)</li>
+<li><code>rewind_epoch</code>: the epoch used as a reference for the Lottery Ticket Hypothesis with Rewinding (default to 0)</li>
+<li><code>reset_end</code>: whether you want to reset the weights to their original values after training (pruning masks are still applied)</li>
+<li><code>model</code>: pass a model or a part of the model if you don't want to apply pruning on the whole model trained.</li>
+<li><code>layer_type</code>: specify the type of layer that you want to apply pruning to (default to nn.Conv2d)</li>
 </ul>
 
 </div>
@@ -398,7 +379,7 @@ Final Sparsity: 50.00
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While those methods have for a long time thought to be very different, all of them can be grouped an applied in the same way... with a fastai Callback !</p>
+<p>For example, we correctly pruned the convolution layers of our model, but we could imagine pruning the Linear Layers of even only the BatchNorm ones !</p>
 
 </div>
 </div>
@@ -410,27 +391,73 @@ Final Sparsity: 50.00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sched_it</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">n_steps</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-    <span class="s2">&quot;Perform iterative pruning, and pruning in `n_steps` steps&quot;</span>
-    <span class="k">return</span> <span class="n">start</span> <span class="o">+</span> <span class="p">((</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="n">n_steps</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">pos</span><span class="p">)</span><span class="o">*</span><span class="n">n_steps</span><span class="p">))</span>
-    
-<span class="k">def</span> <span class="nf">sched_os</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span> <span class="k">return</span> <span class="n">end</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">print_sparsity</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Sparsity in Conv2d 2: 50.00%
+Sparsity in BatchNorm2d 3: 0.00%
+Sparsity in Conv2d 8: 50.00%
+Sparsity in BatchNorm2d 9: 0.00%
+Sparsity in Conv2d 11: 50.00%
+Sparsity in BatchNorm2d 12: 0.00%
+Sparsity in Conv2d 14: 50.00%
+Sparsity in BatchNorm2d 15: 0.00%
+Sparsity in Conv2d 17: 50.00%
+Sparsity in BatchNorm2d 18: 0.00%
+Sparsity in Conv2d 21: 50.00%
+Sparsity in BatchNorm2d 22: 0.00%
+Sparsity in Conv2d 24: 50.00%
+Sparsity in BatchNorm2d 25: 0.00%
+Sparsity in Conv2d 27: 50.00%
+Sparsity in BatchNorm2d 28: 0.00%
+Sparsity in Conv2d 30: 50.00%
+Sparsity in BatchNorm2d 31: 0.00%
+Sparsity in Conv2d 33: 50.00%
+Sparsity in BatchNorm2d 34: 0.00%
+Sparsity in Conv2d 37: 50.00%
+Sparsity in BatchNorm2d 38: 0.00%
+Sparsity in Conv2d 40: 50.00%
+Sparsity in BatchNorm2d 41: 0.00%
+Sparsity in Conv2d 43: 50.00%
+Sparsity in BatchNorm2d 44: 0.00%
+Sparsity in Conv2d 46: 50.00%
+Sparsity in BatchNorm2d 47: 0.00%
+Sparsity in Conv2d 49: 50.00%
+Sparsity in BatchNorm2d 50: 0.00%
+Sparsity in Conv2d 53: 50.00%
+Sparsity in BatchNorm2d 54: 0.00%
+Sparsity in Conv2d 56: 50.00%
+Sparsity in BatchNorm2d 57: 0.00%
+Sparsity in Conv2d 59: 50.00%
+Sparsity in BatchNorm2d 60: 0.00%
+Sparsity in Conv2d 62: 50.00%
+Sparsity in BatchNorm2d 63: 0.00%
+Sparsity in Conv2d 65: 50.00%
+Sparsity in BatchNorm2d 66: 0.00%
+Sparsity in BatchNorm1d 72: 0.00%
+Sparsity in Linear 74: 0.00%
+Sparsity in BatchNorm1d 76: 0.00%
+Sparsity in Linear 78: 0.00%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>As One-Shot and Iterative Pruning usually start from an already trained network, we need to take that possibility into account. This can be done by using the <code>start_epoch</code> argument, which sets the <code>epoch</code> at which we start to prune the network.</p>
-
-</div>
-</div>
-</div>
 </div>
  
 

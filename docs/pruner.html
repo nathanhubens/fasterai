@@ -238,7 +238,7 @@ nb_path: "nbs/02a_pruner.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">3e-4</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -252,6 +252,7 @@ nb_path: "nbs/02a_pruner.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Pruning of filter until a sparsity of 50%
+Saving Weights at epoch 0
 </pre>
 </div>
 </div>
@@ -273,23 +274,23 @@ nb_path: "nbs/02a_pruner.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.630026</td>
-      <td>0.764953</td>
-      <td>0.685386</td>
-      <td>00:13</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>0.609164</td>
-      <td>0.562719</td>
-      <td>0.719892</td>
+      <td>0.897482</td>
+      <td>0.611214</td>
+      <td>0.698241</td>
       <td>00:14</td>
     </tr>
     <tr>
+      <td>1</td>
+      <td>0.658607</td>
+      <td>0.561114</td>
+      <td>0.706360</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
       <td>2</td>
-      <td>0.541365</td>
-      <td>0.497277</td>
-      <td>0.746279</td>
+      <td>0.555238</td>
+      <td>0.527486</td>
+      <td>0.718539</td>
       <td>00:13</td>
     </tr>
   </tbody>
@@ -301,8 +302,7 @@ nb_path: "nbs/02a_pruner.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Saving Weights at epoch 0
-Sparsity at the end of epoch 0: 10.43%
+<pre>Sparsity at the end of epoch 0: 10.43%
 Sparsity at the end of epoch 1: 48.29%
 Sparsity at the end of epoch 2: 50.00%
 Final Sparsity: 50.00
@@ -436,7 +436,7 @@ Final Sparsity: 50.00
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(#2) [0.4975821375846863,0.7435724139213562]</pre>
+<pre>(#2) [0.5265399813652039,0.7212449312210083]</pre>
 </div>
 
 </div>

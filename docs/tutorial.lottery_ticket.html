@@ -106,20 +106,6 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Could not do one pass in your dataloader, there is something wrong in it
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -185,7 +171,7 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -212,38 +198,38 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.594088</td>
-      <td>0.607128</td>
-      <td>0.679296</td>
-      <td>00:08</td>
+      <td>0.593788</td>
+      <td>0.540398</td>
+      <td>0.727334</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.538883</td>
-      <td>0.577014</td>
-      <td>0.721922</td>
-      <td>00:08</td>
+      <td>0.552583</td>
+      <td>0.625097</td>
+      <td>0.633288</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.498966</td>
-      <td>0.563139</td>
-      <td>0.746279</td>
-      <td>00:08</td>
+      <td>0.522009</td>
+      <td>0.691623</td>
+      <td>0.583221</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.465249</td>
-      <td>0.519879</td>
-      <td>0.734100</td>
-      <td>00:08</td>
+      <td>0.480688</td>
+      <td>0.536404</td>
+      <td>0.711773</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.428827</td>
-      <td>0.477736</td>
-      <td>0.760487</td>
-      <td>00:08</td>
+      <td>0.449017</td>
+      <td>0.494670</td>
+      <td>0.741543</td>
+      <td>00:07</td>
     </tr>
   </tbody>
 </table>
@@ -259,7 +245,7 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We now have our accuracy $a_A$ of $76\%$ and our training time $t_A$ of $5$ epochs</p>
+<p>We now have our accuracy $a_A$ of $74\%$ and our training time $t_A$ of $5$ epochs</p>
 
 </div>
 </div>
@@ -338,7 +324,7 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As our <a href="/fasterai/schedules.html#iterative"><code>iterative</code></a> schedule makes $3$ pruning steps, it means that we have to train our network for <code>start_epoch</code> + $3*t_B$, so $20$ epochs in order to get our LTH. After each step, the remaining weights will be reinitialized to their original value</p>
+<p>As our <a href="/fasterai/schedules.html#iterative"><code>iterative</code></a> schedule makes $3$ pruning steps by default, it means that we have to train our network for <code>start_epoch</code> + $3*t_B$, so $20$ epochs in order to get our LTH. After each step, the remaining weights will be reinitialized to their original value</p>
 
 </div>
 </div>
@@ -350,7 +336,7 @@ nb_path: "nbs/03_tutorial.lottery_ticket.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -386,143 +372,143 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.595973</td>
-      <td>0.605056</td>
-      <td>0.684032</td>
-      <td>00:08</td>
+      <td>0.600931</td>
+      <td>0.573017</td>
+      <td>0.685386</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.546129</td>
-      <td>0.590174</td>
-      <td>0.702300</td>
-      <td>00:08</td>
+      <td>0.562417</td>
+      <td>0.600336</td>
+      <td>0.715156</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.516857</td>
-      <td>0.587353</td>
-      <td>0.717862</td>
-      <td>00:08</td>
+      <td>0.528561</td>
+      <td>0.546853</td>
+      <td>0.698917</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.474746</td>
-      <td>0.493197</td>
-      <td>0.767253</td>
-      <td>00:08</td>
+      <td>0.495459</td>
+      <td>0.575421</td>
+      <td>0.670501</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.440702</td>
-      <td>0.472007</td>
-      <td>0.774019</td>
-      <td>00:08</td>
+      <td>0.452235</td>
+      <td>0.610069</td>
+      <td>0.654939</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.553329</td>
-      <td>0.724072</td>
-      <td>0.715832</td>
-      <td>00:10</td>
+      <td>0.543982</td>
+      <td>0.544971</td>
+      <td>0.727334</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>0.515671</td>
-      <td>0.524586</td>
-      <td>0.730717</td>
-      <td>00:10</td>
+      <td>0.511378</td>
+      <td>0.540704</td>
+      <td>0.729364</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>0.477123</td>
-      <td>0.622931</td>
-      <td>0.645467</td>
-      <td>00:11</td>
+      <td>0.459508</td>
+      <td>0.475394</td>
+      <td>0.765900</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>0.437616</td>
-      <td>0.535363</td>
-      <td>0.712449</td>
-      <td>00:10</td>
+      <td>0.422577</td>
+      <td>0.434611</td>
+      <td>0.792963</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>0.391450</td>
-      <td>0.697298</td>
-      <td>0.648850</td>
-      <td>00:10</td>
+      <td>0.391663</td>
+      <td>0.432724</td>
+      <td>0.795670</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>10</td>
-      <td>0.500410</td>
-      <td>0.464378</td>
-      <td>0.771313</td>
-      <td>00:10</td>
+      <td>0.485451</td>
+      <td>0.481482</td>
+      <td>0.773342</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>11</td>
-      <td>0.445288</td>
-      <td>0.454092</td>
-      <td>0.777402</td>
-      <td>00:10</td>
+      <td>0.415178</td>
+      <td>0.501150</td>
+      <td>0.768606</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>12</td>
-      <td>0.402433</td>
-      <td>0.481071</td>
-      <td>0.784168</td>
-      <td>00:10</td>
+      <td>0.389962</td>
+      <td>0.430211</td>
+      <td>0.806495</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>13</td>
-      <td>0.360295</td>
-      <td>0.474284</td>
-      <td>0.801083</td>
-      <td>00:10</td>
+      <td>0.349780</td>
+      <td>0.406956</td>
+      <td>0.808525</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>14</td>
-      <td>0.330312</td>
-      <td>0.448178</td>
-      <td>0.805819</td>
-      <td>00:10</td>
+      <td>0.328070</td>
+      <td>0.363614</td>
+      <td>0.834912</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>15</td>
-      <td>0.410723</td>
-      <td>0.504001</td>
-      <td>0.767930</td>
-      <td>00:10</td>
+      <td>0.389362</td>
+      <td>0.549308</td>
+      <td>0.769959</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>16</td>
-      <td>0.363790</td>
-      <td>0.412130</td>
-      <td>0.813261</td>
-      <td>00:10</td>
+      <td>0.354448</td>
+      <td>0.462697</td>
+      <td>0.803112</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>17</td>
-      <td>0.332738</td>
-      <td>0.460551</td>
-      <td>0.793640</td>
-      <td>00:10</td>
+      <td>0.309188</td>
+      <td>0.394680</td>
+      <td>0.838295</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>18</td>
-      <td>0.286119</td>
-      <td>0.544373</td>
-      <td>0.807172</td>
-      <td>00:10</td>
+      <td>0.295723</td>
+      <td>0.425729</td>
+      <td>0.805142</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>19</td>
-      <td>0.270594</td>
-      <td>0.473709</td>
-      <td>0.794993</td>
-      <td>00:10</td>
+      <td>0.263177</td>
+      <td>0.492165</td>
+      <td>0.807172</td>
+      <td>00:08</td>
     </tr>
   </tbody>
 </table>
@@ -652,7 +638,7 @@ Final Sparsity: 50.00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -687,143 +673,143 @@ Final Sparsity: 50.00
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.595904</td>
-      <td>1.070335</td>
-      <td>0.673884</td>
-      <td>00:08</td>
+      <td>0.594088</td>
+      <td>0.828529</td>
+      <td>0.701624</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.556773</td>
-      <td>0.685454</td>
-      <td>0.689445</td>
-      <td>00:08</td>
+      <td>0.554226</td>
+      <td>0.536892</td>
+      <td>0.707713</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.514651</td>
-      <td>0.509246</td>
-      <td>0.743572</td>
-      <td>00:08</td>
+      <td>0.508411</td>
+      <td>0.594767</td>
+      <td>0.656292</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.464843</td>
-      <td>0.508990</td>
-      <td>0.761840</td>
-      <td>00:08</td>
+      <td>0.464143</td>
+      <td>0.536692</td>
+      <td>0.743572</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.435481</td>
-      <td>0.568965</td>
-      <td>0.723275</td>
-      <td>00:08</td>
+      <td>0.416607</td>
+      <td>0.538136</td>
+      <td>0.759811</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.511907</td>
-      <td>0.565787</td>
-      <td>0.673207</td>
-      <td>00:10</td>
+      <td>0.499378</td>
+      <td>0.534150</td>
+      <td>0.739513</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>0.464483</td>
-      <td>0.556267</td>
-      <td>0.695535</td>
-      <td>00:10</td>
+      <td>0.454308</td>
+      <td>0.559546</td>
+      <td>0.692828</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>0.424676</td>
-      <td>0.692757</td>
-      <td>0.711096</td>
-      <td>00:10</td>
+      <td>0.416177</td>
+      <td>0.646042</td>
+      <td>0.722598</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>0.375262</td>
-      <td>0.787988</td>
-      <td>0.717185</td>
-      <td>00:10</td>
+      <td>0.383549</td>
+      <td>0.524653</td>
+      <td>0.719892</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>0.341823</td>
-      <td>0.404487</td>
-      <td>0.818674</td>
-      <td>00:10</td>
+      <td>0.344773</td>
+      <td>0.387121</td>
+      <td>0.824087</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>10</td>
-      <td>0.435166</td>
-      <td>1.205433</td>
-      <td>0.686062</td>
-      <td>00:10</td>
+      <td>0.415729</td>
+      <td>0.454181</td>
+      <td>0.780108</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>11</td>
-      <td>0.394866</td>
-      <td>0.454268</td>
-      <td>0.792963</td>
-      <td>00:10</td>
+      <td>0.377566</td>
+      <td>0.414178</td>
+      <td>0.797700</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>12</td>
-      <td>0.342811</td>
-      <td>0.428764</td>
+      <td>0.348081</td>
+      <td>0.423020</td>
       <td>0.799053</td>
-      <td>00:10</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>13</td>
-      <td>0.319831</td>
-      <td>0.431812</td>
-      <td>0.786874</td>
-      <td>00:11</td>
+      <td>0.323349</td>
+      <td>0.399474</td>
+      <td>0.819350</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>14</td>
-      <td>0.276488</td>
-      <td>0.405543</td>
-      <td>0.822733</td>
-      <td>00:11</td>
+      <td>0.287695</td>
+      <td>0.474530</td>
+      <td>0.797023</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>15</td>
-      <td>0.351722</td>
-      <td>0.552171</td>
-      <td>0.713802</td>
-      <td>00:10</td>
+      <td>0.346654</td>
+      <td>0.433130</td>
+      <td>0.806495</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>16</td>
-      <td>0.305281</td>
-      <td>0.388482</td>
-      <td>0.827470</td>
-      <td>00:10</td>
+      <td>0.314002</td>
+      <td>0.396852</td>
+      <td>0.826793</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>17</td>
-      <td>0.273600</td>
-      <td>0.414270</td>
-      <td>0.834912</td>
-      <td>00:10</td>
+      <td>0.278753</td>
+      <td>0.462971</td>
+      <td>0.819350</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>18</td>
-      <td>0.237284</td>
-      <td>0.462773</td>
-      <td>0.828146</td>
-      <td>00:10</td>
+      <td>0.246074</td>
+      <td>0.484389</td>
+      <td>0.815291</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>19</td>
-      <td>0.212240</td>
-      <td>0.423500</td>
-      <td>0.831529</td>
-      <td>00:10</td>
+      <td>0.214070</td>
+      <td>0.426820</td>
+      <td>0.834912</td>
+      <td>00:08</td>
     </tr>
   </tbody>
 </table>
@@ -947,7 +933,7 @@ Final Sparsity: 50.00
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -970,24 +956,6 @@ Saving Weights at epoch 0
 
 
 <div class="output_html rendered_html output_subarea ">
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='10' class='' max='20' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      50.00% [10/20 01:29<01:29]
-    </div>
-    
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
@@ -1001,94 +969,146 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.589365</td>
-      <td>0.631311</td>
-      <td>0.615697</td>
+      <td>0.603334</td>
+      <td>0.551784</td>
+      <td>0.720568</td>
       <td>00:07</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.546770</td>
-      <td>0.584942</td>
-      <td>0.683356</td>
+      <td>0.565227</td>
+      <td>0.565920</td>
+      <td>0.698917</td>
       <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.511409</td>
-      <td>0.606133</td>
-      <td>0.653586</td>
+      <td>0.522859</td>
+      <td>0.515990</td>
+      <td>0.732070</td>
       <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.467947</td>
-      <td>0.672923</td>
-      <td>0.721922</td>
+      <td>0.487813</td>
+      <td>0.576917</td>
+      <td>0.675237</td>
       <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.430712</td>
-      <td>0.539805</td>
-      <td>0.746279</td>
+      <td>0.440169</td>
+      <td>0.462882</td>
+      <td>0.777402</td>
       <td>00:07</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.536384</td>
-      <td>0.903583</td>
-      <td>0.672530</td>
-      <td>00:10</td>
+      <td>0.549211</td>
+      <td>0.578701</td>
+      <td>0.715832</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>0.495911</td>
-      <td>0.519432</td>
-      <td>0.723951</td>
-      <td>00:10</td>
+      <td>0.510567</td>
+      <td>0.559912</td>
+      <td>0.721245</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>0.454623</td>
-      <td>0.767602</td>
-      <td>0.714479</td>
-      <td>00:10</td>
+      <td>0.466337</td>
+      <td>0.513779</td>
+      <td>0.727334</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>0.415555</td>
-      <td>0.497875</td>
-      <td>0.780108</td>
-      <td>00:10</td>
+      <td>0.434819</td>
+      <td>0.489064</td>
+      <td>0.753721</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>0.384450</td>
-      <td>0.501667</td>
-      <td>0.751691</td>
-      <td>00:10</td>
+      <td>0.391333</td>
+      <td>0.389125</td>
+      <td>0.821380</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>0.467322</td>
+      <td>0.626745</td>
+      <td>0.669147</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>0.415585</td>
+      <td>0.468821</td>
+      <td>0.782138</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>0.383522</td>
+      <td>0.499666</td>
+      <td>0.746955</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>0.341103</td>
+      <td>0.920494</td>
+      <td>0.580514</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>0.315788</td>
+      <td>0.478357</td>
+      <td>0.763870</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>0.384253</td>
+      <td>0.385436</td>
+      <td>0.826793</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>0.339668</td>
+      <td>0.576813</td>
+      <td>0.787551</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>0.305025</td>
+      <td>0.431883</td>
+      <td>0.821380</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>0.288147</td>
+      <td>0.399648</td>
+      <td>0.821380</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>0.250577</td>
+      <td>0.750905</td>
+      <td>0.682679</td>
+      <td>00:08</td>
     </tr>
   </tbody>
-</table><p>
-
-    <div>
-        <style>
-            /* Turns off some styling */
-            progress {
-                /* gets rid of default border in Firefox and Opera. */
-                border: none;
-                /* Needs to be in here for Safari polyfill so background images work as expected. */
-                background-size: auto;
-            }
-            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-                background: #F44336;
-            }
-        </style>
-      <progress value='2' class='' max='24' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      8.33% [2/24 00:01<00:12 0.4800]
-    </div>
-    
+</table>
 </div>
 
 </div>
@@ -1108,6 +1128,18 @@ Sparsity at the end of epoch 7: 16.67%
 Sparsity at the end of epoch 8: 16.67%
 Sparsity at the end of epoch 9: 16.67%
 Resetting Weights to their epoch 0 values
+Sparsity at the end of epoch 10: 33.33%
+Sparsity at the end of epoch 11: 33.33%
+Sparsity at the end of epoch 12: 33.33%
+Sparsity at the end of epoch 13: 33.33%
+Sparsity at the end of epoch 14: 33.33%
+Resetting Weights to their epoch 0 values
+Sparsity at the end of epoch 15: 50.00%
+Sparsity at the end of epoch 16: 50.00%
+Sparsity at the end of epoch 17: 50.00%
+Sparsity at the end of epoch 18: 50.00%
+Sparsity at the end of epoch 19: 50.00%
+Final Sparsity: 50.00
 </pre>
 </div>
 </div>
@@ -1149,7 +1181,7 @@ Resetting Weights to their epoch 0 values
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(#2) [0.6401445865631104,0.6650879383087158]</pre>
+<pre>(#2) [0.6356589794158936,0.6718538403511047]</pre>
 </div>
 
 </div>
@@ -1162,7 +1194,7 @@ Resetting Weights to their epoch 0 values
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>So now we have an untrained model which is better than random (50%).</p>
+<p>So now we have a sparse, untrained model which is better than random (50%).</p>
 
 </div>
 </div>

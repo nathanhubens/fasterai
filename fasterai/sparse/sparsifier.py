@@ -11,19 +11,19 @@ from .criteria import *
 # Cell
 class Sparsifier():
 
-    def __init__(self, model, granularity, method, criteria):
+    def __init__(self, model, granularity, method, criteria, layer_type=nn.Conv2d):
         store_attr()
         self._save_weights() # Save the original weights
 
     def prune_layer(self, m, sparsity):
         weight = self.criteria(m, self.granularity)
-        mask = self._compute_mask(self.model, weight, sparsity)
+        mask = self._compute_mask(weight, sparsity)
         m.register_buffer("_mask", mask) # Put the mask into a buffer
         self._apply(m)
 
     def prune_model(self, sparsity):
         for m in self.model.modules():
-            if isinstance(m, nn.Conv2d): self.prune_layer(m, sparsity)
+            if isinstance(m, self.layer_type): self.prune_layer(m, sparsity)
 
     def _apply(self, m):
         mask = getattr(m, "_mask", None)
@@ -33,29 +33,26 @@ class Sparsifier():
 
     def _mask_grad(self):
         for m in self.model.modules():
-            if isinstance(m, nn.Conv2d) and hasattr(m, '_mask'):
+            if isinstance(m, self.layer_type) and hasattr(m, '_mask'):
                 mask = getattr(m, "_mask")
                 if m.weight.grad is not None: m.weight.grad.mul_(mask)
                 if self.granularity == 'filter' and m.bias is not None:
                     if m.bias.grad is not None: m.bias.grad.mul_(mask.squeeze())
 
-    def _reset_weights(self):
+    def _reset_weights(self): # Reset non-pruned weights
         for m in self.model.modules():
-            if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
+            if hasattr(m, 'weight'):
                 init_weights = getattr(m, "_init_weights", m.weight)
                 init_biases = getattr(m, "_init_biases", m.bias)
-
                 with torch.no_grad():
                     if m.weight is not None: m.weight.copy_(init_weights)
                     if m.bias is not None: m.bias.copy_(init_biases)
-
                 self._apply(m)
-
-            if isinstance(m, nn.BatchNorm2d) or isinstance(m, nn.BatchNorm1d): m.reset_parameters()
+            if isinstance(m, nn.modules.batchnorm._BatchNorm): m.reset_parameters() #####
 
     def _save_weights(self):
         for m in self.model.modules():
-            if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
+            if hasattr(m, 'weight'):
                 m.register_buffer("_init_weights", m.weight.clone())
                 if m.bias is not None: m.register_buffer("_init_biases", m.bias.clone())
 
@@ -65,18 +62,15 @@ class Sparsifier():
             if hasattr(m, '_init_weights'): del m._buffers["_init_weights"]
             if hasattr(m, '_init_biases'): del m._buffers["_init_biases"]
 
-    def _compute_mask(self, model, weight, sparsity):
+    def _compute_threshold(self, weight, sparsity):
         if self.method == 'global':
-            global_weight = torch.cat([self.criteria(m, self.granularity).view(-1) for m in model.modules() if isinstance(m, nn.Conv2d)])
-            threshold = torch.quantile(global_weight, sparsity/100) # Compute the threshold globally
-
+            global_weight = torch.cat([self.criteria(m, self.granularity).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)])
+            return torch.quantile(global_weight, sparsity/100) # Compute the threshold globally
         elif self.method == 'local':
-            threshold = torch.quantile(weight.view(-1), sparsity/100) # Compute the threshold locally
-
+            return torch.quantile(weight.view(-1), sparsity/100) # Compute the threshold locally
         else: raise NameError('Invalid Method')
 
+    def _compute_mask(self, weight, sparsity):
+        threshold = self._compute_threshold(weight, sparsity)
         if threshold > weight.max(): threshold = weight.max() # Make sure we don't remove every weight of a given layer
-
-        mask = weight.ge(threshold).to(dtype=weight.dtype)
-
-        return mask
+        return weight.ge(threshold).to(dtype=weight.dtype)
