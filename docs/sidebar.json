@@ -4,10 +4,11 @@
         "Overview": "/"
     },
     "Sparse": {
-        "Sparsifier": "sparsifier.html",
-        "Sparsify Callback": "sparsify_callback.html",
-	"Schedules": "schedules.html",
+	"Sparsifier": "sparsifier.html",
+	"Sparsify Callback": "sparsify_callback",
+	"Granularity": "granularity.html",
 	"Criteria": "criteria.html",
+	"Schedules": "schedules.html",
 	"Pruner": "pruner.html"
     },
     "Regularization":{

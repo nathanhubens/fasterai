@@ -17,13 +17,16 @@ entries:
       url: sparsifier.html
     - output: web,pdf
       title: Sparsify Callback
-      url: sparsify_callback.html
+      url: sparsify_callback
     - output: web,pdf
-      title: Schedules
-      url: schedules.html
+      title: Granularity
+      url: granularity.html
     - output: web,pdf
       title: Criteria
       url: criteria.html
+    - output: web,pdf
+      title: Schedules
+      url: schedules.html
     - output: web,pdf
       title: Pruner
       url: pruner.html
