@@ -46,21 +46,23 @@ class Sparsifier():
                 init_biases = getattr(m, "_init_biases", m.bias)
                 with torch.no_grad():
                     if m.weight is not None: m.weight.copy_(init_weights)
-                    if m.bias is not None: m.bias.copy_(init_biases)
+                    if hasattr(m, 'bias'): m.bias.copy_(init_biases)
                 self._apply(m)
-            if isinstance(m, nn.modules.batchnorm._BatchNorm): m.reset_parameters() #####
+            if isinstance(m, nn.modules.batchnorm._BatchNorm): m.reset_parameters()
 
     def _save_weights(self):
         for m in self.model.modules():
             if hasattr(m, 'weight'):
                 m.register_buffer("_init_weights", m.weight.clone())
-                if m.bias is not None: m.register_buffer("_init_biases", m.bias.clone())
+                b = getattr(m, 'bias', None)
+                if b is not None: m.register_buffer("_init_biases", b.clone())
 
     def _clean_buffers(self):
         for m in self.model.modules():
-            if hasattr(m, '_mask'): del m._buffers["_mask"]
-            if hasattr(m, '_init_weights'): del m._buffers["_init_weights"]
-            if hasattr(m, '_init_biases'): del m._buffers["_init_biases"]
+            if isinstance(m, self.layer_type):
+                if hasattr(m, '_mask'): del m._buffers["_mask"]
+                if hasattr(m, '_init_weights'): del m._buffers["_init_weights"]
+                if hasattr(m, '_init_biases'): del m._buffers["_init_biases"]
 
     def _compute_threshold(self, weight, sparsity):
         if self.method == 'global':

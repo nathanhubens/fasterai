@@ -16,4 +16,7 @@ _granularities_Conv2d = {'weight':0, 'shared_weight':1, 'channel':2, 'column':3,
 _granularities_Linear = {'weight':0, 'column':1, 'row':2, 'layer':(1,2)}
 
 # Cell
-granularities = {'Conv2d': _granularities_Conv2d, 'Linear': _granularities_Linear}
+_granularities_Conv1D = {'weight':0, 'column':1, 'row':2, 'layer':(1,2)}
+
+# Cell
+granularities = {'Conv2d': _granularities_Conv2d, 'Linear': _granularities_Linear, 'Conv1D': _granularities_Conv1D }
