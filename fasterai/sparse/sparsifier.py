@@ -59,7 +59,7 @@ class Sparsifier():
 
     def _clean_buffers(self):
         for m in self.model.modules():
-            if isinstance(m, self.layer_type):
+            if hasattr(m, 'weight'):
                 if hasattr(m, '_mask'): del m._buffers["_mask"]
                 if hasattr(m, '_init_weights'): del m._buffers["_init_weights"]
                 if hasattr(m, '_init_biases'): del m._buffers["_init_biases"]
