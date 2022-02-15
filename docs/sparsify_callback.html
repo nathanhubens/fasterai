@@ -101,7 +101,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>layer_type</code></strong>=<em><code>Conv2d</code></em>) :: <code>Callback</code></p>
+<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>round_to</code></strong>=<em><code>None</code></em>, <strong><code>layer_type</code></strong>=<em><code>Conv2d</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
 
@@ -181,23 +181,23 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.609799</td>
-      <td>0.428055</td>
-      <td>0.856563</td>
+      <td>0.612572</td>
+      <td>3.554412</td>
+      <td>0.733424</td>
       <td>00:09</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.330500</td>
-      <td>0.229454</td>
+      <td>0.347915</td>
+      <td>0.232760</td>
       <td>0.902571</td>
-      <td>00:09</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.179434</td>
-      <td>0.193450</td>
-      <td>0.920162</td>
+      <td>0.188124</td>
+      <td>0.215004</td>
+      <td>0.903248</td>
       <td>00:09</td>
     </tr>
   </tbody>
@@ -311,23 +311,23 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.665574</td>
-      <td>0.422704</td>
-      <td>0.845737</td>
+      <td>0.645031</td>
+      <td>0.349754</td>
+      <td>0.866712</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.345800</td>
-      <td>0.219813</td>
-      <td>0.901894</td>
+      <td>0.350244</td>
+      <td>0.211827</td>
+      <td>0.922192</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.178096</td>
-      <td>0.195268</td>
-      <td>0.916779</td>
+      <td>0.188881</td>
+      <td>0.167555</td>
+      <td>0.929635</td>
       <td>00:10</td>
     </tr>
   </tbody>
@@ -343,6 +343,26 @@ Saving Weights at epoch 0
 Sparsity at the end of epoch 1: 37.50%
 Sparsity at the end of epoch 2: 50.00%
 Final Sparsity: 50.00
+Sparsity in Conv2d 2: 50.00%
+Sparsity in Conv2d 8: 50.00%
+Sparsity in Conv2d 11: 50.00%
+Sparsity in Conv2d 14: 50.00%
+Sparsity in Conv2d 17: 50.00%
+Sparsity in Conv2d 21: 50.00%
+Sparsity in Conv2d 24: 50.00%
+Sparsity in Conv2d 27: 50.00%
+Sparsity in Conv2d 30: 50.00%
+Sparsity in Conv2d 33: 50.00%
+Sparsity in Conv2d 37: 50.00%
+Sparsity in Conv2d 40: 50.00%
+Sparsity in Conv2d 43: 50.00%
+Sparsity in Conv2d 46: 50.00%
+Sparsity in Conv2d 49: 50.00%
+Sparsity in Conv2d 53: 50.00%
+Sparsity in Conv2d 56: 50.00%
+Sparsity in Conv2d 59: 50.00%
+Sparsity in Conv2d 62: 50.00%
+Sparsity in Conv2d 65: 50.00%
 </pre>
 </div>
 </div>
@@ -384,80 +404,6 @@ Final Sparsity: 50.00
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">print_sparsity</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity in Conv2d 2: 50.00%
-Sparsity in BatchNorm2d 3: 0.00%
-Sparsity in Conv2d 8: 50.00%
-Sparsity in BatchNorm2d 9: 0.00%
-Sparsity in Conv2d 11: 50.00%
-Sparsity in BatchNorm2d 12: 0.00%
-Sparsity in Conv2d 14: 50.00%
-Sparsity in BatchNorm2d 15: 0.00%
-Sparsity in Conv2d 17: 50.00%
-Sparsity in BatchNorm2d 18: 0.00%
-Sparsity in Conv2d 21: 50.00%
-Sparsity in BatchNorm2d 22: 0.00%
-Sparsity in Conv2d 24: 50.00%
-Sparsity in BatchNorm2d 25: 0.00%
-Sparsity in Conv2d 27: 50.00%
-Sparsity in BatchNorm2d 28: 0.00%
-Sparsity in Conv2d 30: 50.00%
-Sparsity in BatchNorm2d 31: 0.00%
-Sparsity in Conv2d 33: 50.00%
-Sparsity in BatchNorm2d 34: 0.00%
-Sparsity in Conv2d 37: 50.00%
-Sparsity in BatchNorm2d 38: 0.00%
-Sparsity in Conv2d 40: 50.00%
-Sparsity in BatchNorm2d 41: 0.00%
-Sparsity in Conv2d 43: 50.00%
-Sparsity in BatchNorm2d 44: 0.00%
-Sparsity in Conv2d 46: 50.00%
-Sparsity in BatchNorm2d 47: 0.00%
-Sparsity in Conv2d 49: 50.00%
-Sparsity in BatchNorm2d 50: 0.00%
-Sparsity in Conv2d 53: 50.00%
-Sparsity in BatchNorm2d 54: 0.00%
-Sparsity in Conv2d 56: 50.00%
-Sparsity in BatchNorm2d 57: 0.00%
-Sparsity in Conv2d 59: 50.00%
-Sparsity in BatchNorm2d 60: 0.00%
-Sparsity in Conv2d 62: 50.00%
-Sparsity in BatchNorm2d 63: 0.00%
-Sparsity in Conv2d 65: 50.00%
-Sparsity in BatchNorm2d 66: 0.00%
-Sparsity in BatchNorm1d 72: 0.00%
-Sparsity in Linear 74: 0.00%
-Sparsity in BatchNorm1d 76: 0.00%
-Sparsity in Linear 78: 0.00%
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 </div>
  
 

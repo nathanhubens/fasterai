@@ -15,7 +15,7 @@ import torch.nn.functional as F
 # Cell
 class SparsifyCallback(Callback):
 
-    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, end_epoch=None, lth=False, rewind_epoch=0, reset_end=False, model=None, layer_type=nn.Conv2d):
+    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, end_epoch=None, lth=False, rewind_epoch=0, reset_end=False, model=None, round_to=None, layer_type=nn.Conv2d):
         store_attr()
         self.current_sparsity, self.previous_sparsity = 0, 0
 
@@ -40,7 +40,7 @@ class SparsifyCallback(Callback):
     def before_batch(self):
         if self.epoch>=self.start_epoch:
             if self.epoch < self.end_epoch: self._set_sparsity()
-            self.sparsifier.prune_model(self.current_sparsity)
+            self.sparsifier.prune_model(self.current_sparsity, self.round_to)
 
             if self.lth and self.current_sparsity!=self.previous_sparsity: # If sparsity has changed, the network has been pruned
                     print(f'Resetting Weights to their epoch {self.rewind_epoch} values')
@@ -60,6 +60,7 @@ class SparsifyCallback(Callback):
         if self.reset_end:
             self.sparsifier._reset_weights()
         self.sparsifier._clean_buffers() # Remove buffers at the end of training
+        self.sparsifier.print_sparsity()
 
     def _set_sparsity(self):
         self.current_sparsity = self.sched_func(start=self.start_sparsity, end=self.end_sparsity, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter))

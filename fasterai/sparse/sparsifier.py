@@ -3,6 +3,7 @@
 __all__ = ['Sparsifier']
 
 # Cell
+import numpy as np
 import torch
 import torch.nn as nn
 from fastcore.basics import store_attr
@@ -15,15 +16,16 @@ class Sparsifier():
         store_attr()
         self._save_weights() # Save the original weights
 
-    def prune_layer(self, m, sparsity):
+    def prune_layer(self, m, sparsity, round_to=None):
         weight = self.criteria(m, self.granularity)
-        mask = self._compute_mask(weight, sparsity)
+        mask = self._compute_mask(weight, sparsity, round_to)
         m.register_buffer("_mask", mask) # Put the mask into a buffer
         self._apply(m)
 
-    def prune_model(self, sparsity):
+    def prune_model(self, sparsity, round_to=None):
+        self.threshold=None
         for m in self.model.modules():
-            if isinstance(m, self.layer_type): self.prune_layer(m, sparsity)
+            if isinstance(m, self.layer_type): self.prune_layer(m, sparsity, round_to)
 
     def _apply(self, m):
         mask = getattr(m, "_mask", None)
@@ -67,12 +69,24 @@ class Sparsifier():
     def _compute_threshold(self, weight, sparsity):
         if self.method == 'global':
             global_weight = torch.cat([self.criteria(m, self.granularity).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)])
-            return torch.quantile(global_weight, sparsity/100) # Compute the threshold globally
+            if self.threshold is None: self.threshold = torch.quantile(global_weight, sparsity/100) # Compute the threshold globally (only once per model pruning)
+            return self.threshold
         elif self.method == 'local':
             return torch.quantile(weight.view(-1), sparsity/100) # Compute the threshold locally
         else: raise NameError('Invalid Method')
 
-    def _compute_mask(self, weight, sparsity):
+    def _rounded_sparsity(self, n_to_prune, round_to):
+        return max(round_to*torch.ceil(n_to_prune/round_to), round_to)
+
+    def _compute_mask(self, weight, sparsity, round_to):
         threshold = self._compute_threshold(weight, sparsity)
+        if round_to:
+            n_to_keep = sum(weight.ge(threshold)).squeeze()
+            threshold = torch.topk(weight.squeeze(), int(self._rounded_sparsity(n_to_keep, round_to)))[0].min()
         if threshold > weight.max(): threshold = weight.max() # Make sure we don't remove every weight of a given layer
         return weight.ge(threshold).to(dtype=weight.dtype)
+
+    def print_sparsity(self):
+        for k,m in enumerate(self.model.modules()):
+            if isinstance(m, self.layer_type):
+                print(f"Sparsity in {m.__class__.__name__} {k}: {100. * float(torch.sum(m.weight == 0))/ float(m.weight.nelement()):.2f}%")
