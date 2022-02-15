@@ -48,7 +48,7 @@ class Sparsifier():
                 init_biases = getattr(m, "_init_biases", m.bias)
                 with torch.no_grad():
                     if m.weight is not None: m.weight.copy_(init_weights)
-                    if hasattr(m, 'bias'): m.bias.copy_(init_biases)
+                    if m.bias is not None: m.bias.copy_(init_biases)
                 self._apply(m)
             if isinstance(m, nn.modules.batchnorm._BatchNorm): m.reset_parameters()
 

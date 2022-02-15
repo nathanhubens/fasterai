@@ -1,9 +1,9 @@
 package:
   name: fasterai
-  version: 0.1.4
+  version: 0.1.5
 source:
-  sha256: 2ee33fbfca1c0849cb89ba9a8e1d6c509394edcd529307c44001e933218aa9c7
-  url: https://files.pythonhosted.org/packages/fd/5e/1a3c180208c6f5090a2120925785cad99b349da500a4a05855146af26f48/fasterai-0.1.4.tar.gz
+  sha256: a4ac5666daa22a365c034a0feba81c8541d0510f0a5cbe2a4f19f3f281b5eb01
+  url: https://files.pythonhosted.org/packages/ff/78/faa679409de8e0142c0d8d1379351040fc9649918a1b7542dc86a2c9d1f7/fasterai-0.1.5.tar.gz
 about:
   dev_url: https://nathanhubens.github.io
   doc_url: https://nathanhubens.github.io
