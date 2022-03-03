@@ -55,6 +55,9 @@ entries:
     title: Misc
   - folderitems:
     - output: web,pdf
+      title: Get Started with FasterAI
+      url: tutorial.using_fasterai.html
+    - output: web,pdf
       title: Pruning Schedules
       url: tutorial.schedules.html
     - output: web,pdf

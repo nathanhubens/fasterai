@@ -26,7 +26,7 @@ The core feature of `fasterai` is its Sparsifying capabilities, constructed on 4
 
 ## Project Documentation
 
-Visit [Read The Docs Project Page](https://nathanhubens.github.io/fasterai/) or read following README to know more about using Fasterai
+Visit [Read The Docs Project Page](https://nathanhubens.github.io/fasterai/) or read following README to know more about using `fasterai`.
 
 ---
 
@@ -123,6 +123,7 @@ pip install fasterai
 
 ## Tutorials
 
+- [Get Started with FasterAI](https://nathanhubens.github.io/fasterai/tutorial.using_fasterai.html)
 - [Create your own pruning schedule](https://nathanhubens.github.io/fasterai/tutorial.schedules.html)
 - [Find winning tickets using the Lottery Ticket Hypothesis](https://nathanhubens.github.io/fasterai/tutorial.lottery_ticket.html)
 - [Use Knowledge Distillation to help a student model to reach higher performance](https://nathanhubens.github.io/fasterai/tutorial.knowledge_distillation.html)

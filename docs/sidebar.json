@@ -22,6 +22,7 @@
 	"FC Layer Decomposer": "fc_decomposer.html"
     },
     "Tutorials": {
+	    "Get Started with FasterAI": "tutorial.using_fasterai.html",
             "Pruning Schedules": "tutorial.schedules.html",
             "Lottery Ticket Hypothesis": "tutorial.lottery_ticket.html",
 	    "Knowledge Distillation": "tutorial.knowledge_distillation.html",
