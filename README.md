@@ -1,3 +1,8 @@
+
+# Fasterai
+
+
+
 ![header](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=header&text=fasterai%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=A%20Library%20to%20make%20smaller%20and%20faster%20neural%20networks&descAlignY=51&descAlign=62)
 
 <p align="center">
@@ -48,7 +53,7 @@ Once your model has useless nodes due to zero-weights, they can be removed to no
 
 This can be achieved by using the `Pruner()` method
 
-### 2. Regularization
+### 3. Regularization
 
 ![alt text](nbs/imgs/regularization.png "Regularization")
 
@@ -59,13 +64,13 @@ Regularization can be applied to groups of weights, following the same granulari
 
 This can be achieved by using the `RegularizationCallback(granularity)`
 
-### 3. Knowledge Distillation
+### 4. Knowledge Distillation
 
 ![alt text](nbs/imgs/distillation.png "Distillation")
 
 Distill the knowledge acquired by a big model into a smaller one, by using the `KnowledgeDistillation` callback.
 
-### 4. Lottery Ticket Hypothesis
+### 5. Lottery Ticket Hypothesis
 
 ![alt text](nbs/imgs/LTH.png "Lottery Ticket Hypothesis")
 

@@ -50,8 +50,9 @@ nb_path: "nbs/index.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <p align="center">
   <a href="#methods">Methods</a> •
-  <a href="#usage">Usage</a> •
+  <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
+  <a href="#tutorials">Tutorials</a> •
   <a href="#citing">Citing</a> •
   <a href="#license">License</a>
 </p>
@@ -61,6 +62,13 @@ nb_path: "nbs/index.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><code>fasterai</code> is a library created to make neural network <strong>smaller</strong> and <strong>faster</strong>. It essentially relies on common compression techniques for networks such as pruning, knowledge distillation, Lottery Ticket Hypothesis, ...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The core feature of <code>fasterai</code> is its Sparsifying capabilities, constructed on 4 main modules: <strong>granularity</strong>, <strong>method</strong>, <strong>criteria</strong>, <strong>schedule</strong>. Each of these modules is highly customizable, allowing you to change them according to your needs or even to come up with your own !</p>
 
 </div>
 </div>
@@ -80,13 +88,27 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Methods">Methods<a class="anchor-link" href="#Methods"> </a></h2>
+<hr>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="1.-Pruning">1. Pruning<a class="anchor-link" href="#1.-Pruning"> </a></h3>
+<h2 id="Features">Features<a class="anchor-link" href="#Features"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-Sparsifying">1. Sparsifying<a class="anchor-link" href="#1.-Sparsifying"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fasterai/imgs/sparsification.png" alt="alt text" title="Sparsification"></p>
+
 </div>
 </div>
 </div>
@@ -94,7 +116,7 @@ nb_path: "nbs/index.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Make your model sparse (<em>i.e.</em> prune it) according to a:</p>
 <ul>
-<li><b>Sparsity: </b> the amount of weights that will be replaced by 0</li>
+<li><b>Sparsity: </b> the percentage of weights that will be replaced by 0</li>
 <li><b>Granularity: </b> the granularity at which you operate the pruning (removing weights, vectors, kernels, filters)</li>
 <li><b>Method: </b> prune either each layer independantly (local pruning) or the whole model (global pruning)</li>
 <li><b>Criteria: </b> the criteria used to select the weights to remove (magnitude, movement, ...)</li>
@@ -106,33 +128,105 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.-Group-Regularization">2. Group Regularization<a class="anchor-link" href="#2.-Group-Regularization"> </a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Make your network learn sparse weights during training.</p>
+<p>This can be achieved by using the <code>SparsifyCallback(end_sparsity, granularity, method, criteria, sched_func)</code></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.-Knowledge-Distillation">3. Knowledge Distillation<a class="anchor-link" href="#3.-Knowledge-Distillation"> </a></h3>
+<h3 id="2.-Pruning">2. Pruning<a class="anchor-link" href="#2.-Pruning"> </a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Distill the knowledge acquired by a big model into a smaller one.</p>
+<p><img src="/fasterai/imgs/pruning_readme.png" alt="alt text" title="Pruning"></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.-Lottery-Ticket-Hypothesis">4. Lottery Ticket Hypothesis<a class="anchor-link" href="#4.-Lottery-Ticket-Hypothesis"> </a></h3>
+<p>Once your model has useless nodes due to zero-weights, they can be removed to not be a part of the network anymore.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This can be achieved by using the <code>Pruner()</code> method</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.-Regularization">3. Regularization<a class="anchor-link" href="#3.-Regularization"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fasterai/imgs/regularization.png" alt="alt text" title="Regularization"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Instead of explicitely make your network sparse, let it train towards sparse connections by pushing the weights to be as small as possible.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Regularization can be applied to groups of weights, following the same granularities as for sparsifying, i.e.:</p>
+<ul>
+<li><b>Granularity: </b> the granularity at which you operate the regularization (weights, vectors, kernels, filters, ...)</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This can be achieved by using the <code>RegularizationCallback(granularity)</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="4.-Knowledge-Distillation">4. Knowledge Distillation<a class="anchor-link" href="#4.-Knowledge-Distillation"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fasterai/imgs/distillation.png" alt="alt text" title="Distillation"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Distill the knowledge acquired by a big model into a smaller one, by using the <a href="/fasterai/knowledge_distillation.html#KnowledgeDistillation"><code>KnowledgeDistillation</code></a> callback.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="5.-Lottery-Ticket-Hypothesis">5. Lottery Ticket Hypothesis<a class="anchor-link" href="#5.-Lottery-Ticket-Hypothesis"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fasterai/imgs/LTH.png" alt="alt text" title="Lottery Ticket Hypothesis"></p>
+
 </div>
 </div>
 </div>
@@ -145,7 +239,28 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Quick-Start">Quick Start<a class="anchor-link" href="#Quick-Start"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="0.-Import-fasterai">0. Import fasterai<a class="anchor-link" href="#0.-Import-fasterai"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.sparse.all</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
 </div>
 </div>
 </div>
@@ -193,8 +308,7 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>More about other methods in the <a href="https://nathanhubens.github.io/fasterai/tutorial.schedules.html">tutorials section</a></p>
-</blockquote>
+<hr>
 
 </div>
 </div>
@@ -218,6 +332,39 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tutorials">Tutorials<a class="anchor-link" href="#Tutorials"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="https://nathanhubens.github.io/fasterai/tutorial.schedules.html">Create your own pruning schedule</a></li>
+<li><a href="https://nathanhubens.github.io/fasterai/tutorial.lottery_ticket.html">Find winning tickets using the Lottery Ticket Hypothesis</a></li>
+<li><a href="https://nathanhubens.github.io/fasterai/tutorial.knowledge_distillation.html">Use Knowledge Distillation to help a student model to reach higher performance</a></li>
+<li><a href="https://nathanhubens.github.io/fasterai/tutorial.transformers.html">Sparsify Transformers</a></li>
+<li>More to come...</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Citing">Citing<a class="anchor-link" href="#Citing"> </a></h2>
 <pre><code>@misc{Hubens:2020,
   Author = {Nathan Hubens},
@@ -227,6 +374,13 @@ nb_path: "nbs/index.ipynb"
   Journal = {GitHub repository},
   Howpublished = {\url{https://github.com/nathanhubens/fasterai}}
 }</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
