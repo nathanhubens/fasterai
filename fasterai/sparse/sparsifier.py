@@ -4,14 +4,14 @@ __all__ = ['Sparsifier']
 
 # Cell
 import numpy as np
+from itertools import cycle
 import torch
 import torch.nn as nn
-from fastcore.basics import store_attr
+from fastcore.basics import store_attr, listify
 from .criteria import *
 
 # Cell
 class Sparsifier():
-
     def __init__(self, model, granularity, method, criteria, layer_type=nn.Conv2d):
         store_attr()
         self._save_weights() # Save the original weights
@@ -24,8 +24,21 @@ class Sparsifier():
 
     def prune_model(self, sparsity, round_to=None):
         self.threshold=None
-        for m in self.model.modules():
-            if isinstance(m, self.layer_type): self.prune_layer(m, sparsity, round_to)
+        sparsity_list = listify(sparsity)
+        if len(sparsity_list)>1: assert self.method=='local', f"A list of sparsities cannot be passed using: {self.method}"
+        sparsities = cycle(sparsity_list) if len(sparsity_list)==1 else iter(sparsity_list)
+        mods = list(self.model.modules())
+        for k,m in enumerate(self.model.modules()):
+            if isinstance(m, self.layer_type):
+                sp = next(sparsities)
+                self.prune_layer(m, sp, round_to)
+                if isinstance(mods[k+1], nn.modules.batchnorm._BatchNorm): self.prune_batchnorm(m, mods[k+1])
+
+    def prune_batchnorm(self, m, bn):
+        mask = getattr(m, "_mask", None)
+        if self.granularity == 'filter' and mask is not None:
+            bn.weight.data.mul_(mask.squeeze())
+            bn.bias.data.mul_(mask.squeeze())
 
     def _apply(self, m):
         mask = getattr(m, "_mask", None)

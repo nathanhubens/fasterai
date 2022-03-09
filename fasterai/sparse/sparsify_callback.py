@@ -17,7 +17,7 @@ class SparsifyCallback(Callback):
 
     def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, end_epoch=None, lth=False, rewind_epoch=0, reset_end=False, model=None, round_to=None, layer_type=nn.Conv2d):
         store_attr()
-        self.current_sparsity, self.previous_sparsity = 0, 0
+        self.end_sparsity, self.current_sparsity, self.previous_sparsity = map(listify, [self.end_sparsity, self.start_sparsity, self.start_sparsity])
 
         assert self.start_epoch>=self.rewind_epoch, 'You must rewind to an epoch before the start of the pruning process'
 
@@ -53,14 +53,15 @@ class SparsifyCallback(Callback):
             self.sparsifier._mask_grad()
 
     def after_epoch(self):
-        print(f'Sparsity at the end of epoch {self.epoch}: {self.current_sparsity:.2f}%')
+        sparsity_str = [float(f"%0.2f"%sp) for sp in self.current_sparsity]
+        print(f'Sparsity at the end of epoch {self.epoch}: {sparsity_str}%')
 
     def after_fit(self):
-        print(f'Final Sparsity: {self.current_sparsity:.2f}')
+        print(f'Final Sparsity: {self.current_sparsity:}%')
         if self.reset_end:
             self.sparsifier._reset_weights()
         self.sparsifier._clean_buffers() # Remove buffers at the end of training
         self.sparsifier.print_sparsity()
 
     def _set_sparsity(self):
-        self.current_sparsity = self.sched_func(start=self.start_sparsity, end=self.end_sparsity, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter))
+        self.current_sparsity = [self.sched_func(start=self.start_sparsity, end=end_sp, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter)) for end_sp in self.end_sparsity]
