@@ -80,5 +80,4 @@ def grad_crit(m, g):
             return (m.weight*m.weight.grad)[None].pow(2).mean(dim=dim, keepdim=True).squeeze(0)
         else:
             return m.weight[None].pow(2).mean(dim=dim, keepdim=True).squeeze(0)
-
     else: raise NameError('Invalid Granularity')
