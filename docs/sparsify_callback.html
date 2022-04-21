@@ -154,7 +154,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -181,24 +181,38 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.646404</td>
-      <td>0.579887</td>
-      <td>0.828146</td>
+      <td>0.705798</td>
+      <td>0.479027</td>
+      <td>0.822733</td>
       <td>00:09</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.384775</td>
-      <td>0.310144</td>
-      <td>0.872801</td>
-      <td>00:09</td>
+      <td>0.397853</td>
+      <td>0.292941</td>
+      <td>0.877537</td>
+      <td>00:10</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.213229</td>
-      <td>0.212824</td>
-      <td>0.912720</td>
-      <td>00:08</td>
+      <td>0.262029</td>
+      <td>0.231342</td>
+      <td>0.907307</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.135269</td>
+      <td>0.192170</td>
+      <td>0.929635</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.079162</td>
+      <td>0.177461</td>
+      <td>0.930988</td>
+      <td>00:09</td>
     </tr>
   </tbody>
 </table>
@@ -275,7 +289,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -311,23 +325,37 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.626793</td>
-      <td>0.787221</td>
-      <td>0.795670</td>
+      <td>0.666499</td>
+      <td>0.486384</td>
+      <td>0.816644</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.378027</td>
-      <td>0.252783</td>
-      <td>0.888363</td>
+      <td>0.389940</td>
+      <td>0.775824</td>
+      <td>0.763870</td>
       <td>00:10</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.214151</td>
-      <td>0.201621</td>
-      <td>0.912043</td>
+      <td>0.265766</td>
+      <td>0.218767</td>
+      <td>0.906631</td>
+      <td>00:10</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>0.142544</td>
+      <td>0.191119</td>
+      <td>0.922192</td>
+      <td>00:10</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.086554</td>
+      <td>0.186723</td>
+      <td>0.931664</td>
       <td>00:10</td>
     </tr>
   </tbody>
@@ -339,9 +367,11 @@ Saving Weights at epoch 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: [12.5]%
-Sparsity at the end of epoch 1: [37.5]%
-Sparsity at the end of epoch 2: [50.0]%
+<pre>Sparsity at the end of epoch 0: [4.77]%
+Sparsity at the end of epoch 1: [17.27]%
+Sparsity at the end of epoch 2: [32.73]%
+Sparsity at the end of epoch 3: [45.23]%
+Sparsity at the end of epoch 4: [50.0]%
 Final Sparsity: [50.0]%
 Sparsity in Conv2d 2: 50.00%
 Sparsity in Conv2d 8: 50.00%
@@ -375,7 +405,7 @@ Sparsity in Conv2d 65: 50.00%
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Surprisinlgy, our network that is composed of $50 \%$ of zeroes performs reasonnably well when compared to our plain and dense network.</p>
+<p>Surprisingly, our network that is composed of $50 \%$ of zeroes performs reasonnably well when compared to our plain and dense network.</p>
 
 </div>
 </div>
@@ -446,7 +476,7 @@ Sparsity in Conv2d 65: 50.00%
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -482,30 +512,37 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.627289</td>
-      <td>0.399411</td>
-      <td>0.831529</td>
-      <td>00:09</td>
+      <td>0.678538</td>
+      <td>0.841339</td>
+      <td>0.828146</td>
+      <td>00:10</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.365587</td>
-      <td>0.264053</td>
-      <td>0.893775</td>
-      <td>00:09</td>
+      <td>0.371051</td>
+      <td>0.267752</td>
+      <td>0.893099</td>
+      <td>00:10</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.212597</td>
-      <td>0.193413</td>
-      <td>0.917456</td>
-      <td>00:09</td>
+      <td>0.245707</td>
+      <td>0.312161</td>
+      <td>0.888363</td>
+      <td>00:10</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.120238</td>
-      <td>0.178505</td>
-      <td>0.933694</td>
+      <td>0.155730</td>
+      <td>0.204463</td>
+      <td>0.920162</td>
+      <td>00:10</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>0.089188</td>
+      <td>0.180406</td>
+      <td>0.932341</td>
       <td>00:10</td>
     </tr>
   </tbody>
@@ -517,10 +554,11 @@ Saving Weights at epoch 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 7.32, 7.32, 7.32, 7.32, 7.32, 7.32, 7.32, 7.32, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
-Sparsity at the end of epoch 1: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 25.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
-Sparsity at the end of epoch 2: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 42.68, 42.68, 42.68, 42.68, 42.68, 42.68, 42.68, 42.68, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
-Sparsity at the end of epoch 3: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
+<pre>Sparsity at the end of epoch 0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.77, 4.77, 4.77, 4.77, 4.77, 4.77, 4.77, 4.77, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
+Sparsity at the end of epoch 1: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 17.27, 17.27, 17.27, 17.27, 17.27, 17.27, 17.27, 17.27, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
+Sparsity at the end of epoch 2: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 32.73, 32.73, 32.73, 32.73, 32.73, 32.73, 32.73, 32.73, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
+Sparsity at the end of epoch 3: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.23, 45.23, 45.23, 45.23, 45.23, 45.23, 45.23, 45.23, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
+Sparsity at the end of epoch 4: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
 Final Sparsity: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%
 Sparsity in Conv2d 2: 0.00%
 Sparsity in Conv2d 8: 0.00%

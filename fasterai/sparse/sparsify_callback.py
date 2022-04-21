@@ -28,6 +28,7 @@ class SparsifyCallback(Callback):
 
         model = self.learn.model if self.model is None else self.model # Pass a model if you don't want the whole model to be pruned
         self.sparsifier = Sparsifier(model, self.granularity, self.method, self.criteria, self.layer_type)
+
         self.n_batches = math.floor(len(self.learn.dls.dataset)/self.learn.dls.bs)
         self.total_iters = self.end_epoch * self.n_batches
         self.start_iter = self.start_epoch * self.n_batches
@@ -42,15 +43,14 @@ class SparsifyCallback(Callback):
             if self.epoch < self.end_epoch: self._set_sparsity()
             self.sparsifier.prune_model(self.current_sparsity, self.round_to)
 
+    def after_step(self):
+        if self.epoch>=self.start_epoch:
             if self.lth and self.current_sparsity!=self.previous_sparsity: # If sparsity has changed, the network has been pruned
-                    print(f'Resetting Weights to their epoch {self.rewind_epoch} values')
-                    self.sparsifier._reset_weights()
+                        print(f'Resetting Weights to their epoch {self.rewind_epoch} values')
+                        self.sparsifier._reset_weights()
 
             self.previous_sparsity = self.current_sparsity
-
-    def before_step(self):
-        if self.epoch>=self.start_epoch:
-            self.sparsifier._mask_grad()
+            self.sparsifier._apply_masks()
 
     def after_epoch(self):
         sparsity_str = [float(f"%0.2f"%sp) for sp in self.current_sparsity]

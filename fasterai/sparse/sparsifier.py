@@ -40,6 +40,12 @@ class Sparsifier():
             bn.weight.data.mul_(mask.squeeze())
             bn.bias.data.mul_(mask.squeeze())
 
+
+    def _apply_masks(self):
+        for m in self.model.modules():
+            if isinstance(m, self.layer_type):
+                self._apply(m)
+
     def _apply(self, m):
         mask = getattr(m, "_mask", None)
         if mask is not None: m.weight.data.mul_(mask)
@@ -53,6 +59,7 @@ class Sparsifier():
                 if m.weight.grad is not None: m.weight.grad.mul_(mask)
                 if self.granularity == 'filter' and m.bias is not None:
                     if m.bias.grad is not None: m.bias.grad.mul_(mask.squeeze())
+
 
     def _reset_weights(self): # Reset non-pruned weights
         for m in self.model.modules():
