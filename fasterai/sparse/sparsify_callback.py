@@ -29,10 +29,6 @@ class SparsifyCallback(Callback):
         model = self.learn.model if self.model is None else self.model # Pass a model if you don't want the whole model to be pruned
         self.sparsifier = Sparsifier(model, self.granularity, self.method, self.criteria, self.layer_type)
 
-        self.n_batches = math.floor(len(self.learn.dls.dataset)/self.learn.dls.bs)
-        self.total_iters = self.end_epoch * self.n_batches
-        self.start_iter = self.start_epoch * self.n_batches
-
     def before_epoch(self):
         if self.epoch == self.rewind_epoch:
             print(f'Saving Weights at epoch {self.epoch}')
@@ -64,4 +60,4 @@ class SparsifyCallback(Callback):
         self.sparsifier.print_sparsity()
 
     def _set_sparsity(self):
-        self.current_sparsity = [self.sched_func(start=self.start_sparsity, end=end_sp, pos=(self.train_iter-self.start_iter)/(self.total_iters-self.start_iter)) for end_sp in self.end_sparsity]
+        self.current_sparsity = [self.sched_func(start=self.start_sparsity, end=end_sp, pos=(self.pct_train*self.end_epoch-self.start_epoch)/(self.end_epoch-self.start_epoch)) for end_sp in self.end_sparsity]

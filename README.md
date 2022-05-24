@@ -9,7 +9,9 @@
     <a href="https://pypi.org/project/fasterai/"><img src="https://img.shields.io/pypi/v/fasterai?color=%235BAFAF"></a>
     <a href="https://pypi.org/project/fasterai/"><img src="https://static.pepy.tech/personalized-badge/fasterai?color=%235BAFAFperiod=total&units=international_system&left_color=grey&right_color=%235BAFAF&left_text=downloads"></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/nathanhubens/fasterai?color=%235bafaf"></a>
+    <a href="https://pypi.org/project/fasterai/"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.6469868-y?color=%235BAFAF"></a>
 </p>
+
 
 <p align="center">
   <a href="#methods">Methods</a> •
@@ -134,13 +136,14 @@ pip install fasterai
 
 ##  Citing
 ```
-@misc{Hubens:2020,
-  Author = {Nathan Hubens},
-  Title = {Fasterai},
-  Year = {2020},
-  Publisher = {GitHub},
-  Journal = {GitHub repository},
-  Howpublished = {\url{https://github.com/nathanhubens/fasterai}}
+@software{Hubens,
+  author       = {Nathan Hubens},
+  title        = {fasterai},
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {v0.1.6},
+  doi          = {10.5281/zenodo.6469868},
+  url          = {https://doi.org/10.5281/zenodo.6469868}
 }
 ```
 
