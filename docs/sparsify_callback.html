@@ -101,7 +101,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>round_to</code></strong>=<em><code>None</code></em>, <strong><code>layer_type</code></strong>=<em><code>Conv2d</code></em>) :: <code>Callback</code></p>
+<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>round_to</code></strong>=<em><code>None</code></em>, <strong><code>save_tickets</code></strong>=<em><code>False</code></em>, <strong><code>layer_type</code></strong>=<em><code>Conv2d</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
 
@@ -144,6 +144,21 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/HubensN/miniconda3/envs/deep/lib/python3.8/site-packages/fastai/vision/learner.py:265: UserWarning: `cnn_learner` has been renamed to `vision_learner` -- please update your code
+  warn(&#34;`cnn_learner` has been renamed to `vision_learner` -- please update your code&#34;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -168,7 +183,26 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
       <th>epoch</th>
@@ -181,42 +215,41 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.713128</td>
-      <td>0.713875</td>
-      <td>0.811908</td>
-      <td>00:10</td>
+      <td>0.718013</td>
+      <td>0.872548</td>
+      <td>0.799053</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.432446</td>
-      <td>0.440746</td>
-      <td>0.800406</td>
-      <td>00:09</td>
+      <td>0.420014</td>
+      <td>0.260284</td>
+      <td>0.888363</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.263360</td>
-      <td>0.204811</td>
-      <td>0.915426</td>
-      <td>00:10</td>
+      <td>0.235803</td>
+      <td>0.231334</td>
+      <td>0.907307</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.150915</td>
-      <td>0.161615</td>
-      <td>0.938430</td>
-      <td>00:10</td>
+      <td>0.136469</td>
+      <td>0.188240</td>
+      <td>0.930311</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.088468</td>
-      <td>0.165246</td>
-      <td>0.945196</td>
-      <td>00:10</td>
+      <td>0.067946</td>
+      <td>0.197810</td>
+      <td>0.923545</td>
+      <td>00:07</td>
     </tr>
   </tbody>
-</table>
-</div>
+</table></div>
 
 </div>
 
@@ -312,7 +345,26 @@ Saving Weights at epoch 0
 
 
 <div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
       <th>epoch</th>
@@ -325,42 +377,41 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.674656</td>
-      <td>0.622613</td>
-      <td>0.836942</td>
-      <td>00:11</td>
+      <td>0.734103</td>
+      <td>0.505560</td>
+      <td>0.803112</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.380210</td>
-      <td>0.431418</td>
-      <td>0.838972</td>
-      <td>00:10</td>
+      <td>0.394264</td>
+      <td>0.272875</td>
+      <td>0.886333</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.234057</td>
-      <td>0.227491</td>
-      <td>0.912043</td>
-      <td>00:10</td>
+      <td>0.233003</td>
+      <td>0.230166</td>
+      <td>0.906631</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.130080</td>
-      <td>0.183025</td>
-      <td>0.925575</td>
-      <td>00:11</td>
+      <td>0.136039</td>
+      <td>0.186690</td>
+      <td>0.922192</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.075495</td>
-      <td>0.187647</td>
+      <td>0.077405</td>
+      <td>0.173229</td>
       <td>0.929635</td>
-      <td>00:11</td>
+      <td>00:08</td>
     </tr>
   </tbody>
-</table>
-</div>
+</table></div>
 
 </div>
 
@@ -499,7 +550,26 @@ Saving Weights at epoch 0
 
 
 <div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
       <th>epoch</th>
@@ -512,42 +582,41 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.701647</td>
-      <td>0.594271</td>
-      <td>0.794993</td>
-      <td>00:11</td>
+      <td>0.755309</td>
+      <td>0.450315</td>
+      <td>0.876861</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.397670</td>
-      <td>0.312181</td>
-      <td>0.878890</td>
-      <td>00:11</td>
+      <td>0.394799</td>
+      <td>0.254626</td>
+      <td>0.889039</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.227771</td>
-      <td>0.213795</td>
-      <td>0.910690</td>
-      <td>00:11</td>
+      <td>0.238757</td>
+      <td>0.216719</td>
+      <td>0.898512</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.132627</td>
-      <td>0.187973</td>
-      <td>0.928958</td>
-      <td>00:11</td>
+      <td>0.129364</td>
+      <td>0.170520</td>
+      <td>0.930988</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.071743</td>
-      <td>0.177003</td>
-      <td>0.937077</td>
-      <td>00:10</td>
+      <td>0.077550</td>
+      <td>0.175144</td>
+      <td>0.933694</td>
+      <td>00:09</td>
     </tr>
   </tbody>
-</table>
-</div>
+</table></div>
 
 </div>
 

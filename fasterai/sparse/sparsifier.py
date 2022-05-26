@@ -9,6 +9,7 @@ import torch
 import torch.nn as nn
 from fastcore.basics import store_attr, listify
 from .criteria import *
+import pickle
 
 # Cell
 class Sparsifier():
@@ -61,8 +62,8 @@ class Sparsifier():
                     if m.bias.grad is not None: m.bias.grad.mul_(mask.squeeze())
 
 
-    def _reset_weights(self): # Reset non-pruned weights
-        for m in self.model.modules():
+    def _reset_weights(self, model): # Reset non-pruned weights
+        for m in model.modules():
             if hasattr(m, 'weight'):
                 init_weights = getattr(m, "_init_weights", m.weight)
                 init_biases = getattr(m, "_init_biases", m.bias)
@@ -79,8 +80,14 @@ class Sparsifier():
                 b = getattr(m, 'bias', None)
                 if b is not None: m.register_buffer("_init_biases", b.clone())
 
-    def _clean_buffers(self):
-        for m in self.model.modules():
+    def save_model(self, path):
+        tmp_model = pickle.loads(pickle.dumps(self.model))
+        self._reset_weights(tmp_model)
+        self._clean_buffers(tmp_model)
+        torch.save(tmp_model, path)
+
+    def _clean_buffers(self, model):
+        for m in model.modules():
             if hasattr(m, 'weight'):
                 if hasattr(m, '_mask'): del m._buffers["_mask"]
                 if hasattr(m, '_init_weights'): del m._buffers["_init_weights"]
