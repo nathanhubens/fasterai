@@ -40,7 +40,7 @@ class SparsifyCallback(Callback):
             if self.current_sparsity!=self.previous_sparsity and self.training:
                 if self.lth and self.save_tickets:
                     print('Saving Intermediate Ticket')
-                    self.sparsifier.save_model(f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth')
+                    self.sparsifier.save_model(self.learn.model, f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth')
                 self.sparsifier.prune_model(self.current_sparsity, self.round_to)
 
     def after_step(self):
@@ -59,7 +59,7 @@ class SparsifyCallback(Callback):
     def after_fit(self):
         if self.save_tickets:
             print('Saving Final Ticket')
-            self.sparsifier.save_model(f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth')
+            self.sparsifier.save_model(self.learn.model, f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth')
 
         print(f'Final Sparsity: {self.current_sparsity:}%')
         if self.reset_end: self.sparsifier._reset_weights(self.learn.model)

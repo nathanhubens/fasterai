@@ -80,8 +80,8 @@ class Sparsifier():
                 b = getattr(m, 'bias', None)
                 if b is not None: m.register_buffer("_init_biases", b.clone())
 
-    def save_model(self, path):
-        tmp_model = pickle.loads(pickle.dumps(self.model))
+    def save_model(self, model, path):
+        tmp_model = pickle.loads(pickle.dumps(model))
         self._reset_weights(tmp_model)
         self._clean_buffers(tmp_model)
         torch.save(tmp_model, path)
