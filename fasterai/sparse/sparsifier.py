@@ -62,7 +62,8 @@ class Sparsifier():
                     if m.bias.grad is not None: m.bias.grad.mul_(mask.squeeze())
 
 
-    def _reset_weights(self, model): # Reset non-pruned weights
+    def _reset_weights(self, model=None): # Reset non-pruned weights
+        if not model: model=self.model
         for m in model.modules():
             if hasattr(m, 'weight'):
                 init_weights = getattr(m, "_init_weights", m.weight)
@@ -80,13 +81,15 @@ class Sparsifier():
                 b = getattr(m, 'bias', None)
                 if b is not None: m.register_buffer("_init_biases", b.clone())
 
-    def save_model(self, model, path):
+    def save_model(self, path, model=None):
+        if not model: model=self.model
         tmp_model = pickle.loads(pickle.dumps(model))
         self._reset_weights(tmp_model)
         self._clean_buffers(tmp_model)
         torch.save(tmp_model, path)
 
-    def _clean_buffers(self, model):
+    def _clean_buffers(self, model=None):
+        if not model: model=self.model
         for m in model.modules():
             if hasattr(m, 'weight'):
                 if hasattr(m, '_mask'): del m._buffers["_mask"]
