@@ -7,4 +7,13 @@ title: "fasterai"
 version: 0.1.8
 doi: 10.5281/zenodo.6469868
 date-released: 2022-06-06
-url: "https://github.com/nathanhubens/fasterai"
+license: "Apache-2.0"
+url: "https://nathanhubens.github.io/fasterai/"
+repository-code: "https://github.com/nathanhubens/fasterai"
+keywords:
+  - machine learning
+  - deep learning
+  - artificial intelligence
+  - pruning
+  - knowledge distillation
+  - compression
