@@ -60,6 +60,23 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>untar_data<span class="o">??</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">untar_data</span><span class="p">(</span><span class="n">URLs</span><span class="o">.</span><span class="n">PETS</span><span class="p">)</span>
 <span class="n">files</span> <span class="o">=</span> <span class="n">get_image_files</span><span class="p">(</span><span class="n">path</span><span class="o">/</span><span class="s2">&quot;images&quot;</span><span class="p">)</span>
 
@@ -101,7 +118,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L16" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>end_sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>method</code></strong>, <strong><code>criteria</code></strong>, <strong><code>sched_func</code></strong>, <strong><code>start_sparsity</code></strong>=<em><code>0</code></em>, <strong><code>start_epoch</code></strong>=<em><code>0</code></em>, <strong><code>end_epoch</code></strong>=<em><code>None</code></em>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>round_to</code></strong>=<em><code>None</code></em>, <strong><code>save_tickets</code></strong>=<em><code>False</code></em>, <strong><code>layer_type</code></strong>=<em><code>Conv2d</code></em>) :: <code>Callback</code></p>
+<h2 id="SparsifyCallback" class="doc_header"><code>class</code> <code>SparsifyCallback</code><a href="https://github.com/nathanhubens/fasterai/tree/master/fasterai/sparse/sparsify_callback.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SparsifyCallback</code>(<strong><code>sparsity</code></strong>, <strong><code>granularity</code></strong>, <strong><code>context</code></strong>, <strong><code>criteria</code></strong>, <strong><code>schedule</code></strong>, <strong><code>lth</code></strong>=<em><code>False</code></em>, <strong><code>rewind_epoch</code></strong>=<em><code>0</code></em>, <strong><code>reset_end</code></strong>=<em><code>False</code></em>, <strong><code>save_tickets</code></strong>=<em><code>False</code></em>, <strong><code>model</code></strong>=<em><code>None</code></em>, <strong><code>round_to</code></strong>=<em><code>None</code></em>, <strong><code>layer_type</code></strong>=<em><code>Conv2d</code></em>) :: <code>Callback</code></p>
 </blockquote>
 <p>Basic class handling tweaks of the training loop by changing a <code>Learner</code> in various events</p>
 
@@ -215,38 +232,38 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.666736</td>
-      <td>1.887411</td>
-      <td>0.753721</td>
-      <td>00:11</td>
+      <td>0.714170</td>
+      <td>0.534177</td>
+      <td>0.802436</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.437540</td>
-      <td>0.276486</td>
-      <td>0.881597</td>
-      <td>00:10</td>
+      <td>0.405863</td>
+      <td>0.466950</td>
+      <td>0.861976</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.258372</td>
-      <td>0.291492</td>
-      <td>0.878890</td>
-      <td>00:10</td>
+      <td>0.229647</td>
+      <td>0.234999</td>
+      <td>0.902571</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.146018</td>
-      <td>0.200280</td>
+      <td>0.141966</td>
+      <td>0.198904</td>
       <td>0.924222</td>
-      <td>00:10</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.075150</td>
-      <td>0.212859</td>
-      <td>0.925575</td>
-      <td>00:10</td>
+      <td>0.073327</td>
+      <td>0.191152</td>
+      <td>0.930988</td>
+      <td>00:07</td>
     </tr>
   </tbody>
 </table></div>
@@ -281,6 +298,21 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/HubensN/miniconda3/envs/deep/lib/python3.8/site-packages/fastai/vision/learner.py:265: UserWarning: `cnn_learner` has been renamed to `vision_learner` -- please update your code
+  warn(&#34;`cnn_learner` has been renamed to `vision_learner` -- please update your code&#34;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
@@ -305,7 +337,7 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_cos</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">resnet18</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">metrics</span><span class="o">=</span><span class="n">accuracy</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -322,7 +354,24 @@ nb_path: "nbs/02_sparsify_callback.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="n">cos</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -377,38 +426,73 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.672893</td>
-      <td>0.457210</td>
-      <td>0.832882</td>
-      <td>00:10</td>
+      <td>0.597135</td>
+      <td>0.568558</td>
+      <td>0.694181</td>
+      <td>00:09</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.406809</td>
-      <td>0.249998</td>
-      <td>0.899188</td>
-      <td>00:10</td>
+      <td>0.543739</td>
+      <td>0.527585</td>
+      <td>0.730717</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.234348</td>
-      <td>0.461690</td>
-      <td>0.835589</td>
-      <td>00:10</td>
+      <td>0.508932</td>
+      <td>0.507831</td>
+      <td>0.748309</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.132843</td>
-      <td>0.218986</td>
-      <td>0.920839</td>
-      <td>00:10</td>
+      <td>0.451922</td>
+      <td>0.454692</td>
+      <td>0.799053</td>
+      <td>00:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.080099</td>
-      <td>0.211927</td>
-      <td>0.919486</td>
-      <td>00:10</td>
+      <td>0.427453</td>
+      <td>0.434664</td>
+      <td>0.801759</td>
+      <td>00:07</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>0.377218</td>
+      <td>0.402817</td>
+      <td>0.823410</td>
+      <td>00:07</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>0.340924</td>
+      <td>0.410856</td>
+      <td>0.820027</td>
+      <td>00:07</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>0.319503</td>
+      <td>0.363846</td>
+      <td>0.837618</td>
+      <td>00:07</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>0.271233</td>
+      <td>0.377996</td>
+      <td>0.853180</td>
+      <td>00:07</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>0.228336</td>
+      <td>0.334722</td>
+      <td>0.865359</td>
+      <td>00:07</td>
     </tr>
   </tbody>
 </table></div>
@@ -418,32 +502,37 @@ Saving Weights at epoch 0
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at the end of epoch 0: [4.77]%
-Sparsity at the end of epoch 1: [17.27]%
-Sparsity at the end of epoch 2: [32.73]%
-Sparsity at the end of epoch 3: [45.23]%
-Sparsity at the end of epoch 4: [50.0]%
+<pre>Sparsity at the end of epoch 0: [1.22]%
+Sparsity at the end of epoch 1: [4.77]%
+Sparsity at the end of epoch 2: [10.31]%
+Sparsity at the end of epoch 3: [17.27]%
+Sparsity at the end of epoch 4: [25.0]%
+Sparsity at the end of epoch 5: [32.73]%
+Sparsity at the end of epoch 6: [39.69]%
+Sparsity at the end of epoch 7: [45.23]%
+Sparsity at the end of epoch 8: [48.78]%
+Sparsity at the end of epoch 9: [50.0]%
 Final Sparsity: [50.0]%
-Sparsity in Conv2d 2: 50.00%
-Sparsity in Conv2d 8: 50.00%
-Sparsity in Conv2d 11: 50.00%
-Sparsity in Conv2d 14: 50.00%
-Sparsity in Conv2d 17: 50.00%
-Sparsity in Conv2d 21: 50.00%
-Sparsity in Conv2d 24: 50.00%
-Sparsity in Conv2d 27: 50.00%
-Sparsity in Conv2d 30: 50.00%
-Sparsity in Conv2d 33: 50.00%
-Sparsity in Conv2d 37: 50.00%
-Sparsity in Conv2d 40: 50.00%
-Sparsity in Conv2d 43: 50.00%
-Sparsity in Conv2d 46: 50.00%
-Sparsity in Conv2d 49: 50.00%
-Sparsity in Conv2d 53: 50.00%
-Sparsity in Conv2d 56: 50.00%
-Sparsity in Conv2d 59: 50.00%
-Sparsity in Conv2d 62: 50.00%
-Sparsity in Conv2d 65: 50.00%
+Sparsity in Conv2d 1: 50.00%
+Sparsity in Conv2d 7: 50.00%
+Sparsity in Conv2d 10: 50.00%
+Sparsity in Conv2d 13: 50.00%
+Sparsity in Conv2d 16: 50.00%
+Sparsity in Conv2d 20: 50.00%
+Sparsity in Conv2d 23: 50.00%
+Sparsity in Conv2d 26: 50.00%
+Sparsity in Conv2d 29: 50.00%
+Sparsity in Conv2d 32: 50.00%
+Sparsity in Conv2d 36: 50.00%
+Sparsity in Conv2d 39: 50.00%
+Sparsity in Conv2d 42: 50.00%
+Sparsity in Conv2d 45: 50.00%
+Sparsity in Conv2d 48: 50.00%
+Sparsity in Conv2d 52: 50.00%
+Sparsity in Conv2d 55: 50.00%
+Sparsity in Conv2d 58: 50.00%
+Sparsity in Conv2d 61: 50.00%
+Sparsity in Conv2d 64: 50.00%
 </pre>
 </div>
 </div>
@@ -510,7 +599,7 @@ Sparsity in Conv2d 65: 50.00%
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="n">sparsities</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_cos</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="n">sparsities</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="n">cos</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -582,38 +671,38 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.663173</td>
-      <td>0.546195</td>
-      <td>0.790934</td>
-      <td>00:10</td>
+      <td>0.748184</td>
+      <td>0.876642</td>
+      <td>0.826116</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.403149</td>
-      <td>0.366974</td>
-      <td>0.876184</td>
-      <td>00:10</td>
+      <td>0.422033</td>
+      <td>0.255813</td>
+      <td>0.889039</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.237900</td>
-      <td>0.250653</td>
+      <td>0.262884</td>
+      <td>0.234100</td>
       <td>0.904601</td>
-      <td>00:11</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.138620</td>
-      <td>0.214972</td>
-      <td>0.924899</td>
-      <td>00:11</td>
+      <td>0.132767</td>
+      <td>0.228366</td>
+      <td>0.921516</td>
+      <td>00:08</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.067375</td>
-      <td>0.212548</td>
-      <td>0.920839</td>
-      <td>00:10</td>
+      <td>0.075110</td>
+      <td>0.210104</td>
+      <td>0.930311</td>
+      <td>00:08</td>
     </tr>
   </tbody>
 </table></div>
@@ -669,8 +758,10 @@ Sparsity in Conv2d 65: 0.00%
 <li><code>lth</code>: whether training using the Lottery Ticket Hypothesis, i.e. reset the weights to their original value at each pruning step (more information in the Lottery Ticket Hypothesis section)</li>
 <li><code>rewind_epoch</code>: the epoch used as a reference for the Lottery Ticket Hypothesis with Rewinding (default to 0)</li>
 <li><code>reset_end</code>: whether you want to reset the weights to their original values after training (pruning masks are still applied)</li>
+<li><code>save_tickets</code>: whether to save intermediate winning tickets.</li>
 <li><code>model</code>: pass a model or a part of the model if you don't want to apply pruning on the whole model trained.</li>
-<li><code>layer_type</code>: specify the type of layer that you want to apply pruning to (default to nn.Conv2d)</li>
+<li><code>round_to</code>: if specified, the weights will be pruned to the closest multiple value of <code>round_to</code>.</li>
+<li><code>layer_type</code>: specify the type of layer that you want to apply pruning to (default to nn.Conv2d)`</li>
 </ul>
 
 </div>

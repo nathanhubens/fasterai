@@ -7,6 +7,7 @@ from fastai.vision.all import *
 from fastai.callback.all import *
 from .sparsifier import *
 from .criteria import *
+from .schedule import *
 
 import torch
 import torch.nn as nn
@@ -14,20 +15,15 @@ import torch.nn.functional as F
 
 # Cell
 class SparsifyCallback(Callback):
-
-    def __init__(self, end_sparsity, granularity, method, criteria, sched_func, start_sparsity=0, start_epoch=0, end_epoch=None, lth=False, rewind_epoch=0, reset_end=False, model=None, round_to=None, save_tickets=False, layer_type=nn.Conv2d):
+    def __init__(self, sparsity, granularity, context, criteria, schedule, lth=False, rewind_epoch=0, reset_end=False, save_tickets=False, model=None, round_to=None, layer_type=nn.Conv2d):
         store_attr()
-        self.end_sparsity, self.current_sparsity, self.previous_sparsity = map(listify, [self.end_sparsity, self.start_sparsity, self.start_sparsity])
-
-        assert self.start_epoch>=self.rewind_epoch, 'You must rewind to an epoch before the start of the pruning process'
+        self.sparsity = listify(self.sparsity)
 
     def before_fit(self):
-        print(f'Pruning of {self.granularity} until a sparsity of {self.end_sparsity}%')
-        self.end_epoch = self.n_epoch if self.end_epoch is None else self.end_epoch
-        assert self.end_epoch <= self.n_epoch, 'Your end_epoch must be smaller than total number of epoch'
-
-        model = self.learn.model if self.model is None else self.model # Pass a model if you don't want the whole model to be pruned
-        self.sparsifier = Sparsifier(model, self.granularity, self.method, self.criteria, self.layer_type)
+        print(f'Pruning of {self.granularity} until a sparsity of {self.sparsity}%')
+        assert self.schedule.start_pct*self.n_epoch>=self.rewind_epoch, 'You must rewind to an epoch before the start of the pruning process'
+        model = self.model if self.model else self.learn.model
+        self.sparsifier = Sparsifier(model, self.granularity, self.context, self.criteria, self.layer_type)
 
     def before_epoch(self):
         if self.epoch == self.rewind_epoch:
@@ -35,22 +31,19 @@ class SparsifyCallback(Callback):
             self.sparsifier._save_weights()
 
     def before_batch(self):
-        if self.epoch>=self.start_epoch and self.epoch < self.end_epoch:
-            self._set_sparsity()
-            if self.current_sparsity!=self.previous_sparsity and self.training:
-                if self.lth and self.save_tickets:
-                    print('Saving Intermediate Ticket')
-                    self.sparsifier.save_model(f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth', self.learn.model)
-                self.sparsifier.prune_model(self.current_sparsity, self.round_to)
+        self.current_sparsity = self.schedule(self.sparsity, round(self.pct_train,3))
+        if self.schedule.pruned and self.training:
+            if self.lth and self.save_tickets:
+                print('Saving Intermediate Ticket')
+                self.sparsifier.save_model(f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth', self.learn.model)
+            self.sparsifier.prune_model(self.current_sparsity, self.round_to)
 
     def after_step(self):
-        if self.epoch>=self.start_epoch:
-            if self.lth and self.current_sparsity!=self.previous_sparsity:
-                print(f'Resetting Weights to their epoch {self.rewind_epoch} values')
-                self.sparsifier._reset_weights(self.learn.model)
-
-            self.previous_sparsity = self.current_sparsity
-            self.sparsifier._apply_masks()
+        if self.lth and self.schedule.pruned:
+            print(f'Resetting Weights to their epoch {self.rewind_epoch} values')
+            self.sparsifier._reset_weights(self.learn.model)
+        self.schedule.after_pruned()
+        self.sparsifier._apply_masks()
 
     def after_epoch(self):
         sparsity_str = [float(f"%0.2f"%sp) for sp in self.current_sparsity]
@@ -60,11 +53,8 @@ class SparsifyCallback(Callback):
         if self.save_tickets:
             print('Saving Final Ticket')
             self.sparsifier.save_model(f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth', self.learn.model)
-
-        print(f'Final Sparsity: {self.current_sparsity:}%')
+        print(f'Final Sparsity: {self.schedule.current_sparsity:}%')
         if self.reset_end: self.sparsifier._reset_weights()
         self.sparsifier._clean_buffers()
+        self.schedule.reset()
         self.sparsifier.print_sparsity()
-
-    def _set_sparsity(self):
-        self.current_sparsity = [self.sched_func(start=self.start_sparsity, end=end_sp, pos=(round(self.pct_train,5)*self.n_epoch-self.start_epoch)/(self.end_epoch-self.start_epoch)) for end_sp in self.end_sparsity]

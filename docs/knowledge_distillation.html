@@ -335,26 +335,6 @@ $$<p>With $p^{\tau}$ being the softened predictions of the student and teacher</
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="export">export<a class="anchor-link" href="#export"> </a></h1><p>def SoftTarget(pred, teacher_pred, T=5, *<em>kwargs):
-    return nn.KLDivLoss(reduction='batchmean')(F.log_softmax(pred/T, dim=1), F.softmax(teacher_pred/T, dim=1)) </em> (T*T)</p>
-<p>def Logits(pred, teacher_pred, **kwargs):
-    return F.mse_loss(preds, teacher_pred)</p>
-<p>def Mutual(pred, teacher_pred, **kwargs):
-    return nn.KLDivLoss(reduction='batchmean')(F.log_softmax(pred, dim=1), F.softmax(teacher_pred, dim=1))</p>
-<p>def Attention(pred, teacher_pred, fm_s, fm_t, p=2, **kwargs):
-    return sum([F.mse_loss(F.normalize(fm_s[name_st].pow(p).mean(1),dim=(1,2)), F.normalize(fm_t[name_t].pow(p).mean(1),dim=(1,2))) for name_st, name_t in zip(fm_s, fm_t)])</p>
-<p>def ActivationBoundaries(pred, teacher_pred, fm_s, fm_t, m=2, *<em>kwargs):
-    return sum([((fm_s[name_st] + m).pow(2) </em> ((fm_s[name_st] &gt; -m) &amp; (fm_t[name_t] &lt;= 0)).float() + (fm_s[name_st] - m).pow(2) * ((fm_s[name_st] &lt;= m) &amp; (fm_t[name_t] &gt; 0)).float()).mean() for name_st, name_t in zip(fm_s, fm_t)])</p>
-<p>def FitNet(pred, teacher_pred, fm_s, fm_t, **kwargs):
-    return sum([F.mse_loss(fm_s[name_st],fm_t[name_t]) for name_st, name_t in zip(fm_s, fm_t)])</p>
-<p>def Similarity(fm_s, fm_t, p=2, **kwargs):
-    return sum([F.mse_loss(F.normalize(fm_s[name_st].view(fm_s[name_st].size(0), -1) @ fm_s[name_st].view(fm_s[name_st].size(0), -1).t(), p=p, dim=1), F.normalize(fm_t[name_t].view(fm_t[name_t].size(0), -1) @ fm_t[name_t].view(fm_t[name_t].size(0), -1).t(), p=p, dim=1)) for name_st, name_t in zip(fm_s, fm_t)])</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
