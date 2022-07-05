@@ -13,7 +13,7 @@ import pickle
 
 # Cell
 class Sparsifier():
-    def __init__(self, model, granularity, method, criteria, layer_type=nn.Conv2d):
+    def __init__(self, model, granularity, context, criteria, layer_type=nn.Conv2d):
         store_attr()
         self._save_weights() # Save the original weights
 
@@ -26,7 +26,7 @@ class Sparsifier():
     def prune_model(self, sparsity, round_to=None):
         self.threshold=None
         sparsity_list = listify(sparsity)
-        if len(sparsity_list)>1: assert self.method=='local', f"A list of sparsities cannot be passed using: {self.method}"
+        if len(sparsity_list)>1: assert self.context=='local', f"A list of sparsities cannot be passed using: {self.context}"
         sparsities = cycle(sparsity_list) if len(sparsity_list)==1 else iter(sparsity_list)
         mods = list(self.model.modules())
         for k,m in enumerate(self.model.modules()):
@@ -97,13 +97,13 @@ class Sparsifier():
                 if hasattr(m, '_init_biases'): del m._buffers["_init_biases"]
 
     def _compute_threshold(self, weight, sparsity):
-        if self.method == 'global':
+        if self.context == 'global':
             global_weight = torch.cat([self.criteria(m, self.granularity).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)])
             if self.threshold is None: self.threshold = torch.quantile(global_weight, sparsity/100) # Compute the threshold globally (only once per model pruning)
             return self.threshold
-        elif self.method == 'local':
+        elif self.context == 'local':
             return torch.quantile(weight.view(-1), sparsity/100) # Compute the threshold locally
-        else: raise NameError('Invalid Method')
+        else: raise NameError('Invalid Context')
 
     def _rounded_sparsity(self, n_to_prune, round_to):
         return max(round_to*torch.ceil(n_to_prune/round_to), round_to)
