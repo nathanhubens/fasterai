@@ -2,7 +2,8 @@
 
 __all__ = ['Criteria', 'random', 'large_final', 'squared_final', 'small_final', 'large_init', 'small_init',
            'large_init_large_final', 'small_init_small_final', 'magnitude_increase', 'movement',
-           'updating_magnitude_increase', 'updating_movement', 'updating_movmag', 'grad_crit']
+           'updating_magnitude_increase', 'updating_movement', 'updating_movmag', 'available_criterias', 'criterias',
+           'grad_crit']
 
 # Cell
 import torch
@@ -74,6 +75,11 @@ updating_movement = Criteria(noop, needs_update=True, output_f= lambda x,y: torc
 
 # Cell
 updating_movmag = Criteria(noop, needs_update=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
+
+# Cell
+criterias = ('random', 'large_final', 'small_final', 'squared_final', 'small_init', 'small_final', 'large_init_large_final', 'small_init_small_final', 'magnitude_increase', 'movement', 'updating_magnitude_increase', 'updating_movement', 'updating_movmag')
+def available_criterias():
+    print(criterias)
 
 # Cell
 def grad_crit(m, g):
