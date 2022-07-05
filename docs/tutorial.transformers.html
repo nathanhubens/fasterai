@@ -157,7 +157,8 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+<pre>The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input&#39;s `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
 </pre>
 </div>
 </div>
@@ -222,8 +223,26 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 
 <div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
 
 </div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "></div>
 
 </div>
 
@@ -232,7 +251,7 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(#2) [3.695716381072998,40.2744140625]</pre>
+<pre>(#2) [3.695716619491577,40.2744255065918]</pre>
 </div>
 
 </div>
@@ -264,7 +283,26 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 
 <div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
       <th>epoch</th>
@@ -277,14 +315,13 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
   <tbody>
     <tr>
       <td>0</td>
-      <td>3.139103</td>
-      <td>2.843017</td>
-      <td>17.167484</td>
-      <td>07:58</td>
+      <td>3.124115</td>
+      <td>2.844266</td>
+      <td>17.188944</td>
+      <td>07:50</td>
     </tr>
   </tbody>
-</table>
-</div>
+</table></div>
 
 </div>
 
@@ -319,7 +356,8 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+<pre>The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input&#39;s `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
 </pre>
 </div>
 </div>
@@ -329,7 +367,7 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn on its head. It is a member of the &lt;unk&gt; &lt;unk&gt; &lt;unk&gt;&#39;</pre>
+<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn on its head. It is a member of the &lt;unk&gt; family of &lt;unk&gt;,&#39;</pre>
 </div>
 
 </div>
@@ -377,32 +415,33 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@patch_to</span><span class="p">(</span><span class="n">SparsifyCallback</span><span class="p">)</span>     
-<span class="k">def</span> <span class="nf">before_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Pruning of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">granularity</span><span class="si">}</span><span class="s1"> until a sparsity of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_sparsity</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epoch</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span>
-    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epoch</span><span class="p">,</span> <span class="s1">&#39;Your end_epoch must be smaller than total number of epoch&#39;</span>
-
-    <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="c1"># Pass a model if you don&#39;t want the whole model to be pruned</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">sparsifier</span> <span class="o">=</span> <span class="n">Sparsifier</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">granularity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">criteria</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_type</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">total_iters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_epoch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">n_batches</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">start_iter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_epoch</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">n_batches</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>def before_fit(self):
+    print(f'Pruning of {self.granularity} until a sparsity of {self.sparsity}%')
+    assert self.schedule.start_pct*self.n_epoch&gt;=self.rewind_epoch, 'You must rewind to an epoch before the start of the pruning process'
+    model = self.model if self.model else self.learn.model
+    self.sparsifier = Sparsifier(model, self.granularity, self.context, self.criteria, self.layer_type)</p>
 
 </div>
-    {% endraw %}
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>@patch_to(SparsifyCallback)<br>
+def before_fit(self):
+    print(f'Pruning of {self.granularity} until a sparsity of {self.end_sparsity}%')
+    self.end_epoch = self.n_epoch if self.end_epoch is None else self.end_epoch
+    assert self.end_epoch &lt;= self.n_epoch, 'Your end_epoch must be smaller than total number of epoch'</p>
 
+<pre><code>model = self.learn.model if self.model is None else self.model # Pass a model if you don't want the whole model to be pruned
+self.sparsifier = Sparsifier(model, self.granularity, self.method, self.criteria, self.layer_type)
+self.total_iters = self.end_epoch * self.dls.n_batches
+self.start_iter = self.start_epoch * self.dls.n_batches</code></pre>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's define our <a href="/fasterai/sparsify_callback.html#SparsifyCallback"><code>SparsifyCallback</code></a>. Let's say we want to make our model 30% sparse, by removing the highest-norm weight in each attention head.</p>
@@ -417,7 +456,7 @@ nb_path: "nbs/04c_tutorial.transformers.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">sched_onecycle</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="n">Conv1D</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="n">one_cycle</span><span class="p">,</span> <span class="n">layer_type</span><span class="o">=</span><span class="n">Conv1D</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -464,7 +503,26 @@ Saving Weights at epoch 0
 
 
 <div class="output_html rendered_html output_subarea ">
-<table border="1" class="dataframe">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea "><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
       <th>epoch</th>
@@ -477,14 +535,13 @@ Saving Weights at epoch 0
   <tbody>
     <tr>
       <td>0</td>
-      <td>3.004998</td>
-      <td>2.860594</td>
-      <td>17.471899</td>
-      <td>12:16</td>
+      <td>3.049835</td>
+      <td>2.859973</td>
+      <td>17.461063</td>
+      <td>09:28</td>
     </tr>
   </tbody>
-</table>
-</div>
+</table></div>
 
 </div>
 
@@ -497,50 +554,50 @@ Sparsity in Conv1D 9: 30.00%
 Sparsity in Conv1D 10: 30.00%
 Sparsity in Conv1D 15: 30.00%
 Sparsity in Conv1D 16: 30.00%
-Sparsity in Conv1D 21: 30.00%
 Sparsity in Conv1D 22: 30.00%
-Sparsity in Conv1D 27: 30.00%
+Sparsity in Conv1D 23: 30.00%
 Sparsity in Conv1D 28: 30.00%
-Sparsity in Conv1D 33: 30.00%
+Sparsity in Conv1D 29: 30.00%
 Sparsity in Conv1D 34: 30.00%
-Sparsity in Conv1D 39: 30.00%
+Sparsity in Conv1D 35: 30.00%
 Sparsity in Conv1D 40: 30.00%
-Sparsity in Conv1D 45: 30.00%
+Sparsity in Conv1D 41: 30.00%
 Sparsity in Conv1D 46: 30.00%
-Sparsity in Conv1D 51: 30.00%
+Sparsity in Conv1D 47: 30.00%
 Sparsity in Conv1D 52: 30.00%
-Sparsity in Conv1D 57: 30.00%
+Sparsity in Conv1D 53: 30.00%
 Sparsity in Conv1D 58: 30.00%
-Sparsity in Conv1D 63: 30.00%
+Sparsity in Conv1D 59: 30.00%
 Sparsity in Conv1D 64: 30.00%
-Sparsity in Conv1D 69: 30.00%
+Sparsity in Conv1D 65: 30.00%
 Sparsity in Conv1D 70: 30.00%
-Sparsity in Conv1D 75: 30.00%
+Sparsity in Conv1D 71: 30.00%
 Sparsity in Conv1D 76: 30.00%
-Sparsity in Conv1D 81: 30.00%
+Sparsity in Conv1D 77: 30.00%
 Sparsity in Conv1D 82: 30.00%
-Sparsity in Conv1D 87: 30.00%
+Sparsity in Conv1D 83: 30.00%
 Sparsity in Conv1D 88: 30.00%
-Sparsity in Conv1D 93: 30.00%
+Sparsity in Conv1D 89: 30.00%
 Sparsity in Conv1D 94: 30.00%
-Sparsity in Conv1D 99: 30.00%
+Sparsity in Conv1D 95: 30.00%
 Sparsity in Conv1D 100: 30.00%
-Sparsity in Conv1D 105: 30.00%
+Sparsity in Conv1D 101: 30.00%
 Sparsity in Conv1D 106: 30.00%
-Sparsity in Conv1D 111: 30.00%
+Sparsity in Conv1D 107: 30.00%
 Sparsity in Conv1D 112: 30.00%
-Sparsity in Conv1D 117: 30.00%
+Sparsity in Conv1D 113: 30.00%
 Sparsity in Conv1D 118: 30.00%
-Sparsity in Conv1D 123: 30.00%
+Sparsity in Conv1D 119: 30.00%
 Sparsity in Conv1D 124: 30.00%
-Sparsity in Conv1D 129: 30.00%
+Sparsity in Conv1D 125: 30.00%
 Sparsity in Conv1D 130: 30.00%
-Sparsity in Conv1D 135: 30.00%
+Sparsity in Conv1D 131: 30.00%
 Sparsity in Conv1D 136: 30.00%
-Sparsity in Conv1D 141: 30.00%
+Sparsity in Conv1D 137: 30.00%
 Sparsity in Conv1D 142: 30.00%
-Sparsity in Conv1D 147: 30.00%
+Sparsity in Conv1D 143: 30.00%
 Sparsity in Conv1D 148: 30.00%
+Sparsity in Conv1D 149: 30.00%
 </pre>
 </div>
 </div>
@@ -583,7 +640,8 @@ Sparsity in Conv1D 148: 30.00%
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+<pre>The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input&#39;s `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
 </pre>
 </div>
 </div>
@@ -593,87 +651,9 @@ Sparsity in Conv1D 148: 30.00%
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn @-@ like head. The unicorn is a member of the &lt;unk&gt; &lt;unk&gt;&#39;</pre>
+<pre>&#39;\n = Unicorn = \n \n A unicorn is a magical creature with a rainbow tail and a horn @-@ like head. It is a member of the &lt;unk&gt; family of unicorns&#39;</pre>
 </div>
 
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">print_sparsity</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity in Conv1D 9: 30.00%
-Sparsity in Conv1D 10: 30.00%
-Sparsity in Conv1D 15: 30.00%
-Sparsity in Conv1D 16: 30.00%
-Sparsity in Conv1D 21: 30.00%
-Sparsity in Conv1D 22: 30.00%
-Sparsity in Conv1D 27: 30.00%
-Sparsity in Conv1D 28: 30.00%
-Sparsity in Conv1D 33: 30.00%
-Sparsity in Conv1D 34: 30.00%
-Sparsity in Conv1D 39: 30.00%
-Sparsity in Conv1D 40: 30.00%
-Sparsity in Conv1D 45: 30.00%
-Sparsity in Conv1D 46: 30.00%
-Sparsity in Conv1D 51: 30.00%
-Sparsity in Conv1D 52: 30.00%
-Sparsity in Conv1D 57: 30.00%
-Sparsity in Conv1D 58: 30.00%
-Sparsity in Conv1D 63: 30.00%
-Sparsity in Conv1D 64: 30.00%
-Sparsity in Conv1D 69: 30.00%
-Sparsity in Conv1D 70: 30.00%
-Sparsity in Conv1D 75: 30.00%
-Sparsity in Conv1D 76: 30.00%
-Sparsity in Conv1D 81: 30.00%
-Sparsity in Conv1D 82: 30.00%
-Sparsity in Conv1D 87: 30.00%
-Sparsity in Conv1D 88: 30.00%
-Sparsity in Conv1D 93: 30.00%
-Sparsity in Conv1D 94: 30.00%
-Sparsity in Conv1D 99: 30.00%
-Sparsity in Conv1D 100: 30.00%
-Sparsity in Conv1D 105: 30.00%
-Sparsity in Conv1D 106: 30.00%
-Sparsity in Conv1D 111: 30.00%
-Sparsity in Conv1D 112: 30.00%
-Sparsity in Conv1D 117: 30.00%
-Sparsity in Conv1D 118: 30.00%
-Sparsity in Conv1D 123: 30.00%
-Sparsity in Conv1D 124: 30.00%
-Sparsity in Conv1D 129: 30.00%
-Sparsity in Conv1D 130: 30.00%
-Sparsity in Conv1D 135: 30.00%
-Sparsity in Conv1D 136: 30.00%
-Sparsity in Conv1D 141: 30.00%
-Sparsity in Conv1D 142: 30.00%
-Sparsity in Conv1D 147: 30.00%
-Sparsity in Conv1D 148: 30.00%
-</pre>
-</div>
 </div>
 
 </div>
