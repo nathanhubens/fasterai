@@ -22,4 +22,4 @@ class RegularizationCallback(Callback):
         self.learn.loss = self.learn.loss_grad.clone()
 
     def get_norm(self):
-        return self.wd*torch.stack([large_final(m, self.granularity).sum() for m in learn.modules() if isinstance(m, nn.Conv2d)]).sum()
+        return self.wd*torch.stack([large_final(m, self.granularity).sum() for m in self.learn.modules() if isinstance(m, nn.Conv2d)]).sum()

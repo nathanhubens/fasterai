@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from fastcore.basics import *
 from fastai.callback.schedule import *
+import math
 
 # Cell
 class Schedule():
