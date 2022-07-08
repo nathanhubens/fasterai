@@ -87,7 +87,7 @@ def SoftTarget(pred, teacher_pred, T=5, **kwargs):
     return nn.KLDivLoss(reduction='batchmean')(F.log_softmax(pred/T, dim=1), F.softmax(teacher_pred/T, dim=1)) * (T*T)
 
 def Logits(pred, teacher_pred, **kwargs):
-    return F.mse_loss(preds, teacher_pred)
+    return F.mse_loss(pred, teacher_pred)
 
 def Mutual(pred, teacher_pred, **kwargs):
     return nn.KLDivLoss(reduction='batchmean')(F.log_softmax(pred, dim=1), F.softmax(teacher_pred, dim=1))
