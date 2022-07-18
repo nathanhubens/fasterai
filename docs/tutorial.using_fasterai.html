@@ -70,30 +70,6 @@ nb_path: "nbs/04e_tutorial.using_fasterai.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">bs</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">untar_data</span><span class="p">(</span><span class="n">URLs</span><span class="o">.</span><span class="n">IMAGENETTE_160</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="p">(</span><span class="n">ImageList</span><span class="o">.</span><span class="n">from_folder</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">split_by_folder</span><span class="p">(</span><span class="n">valid</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">label_from_folder</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span><span class="p">(([</span><span class="n">flip_lr</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)],</span> <span class="p">[]),</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">databunch</span><span class="p">(</span><span class="n">bs</span><span class="o">=</span><span class="n">bs</span><span class="p">)</span>
-            <span class="o">.</span><span class="n">presize</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.35</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-            <span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">imagenet_stats</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">count_parameters</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
     <span class="n">num_params</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total parameters : </span><span class="si">{</span><span class="n">num_params</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">&#39;</span> <span class="p">)</span>
@@ -133,72 +109,11 @@ nb_path: "nbs/04e_tutorial.using_fasterai.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">size</span><span class="p">,</span> <span class="n">bs</span> <span class="o">=</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">16</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">bs</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">size</span><span class="p">,</span> <span class="n">bs</span> <span class="o">=</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">16</span>
+<span class="n">dls</span> <span class="o">=</span> <span class="n">get_dls</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">bs</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-<style>
-    /* Turns off some styling */
-    progress {
-        /* gets rid of default border in Firefox and Opera. */
-        border: none;
-        /* Needs to be in here for Safari polyfill so background images work as expected. */
-        background-size: auto;
-    }
-    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-        background: #F44336;
-    }
-</style>
-</div>
-
-</div>
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea ">
-    <div>
-      <progress value='99008512' class='' max='99003388' style='width:300px; height:20px; vertical-align: middle;'></progress>
-      100.01% [99008512/99003388 02:01<00:00]
-    </div>
-    </div>
-
-</div>
-
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-Input <span class="ansi-green-fg">In [16]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 2&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> size, bs <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(98,98,98)">224</span>, <span style="color: rgb(98,98,98)">16</span>
-<span class="ansi-green-fg">----&gt; 2</span> data <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">get_data</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">size</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bs</span><span class="ansi-yellow-bg">)</span>
-
-Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">get_data</span><span class="ansi-blue-fg">(size, bs)</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">get_data</span>(size, bs):
-<span class="ansi-green-intense-fg ansi-bold">      2</span>     path <span style="color: rgb(98,98,98)">=</span> untar_data(URLs<span style="color: rgb(98,98,98)">.</span>IMAGENETTE_160)
-<span class="ansi-green-fg">----&gt; 4</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> (<span class="ansi-yellow-bg">ImageList</span><span style="color: rgb(98,98,98)">.</span>from_folder(path)<span style="color: rgb(98,98,98)">.</span>split_by_folder(valid<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">val</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">      5</span>             <span style="color: rgb(98,98,98)">.</span>label_from_folder()<span style="color: rgb(98,98,98)">.</span>transform(([flip_lr(p<span style="color: rgb(98,98,98)">=</span><span style="color: rgb(98,98,98)">0.5</span>)], []), size<span style="color: rgb(98,98,98)">=</span>size)
-<span class="ansi-green-intense-fg ansi-bold">      6</span>             <span style="color: rgb(98,98,98)">.</span>databunch(bs<span style="color: rgb(98,98,98)">=</span>bs)
-<span class="ansi-green-intense-fg ansi-bold">      7</span>             <span style="color: rgb(98,98,98)">.</span>presize(size, scale<span style="color: rgb(98,98,98)">=</span>(<span style="color: rgb(98,98,98)">0.35</span>,<span style="color: rgb(98,98,98)">1</span>))
-<span class="ansi-green-intense-fg ansi-bold">      8</span>             <span style="color: rgb(98,98,98)">.</span>normalize(imagenet_stats))
-
-<span class="ansi-red-fg">NameError</span>: name &#39;ImageList&#39; is not defined</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -226,7 +141,7 @@ Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">vgg16_bn</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">vgg16_bn</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
 </pre></div>
 
     </div>
@@ -276,7 +191,7 @@ Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And takes <strong>4.03ms</strong> to perform inference on a single image.</p>
+<p>And takes <strong>5.54ms</strong> to perform inference on a single image.</p>
 
 </div>
 </div>
@@ -288,8 +203,8 @@ Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">one_batch</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">dls</span><span class="o">.</span><span class="n">one_batch</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -320,7 +235,7 @@ Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>4.03 ms ± 18.5 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+<pre>5.54 ms ± 240 µs per loop (mean ± std. dev. of 7 runs, 1 loop each)
 </pre>
 </div>
 </div>
@@ -372,6 +287,26 @@ Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">
 <div class="output_area">
 
 
+<div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
 <div class="output_html rendered_html output_subarea "><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: left;">
@@ -385,73 +320,73 @@ Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">
   <tbody>
     <tr>
       <td>0</td>
-      <td>2.016354</td>
-      <td>1.778865</td>
-      <td>0.368917</td>
-      <td>01:31</td>
+      <td>2.045154</td>
+      <td>1.757391</td>
+      <td>0.425223</td>
+      <td>01:08</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>1.777570</td>
-      <td>1.508860</td>
-      <td>0.523567</td>
-      <td>01:31</td>
+      <td>1.742665</td>
+      <td>1.565325</td>
+      <td>0.499108</td>
+      <td>01:07</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>1.436139</td>
-      <td>1.421571</td>
-      <td>0.569172</td>
-      <td>01:32</td>
+      <td>1.480350</td>
+      <td>1.239429</td>
+      <td>0.597197</td>
+      <td>01:07</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>1.275864</td>
-      <td>1.118840</td>
-      <td>0.630064</td>
-      <td>01:31</td>
+      <td>1.260411</td>
+      <td>1.147262</td>
+      <td>0.641529</td>
+      <td>01:07</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>1.136620</td>
-      <td>0.994999</td>
-      <td>0.687898</td>
-      <td>01:31</td>
+      <td>1.142973</td>
+      <td>1.085112</td>
+      <td>0.656051</td>
+      <td>01:08</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>0.970474</td>
-      <td>0.824344</td>
-      <td>0.739618</td>
-      <td>01:31</td>
+      <td>0.990731</td>
+      <td>0.805770</td>
+      <td>0.749809</td>
+      <td>01:07</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>0.878756</td>
-      <td>0.764273</td>
-      <td>0.765605</td>
-      <td>01:32</td>
+      <td>0.830559</td>
+      <td>0.766576</td>
+      <td>0.761783</td>
+      <td>01:08</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>0.817084</td>
-      <td>0.710727</td>
-      <td>0.781911</td>
-      <td>01:31</td>
+      <td>0.778474</td>
+      <td>0.646047</td>
+      <td>0.796943</td>
+      <td>01:08</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>0.716041</td>
-      <td>0.625853</td>
-      <td>0.804841</td>
-      <td>01:31</td>
+      <td>0.638642</td>
+      <td>0.615775</td>
+      <td>0.808408</td>
+      <td>01:08</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>0.668815</td>
-      <td>0.605727</td>
-      <td>0.810955</td>
-      <td>01:31</td>
+      <td>0.693272</td>
+      <td>0.609358</td>
+      <td>0.805350</td>
+      <td>01:07</td>
     </tr>
   </tbody>
 </table></div>
@@ -532,9 +467,9 @@ Input <span class="ansi-green-fg">In [13]</span>, in <span class="ansi-cyan-fg">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><br></p>
 <blockquote>
-<pre><b><i> KnowledgeDistillation(student:Learner, teacher:Learner) </i></b></pre>
+<pre><b><i> KnowledgeDistillation(teacher.model, loss) </i></b></pre>
 <p style="font-size: 15px"><i>
-You only need to give to the callback function your student learner and your teacher learner. Behind the scenes, FasterAI will take care of making your model train using knowledge distillation.
+You only need to give to the callback function your teacher learner. Behind the scenes, FasterAI will take care of making your model train using knowledge distillation.
 </i></p>
 </blockquote>
 </div>
@@ -554,7 +489,7 @@ You only need to give to the callback function your student learner and your tea
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.distillation</span> <span class="kn">import</span> <span class="o">*</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.distill.all</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 
     </div>
@@ -578,7 +513,7 @@ You only need to give to the callback function your student learner and your tea
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">teacher</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">vgg19_bn</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">teacher</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">vgg19_bn</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
 <span class="n">teacher</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
 </pre></div>
 
@@ -588,6 +523,35 @@ You only need to give to the callback function your student learner and your tea
 
 <div class="output_wrapper">
 <div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/HubensN/miniconda3/envs/deep/lib/python3.8/site-packages/fastai/vision/learner.py:265: UserWarning: `cnn_learner` has been renamed to `vision_learner` -- please update your code
+  warn(&#34;`cnn_learner` has been renamed to `vision_learner` -- please update your code&#34;)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
 
 <div class="output_area">
 
@@ -605,24 +569,24 @@ You only need to give to the callback function your student learner and your tea
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.249884</td>
-      <td>0.088749</td>
-      <td>0.972739</td>
-      <td>01:02</td>
+      <td>0.674759</td>
+      <td>0.289090</td>
+      <td>0.912357</td>
+      <td>00:36</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.201829</td>
-      <td>0.087495</td>
-      <td>0.974268</td>
-      <td>01:02</td>
+      <td>0.403283</td>
+      <td>0.180294</td>
+      <td>0.946752</td>
+      <td>00:36</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.261882</td>
-      <td>0.082631</td>
-      <td>0.974013</td>
-      <td>01:01</td>
+      <td>0.396881</td>
+      <td>0.176295</td>
+      <td>0.945223</td>
+      <td>00:36</td>
     </tr>
   </tbody>
 </table></div>
@@ -649,8 +613,9 @@ You only need to give to the callback function your student learner and your tea
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">student</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">vgg16_bn</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
-<span class="n">student</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">KnowledgeDistillation</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">teacher</span><span class="p">)])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">student</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">vgg16_bn</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
+<span class="n">kd_cb</span> <span class="o">=</span> <span class="n">KnowledgeDistillationCallback</span><span class="p">(</span><span class="n">teacher</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">SoftTarget</span><span class="p">)</span>
+<span class="n">student</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">kd_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -659,6 +624,26 @@ You only need to give to the callback function your student learner and your tea
 
 <div class="output_wrapper">
 <div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
 
 <div class="output_area">
 
@@ -676,73 +661,73 @@ You only need to give to the callback function your student learner and your tea
   <tbody>
     <tr>
       <td>0</td>
-      <td>2.323744</td>
-      <td>2.102873</td>
-      <td>0.410955</td>
-      <td>02:16</td>
+      <td>7.487010</td>
+      <td>6.192549</td>
+      <td>0.446369</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>2.099557</td>
-      <td>2.441147</td>
-      <td>0.571465</td>
-      <td>02:16</td>
+      <td>5.470930</td>
+      <td>6.126627</td>
+      <td>0.469809</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>1.829197</td>
-      <td>2.215419</td>
-      <td>0.607643</td>
-      <td>02:16</td>
+      <td>4.444192</td>
+      <td>5.306108</td>
+      <td>0.592102</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>1.617705</td>
-      <td>1.683477</td>
-      <td>0.667006</td>
-      <td>02:16</td>
+      <td>4.153715</td>
+      <td>3.482993</td>
+      <td>0.669554</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>1.364808</td>
-      <td>1.366435</td>
-      <td>0.713376</td>
-      <td>02:16</td>
+      <td>3.522233</td>
+      <td>2.846554</td>
+      <td>0.742166</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>5</td>
-      <td>1.257906</td>
-      <td>0.985063</td>
-      <td>0.788025</td>
-      <td>02:16</td>
+      <td>3.066324</td>
+      <td>2.738527</td>
+      <td>0.739363</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>6</td>
-      <td>1.087404</td>
-      <td>0.877424</td>
-      <td>0.801019</td>
-      <td>02:17</td>
+      <td>2.732183</td>
+      <td>2.394343</td>
+      <td>0.768917</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>7</td>
-      <td>0.949960</td>
-      <td>0.777630</td>
-      <td>0.822166</td>
-      <td>02:16</td>
+      <td>2.329082</td>
+      <td>2.012312</td>
+      <td>0.811720</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>8</td>
-      <td>0.868683</td>
-      <td>0.733206</td>
-      <td>0.837707</td>
-      <td>02:17</td>
+      <td>2.095640</td>
+      <td>1.827197</td>
+      <td>0.822166</td>
+      <td>01:37</td>
     </tr>
     <tr>
       <td>9</td>
-      <td>0.756630</td>
-      <td>0.707806</td>
-      <td>0.843057</td>
-      <td>02:16</td>
+      <td>2.006221</td>
+      <td>1.837958</td>
+      <td>0.817580</td>
+      <td>01:37</td>
     </tr>
   </tbody>
 </table></div>
@@ -843,14 +828,14 @@ You only need to give to the callback function your student learner and your tea
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote>
-    <pre><b><i>SparsifyCallback(learn, sparsity, granularity, method, criteria, sched_func)</i></b></pre>
+    <pre><b><i>SparsifyCallback(learn, sparsity, granularity, context, criteria, schedule)</i></b></pre>
 
 <ul><i>
 <li style="font-size:15px"><b>sparsity</b>: the percentage of sparsity that you want in your network </li>
 <li style="font-size:15px"><b>granularity</b>: on what granularity you want the sparsification to be operated (currently supported: <code>weight</code>, <code>filter</code>)</li>
 <li style="font-size:15px"><b>method</b>: either <code>local</code> or <code>global</code>, will affect the selection of parameters to be choosen in each layer independently (<code>local</code>) or on the whole network (<code>global</code>).</li>
 <li style="font-size:15px"><b>criteria</b>: the criteria used to select which parameters to remove (currently supported: <code>l1</code>, <code>taylor</code>)</li>
-<li style="font-size:15px"><b>sched_func</b>: which schedule you want to follow for the sparsification (currently supported: <a href="https://docs.fast.ai/callback.html#Annealing-functions">any scheduling function of fastai</a>, i.e <code>annealing_linear</code>, <code>annealing_cos</code>, ... and <code>annealing_gradual</code>, common schedules such as One-Shot, Iterative or <a href="https://openreview.net/pdf?id=Sy1iIDkPM">Automated Gradual</a>)</li>
+<li style="font-size:15px"><b>schedule</b>: which schedule you want to follow for the sparsification (currently supported: <a href="https://docs.fast.ai/callback.html#Annealing-functions">any scheduling function of fastai</a>, i.e <code>annealing_linear</code>, <code>annealing_cos</code>, ... and <code>annealing_gradual</code>, common schedules such as One-Shot, Iterative or <a href="https://openreview.net/pdf?id=Sy1iIDkPM">Automated Gradual</a>)</li>
 </i></ul>
 </blockquote>
 </div>
@@ -884,7 +869,8 @@ You only need to give to the callback function your student learner and your tea
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">student</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">sparsity</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">sched_func</span><span class="o">=</span><span class="n">annealing_cos</span><span class="p">)])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp_cb</span> <span class="o">=</span> <span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="s1">&#39;global&#39;</span><span class="p">,</span> <span class="n">criteria</span><span class="o">=</span><span class="n">large_final</span><span class="p">,</span> <span class="n">schedule</span><span class="o">=</span><span class="n">cos</span><span class="p">)</span>
+<span class="n">student</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">cbs</span><span class="o">=</span><span class="n">sp_cb</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -897,9 +883,30 @@ You only need to give to the callback function your student learner and your tea
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Pruning of filter until a sparsity of 40%
+<pre>Pruning of filter until a sparsity of [50]%
+Saving Weights at epoch 0
 </pre>
 </div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
 </div>
 
 <div class="output_area">
@@ -918,73 +925,38 @@ You only need to give to the callback function your student learner and your tea
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.584072</td>
-      <td>0.532074</td>
-      <td>0.838471</td>
-      <td>01:34</td>
+      <td>0.604952</td>
+      <td>0.570446</td>
+      <td>0.817834</td>
+      <td>01:05</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.583805</td>
-      <td>0.499353</td>
-      <td>0.844586</td>
-      <td>01:34</td>
+      <td>0.608648</td>
+      <td>0.560816</td>
+      <td>0.823694</td>
+      <td>01:05</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.599410</td>
-      <td>0.527805</td>
-      <td>0.836433</td>
-      <td>01:34</td>
+      <td>0.594311</td>
+      <td>0.562816</td>
+      <td>0.826497</td>
+      <td>01:05</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.610081</td>
-      <td>0.544566</td>
-      <td>0.828025</td>
-      <td>01:35</td>
+      <td>0.634639</td>
+      <td>0.575046</td>
+      <td>0.822675</td>
+      <td>01:05</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.625637</td>
-      <td>0.543279</td>
-      <td>0.829809</td>
-      <td>01:34</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>0.628777</td>
-      <td>0.563051</td>
-      <td>0.819618</td>
-      <td>01:34</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>0.688617</td>
-      <td>0.617627</td>
-      <td>0.800000</td>
-      <td>01:34</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>0.691044</td>
-      <td>0.629927</td>
-      <td>0.801019</td>
-      <td>01:34</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>0.669935</td>
-      <td>0.576220</td>
-      <td>0.814013</td>
-      <td>01:33</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>0.682428</td>
-      <td>0.562718</td>
-      <td>0.823949</td>
-      <td>01:34</td>
+      <td>0.605929</td>
+      <td>0.571302</td>
+      <td>0.816561</td>
+      <td>01:05</td>
     </tr>
   </tbody>
 </table></div>
@@ -994,17 +966,25 @@ You only need to give to the callback function your student learner and your tea
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity at epoch 0: 0.98%
-Sparsity at epoch 1: 3.83%
-Sparsity at epoch 2: 8.25%
-Sparsity at epoch 3: 13.83%
-Sparsity at epoch 4: 20.01%
-Sparsity at epoch 5: 26.19%
-Sparsity at epoch 6: 31.76%
-Sparsity at epoch 7: 36.19%
-Sparsity at epoch 8: 39.02%
-Sparsity at epoch 9: 40.00%
-Final Sparsity: 40.00
+<pre>Sparsity at the end of epoch 0: [4.77]%
+Sparsity at the end of epoch 1: [17.27]%
+Sparsity at the end of epoch 2: [32.73]%
+Sparsity at the end of epoch 3: [45.23]%
+Sparsity at the end of epoch 4: [50.0]%
+Final Sparsity: [50.0]%
+Sparsity in Conv2d 2: 0.00%
+Sparsity in Conv2d 5: 0.00%
+Sparsity in Conv2d 9: 0.00%
+Sparsity in Conv2d 12: 0.00%
+Sparsity in Conv2d 16: 0.00%
+Sparsity in Conv2d 19: 0.00%
+Sparsity in Conv2d 22: 0.00%
+Sparsity in Conv2d 26: 64.26%
+Sparsity in Conv2d 29: 70.70%
+Sparsity in Conv2d 32: 71.88%
+Sparsity in Conv2d 36: 71.29%
+Sparsity in Conv2d 39: 70.51%
+Sparsity in Conv2d 42: 63.87%
 </pre>
 </div>
 </div>
@@ -1017,54 +997,7 @@ Final Sparsity: 40.00
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Our network now has <strong>40%</strong> of its filters composed entirely of zeroes, at the cost of <strong>2%</strong> of accuracy. Obviously, choosing a higher sparsity, makes it more difficult for the network to keep a similar accuracy. Other parameters can also widely change the behaviour of our sparsification process. For example choosing a more fine-grained sparsity usually leads to better results but is then more difficult to take advantage of in terms of speed.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can double-check that our model has indeed been pruned by <strong>40%</strong> of its parameters.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sparsity in Conv2d 2: 39.06%
-Sparsity in Conv2d 5: 39.06%
-Sparsity in Conv2d 9: 39.84%
-Sparsity in Conv2d 12: 39.84%
-Sparsity in Conv2d 16: 39.84%
-Sparsity in Conv2d 19: 39.84%
-Sparsity in Conv2d 22: 39.84%
-Sparsity in Conv2d 26: 39.84%
-Sparsity in Conv2d 29: 39.84%
-Sparsity in Conv2d 32: 39.84%
-Sparsity in Conv2d 36: 39.84%
-Sparsity in Conv2d 39: 39.84%
-Sparsity in Conv2d 42: 39.84%
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We don't have <strong>exactly 40%</strong> because, as we removed complete filters, we don't necesserally have a round number.</p>
+<p>Our network now has <strong>50%</strong> of its filters composed entirely of zeroes, without even losing accuracy. Obviously, choosing a higher sparsity, makes it more difficult for the network to keep a similar accuracy. Other parameters can also widely change the behaviour of our sparsification process. For example choosing a more fine-grained sparsity usually leads to better results but is then more difficult to take advantage of in terms of speed.</p>
 
 </div>
 </div>
@@ -1078,7 +1011,7 @@ Sparsity in Conv2d 42: 39.84%
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's now see how much we gained in terms of speed. Because we removed <strong>40%</strong> of convolution filters, we should expect crazy speed-up right ?</p>
+<p>Let's now see how much we gained in terms of speed. Because we removed <strong>50%</strong> of convolution filters, we should expect crazy speed-up right ?</p>
 
 </div>
 </div>
@@ -1121,7 +1054,7 @@ Sparsity in Conv2d 42: 39.84%
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>4.02 ms ± 5.77 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+<pre>4.26 ms ± 20.1 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre>
 </div>
 </div>
@@ -1229,13 +1162,13 @@ Sparsity in Conv2d 42: 39.84%
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/fasterai/imgs/pruning_filters.pdf" alt="&#39;SVD&#39;"></p>
 
 </div>
-    {% endraw %}
-
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><br></p>
@@ -1269,6 +1202,13 @@ You just need to pass the model whose filters has previously been sparsified and
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So in the case of our example, it gives:</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1276,7 +1216,7 @@ You just need to pass the model whose filters has previously been sparsified and
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.pruner</span> <span class="kn">import</span> <span class="o">*</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.sparse.pruner</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 
     </div>
@@ -1286,13 +1226,6 @@ You just need to pass the model whose filters has previously been sparsified and
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>So in the case of our example, it gives:</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1355,7 +1288,7 @@ You just need to pass the model whose filters has previously been sparsified and
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Total parameters : 83,975,344
+<pre>Total parameters : 57,202,072
 </pre>
 </div>
 </div>
@@ -1394,7 +1327,7 @@ You just need to pass the model whose filters has previously been sparsified and
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2.44 ms ± 3.51 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+<pre>4.22 ms ± 12.4 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre>
 </div>
 </div>
@@ -1426,7 +1359,7 @@ You just need to pass the model whose filters has previously been sparsified and
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pruned_learner</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pruned_model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pruned_learner</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">pruned_model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
 <span class="n">pruned_learner</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 </pre></div>
 
@@ -1440,6 +1373,26 @@ You just need to pass the model whose filters has previously been sparsified and
 <div class="output_area">
 
 
+<div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
 <div class="output_html rendered_html output_subarea "></div>
 
 </div>
@@ -1449,7 +1402,7 @@ You just need to pass the model whose filters has previously been sparsified and
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[0.5641388, tensor(0.8229)]</pre>
+<pre>(#2) [0.571302056312561,0.8165605068206787]</pre>
 </div>
 
 </div>
@@ -1549,7 +1502,7 @@ Again, you only need to pass your model and FasterAI takes care of the rest. For
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.bn_folder</span> <span class="kn">import</span> <span class="o">*</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.misc.bn_folding</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 
     </div>
@@ -1573,7 +1526,8 @@ Again, you only need to pass your model and FasterAI takes care of the rest. For
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">folded_model</span> <span class="o">=</span> <span class="n">bn_folding_model</span><span class="p">(</span><span class="n">pruned_learner</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bn_f</span> <span class="o">=</span> <span class="n">BN_Folder</span><span class="p">()</span>
+<span class="n">folded_model</span> <span class="o">=</span> <span class="n">bn_f</span><span class="o">.</span><span class="n">fold</span><span class="p">(</span><span class="n">pruned_learner</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1610,7 +1564,7 @@ Again, you only need to pass your model and FasterAI takes care of the rest. For
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Total parameters : 83,970,260
+<pre>Total parameters : 57,197,848
 </pre>
 </div>
 </div>
@@ -1673,7 +1627,7 @@ Again, you only need to pass your model and FasterAI takes care of the rest. For
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2.27 ms ± 1.22 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+<pre>3.02 ms ± 16.7 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre>
 </div>
 </div>
@@ -1698,7 +1652,7 @@ Again, you only need to pass your model and FasterAI takes care of the rest. For
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">folded_learner</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">folded_model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">folded_learner</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">folded_model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
 <span class="n">folded_learner</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 </pre></div>
 
@@ -1712,6 +1666,26 @@ Again, you only need to pass your model and FasterAI takes care of the rest. For
 <div class="output_area">
 
 
+<div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
 <div class="output_html rendered_html output_subarea "></div>
 
 </div>
@@ -1721,7 +1695,7 @@ Again, you only need to pass your model and FasterAI takes care of the rest. For
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[0.5641388, tensor(0.8229)]</pre>
+<pre>(#2) [0.5713019371032715,0.8165605068206787]</pre>
 </div>
 
 </div>
@@ -1842,7 +1816,7 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.fc_decomposer</span> <span class="kn">import</span> <span class="o">*</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">fasterai.misc.fc_decomposer</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 
     </div>
@@ -1859,7 +1833,7 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fc_decomposer</span> <span class="o">=</span> <span class="n">FCDecomposer</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fc_decomposer</span> <span class="o">=</span> <span class="n">FC_Decomposer</span><span class="p">()</span>
 <span class="n">decomposed_model</span> <span class="o">=</span> <span class="n">fc_decomposer</span><span class="o">.</span><span class="n">decompose</span><span class="p">(</span><span class="n">folded_model</span><span class="p">,</span> <span class="n">percent_removed</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 
@@ -1897,7 +1871,7 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Total parameters : 61,430,022
+<pre>Total parameters : 47,000,906
 </pre>
 </div>
 </div>
@@ -1953,7 +1927,7 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2.11 ms ± 462 ns per loop (mean ± std. dev. of 7 runs, 100 loops each)
+<pre>3.16 ms ± 13.2 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre>
 </div>
 </div>
@@ -1985,7 +1959,7 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">final_learner</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">decomposed_model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">final_learner</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="p">,</span> <span class="n">decomposed_model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">accuracy</span><span class="p">])</span>
 <span class="n">final_learner</span><span class="o">.</span><span class="n">fit_one_cycle</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">)</span>
 </pre></div>
 
@@ -1995,6 +1969,26 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
 
 <div class="output_wrapper">
 <div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<style>
+    /* Turns off some styling */
+    progress {
+        /* gets rid of default border in Firefox and Opera. */
+        border: none;
+        /* Needs to be in here for Safari polyfill so background images work as expected. */
+        background-size: auto;
+    }
+    .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+        background: #F44336;
+    }
+</style>
+</div>
+
+</div>
 
 <div class="output_area">
 
@@ -2012,38 +2006,38 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.795416</td>
-      <td>0.759886</td>
-      <td>0.772994</td>
-      <td>00:51</td>
+      <td>0.847210</td>
+      <td>0.851746</td>
+      <td>0.757707</td>
+      <td>00:37</td>
     </tr>
     <tr>
       <td>1</td>
-      <td>0.752566</td>
-      <td>0.701141</td>
-      <td>0.794395</td>
-      <td>00:52</td>
+      <td>0.768943</td>
+      <td>0.765675</td>
+      <td>0.778344</td>
+      <td>00:37</td>
     </tr>
     <tr>
       <td>2</td>
-      <td>0.700373</td>
-      <td>0.650178</td>
-      <td>0.804841</td>
-      <td>00:51</td>
+      <td>0.692119</td>
+      <td>0.794932</td>
+      <td>0.763822</td>
+      <td>00:37</td>
     </tr>
     <tr>
       <td>3</td>
-      <td>0.604264</td>
-      <td>0.606801</td>
-      <td>0.821656</td>
-      <td>00:51</td>
+      <td>0.666022</td>
+      <td>0.679881</td>
+      <td>0.794650</td>
+      <td>00:37</td>
     </tr>
     <tr>
       <td>4</td>
-      <td>0.545705</td>
-      <td>0.592318</td>
-      <td>0.823185</td>
-      <td>00:52</td>
+      <td>0.556258</td>
+      <td>0.661012</td>
+      <td>0.801783</td>
+      <td>00:37</td>
     </tr>
   </tbody>
 </table></div>
@@ -2107,7 +2101,7 @@ decomposed_model = FCD.decompose(model, percent_removed)</i></b></pre>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And we saw that by applying those, we could reduce our <strong>VGG16</strong> model from <strong>134 million</strong> of parameters down to <strong>61 million</strong>, and also speed-up the inference from <strong>4.03ms</strong> to <strong>2.11ms</strong> without any drop in accuracy (even a slight increase actually) compared to the baseline.</p>
+<p>And we saw that by applying those, we could reduce our <strong>VGG16</strong> model from <strong>134 million</strong> of parameters down to <strong>47 million</strong>, and also speed-up the inference from <strong>5.54ms</strong> to <strong>3.16ms</strong> without any drop in accuracy compared to the baseline.</p>
 <p>Of course, those techniques can be used in conjunction with <a href="https://pytorch.org/docs/stable/quantization.html">quantization</a> or <a href="https://pytorch.org/docs/stable/notes/amp_examples.html">mixed-precision training</a>, which are already available in Pytorch for even more compression and speedup.</p>
 
 </div>

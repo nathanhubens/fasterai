@@ -17,11 +17,11 @@ class Sparsifier():
         store_attr()
         self._save_weights() # Save the original weights
 
-    def prune_layer(self, m, sparsity, round_to=None):
-        weight = self.criteria(m, self.granularity)
-        mask = self._compute_mask(weight, sparsity, round_to)
-        m.register_buffer("_mask", mask) # Put the mask into a buffer
+    def prune_layer(self, m, sparsity, round_to=None, k=0):
+        scores = self.criteria(m)
+        setattr(m, '_mask', self._compute_mask(m, scores, sparsity, round_to))
         self._apply(m)
+        self.criteria.update_weights(m)
 
     def prune_model(self, sparsity, round_to=None):
         self.threshold=None
@@ -32,7 +32,7 @@ class Sparsifier():
         for k,m in enumerate(self.model.modules()):
             if isinstance(m, self.layer_type):
                 sp = next(sparsities)
-                self.prune_layer(m, sp, round_to)
+                self.prune_layer(m, sp, round_to,k)
                 if isinstance(mods[k+1], nn.modules.batchnorm._BatchNorm): self.prune_batchnorm(m, mods[k+1])
 
     def prune_batchnorm(self, m, bn):
@@ -40,7 +40,6 @@ class Sparsifier():
         if self.granularity == 'filter' and mask is not None:
             bn.weight.data.mul_(mask.squeeze())
             bn.bias.data.mul_(mask.squeeze())
-
 
     def _apply_masks(self):
         for m in self.model.modules():
@@ -53,16 +52,7 @@ class Sparsifier():
         if self.granularity == 'filter' and m.bias is not None:
             if mask is not None: m.bias.data.mul_(mask.squeeze()) # We want to prune the bias when pruning filters
 
-    def _mask_grad(self):
-        for m in self.model.modules():
-            if isinstance(m, self.layer_type) and hasattr(m, '_mask'):
-                mask = getattr(m, "_mask")
-                if m.weight.grad is not None: m.weight.grad.mul_(mask)
-                if self.granularity == 'filter' and m.bias is not None:
-                    if m.bias.grad is not None: m.bias.grad.mul_(mask.squeeze())
-
-
-    def _reset_weights(self, model=None): # Reset non-pruned weights
+    def _reset_weights(self, model=None):
         if not model: model=self.model
         for m in model.modules():
             if hasattr(m, 'weight'):
@@ -96,25 +86,29 @@ class Sparsifier():
                 if hasattr(m, '_init_weights'): del m._buffers["_init_weights"]
                 if hasattr(m, '_init_biases'): del m._buffers["_init_biases"]
 
-    def _compute_threshold(self, weight, sparsity):
+    def _compute_threshold(self, m, scores, sparsity):
         if self.context == 'global':
-            global_weight = torch.cat([self.criteria(m, self.granularity).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)])
-            if self.threshold is None: self.threshold = torch.quantile(global_weight, sparsity/100) # Compute the threshold globally (only once per model pruning)
-            return self.threshold
+            if self.threshold is None:
+                global_criteria = torch.cat([self.criteria(m).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)]) # Get all scores
+                global_scores = torch.cat([self.criteria.get_scores(m, self.criteria(m), self.granularity, global_criteria.min()).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)])
+                self.threshold = torch.quantile(global_scores, sparsity/100) # Compute the threshold globally (only once per model pruning)
+            scores = self.criteria.get_scores(m, scores, self.granularity, self.criteria.min_value) # min_value is computed only once per prune_model
+            return self.threshold, scores
         elif self.context == 'local':
-            return torch.quantile(weight.view(-1), sparsity/100) # Compute the threshold locally
+            scores = self.criteria.get_scores(m, scores, self.granularity)
+            return torch.quantile(scores.view(-1), sparsity/100), scores
         else: raise NameError('Invalid Context')
 
     def _rounded_sparsity(self, n_to_prune, round_to):
         return max(round_to*torch.ceil(n_to_prune/round_to), round_to)
 
-    def _compute_mask(self, weight, sparsity, round_to):
-        threshold = self._compute_threshold(weight, sparsity)
+    def _compute_mask(self, m, scores, sparsity, round_to):
+        self.threshold, scores = self._compute_threshold(m, scores, sparsity)
         if round_to:
-            n_to_keep = sum(weight.ge(threshold)).squeeze()
-            threshold = torch.topk(weight.squeeze(), int(self._rounded_sparsity(n_to_keep, round_to)))[0].min()
-        if threshold > weight.max(): threshold = weight.max() # Make sure we don't remove every weight of a given layer
-        return weight.ge(threshold).to(dtype=weight.dtype)
+            n_to_keep = sum(scores.ge(self.threshold)).squeeze()
+            self.threshold = torch.topk(scores.squeeze(), int(self._rounded_sparsity(n_to_keep, round_to)))[0].min()
+        if self.threshold > scores.max(): self.threshold = scores.max() # Make sure we don't remove every weight of a given layer
+        return scores.ge(self.threshold).to(dtype=scores.dtype)
 
     def print_sparsity(self):
         for k,m in enumerate(self.model.modules()):

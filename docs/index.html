@@ -69,7 +69,7 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The core feature of <code>fasterai</code> is its Sparsifying capabilities, constructed on 4 main modules: <strong>granularity</strong>, <strong>method</strong>, <strong>criteria</strong>, <strong>schedule</strong>. Each of these modules is highly customizable, allowing you to change them according to your needs or even to come up with your own !</p>
+<p>The core feature of <code>fasterai</code> is its Sparsifying capabilities, constructed on 4 main modules: <strong>granularity</strong>, <strong>context</strong>, <strong>criteria</strong>, <strong>schedule</strong>. Each of these modules is highly customizable, allowing you to change them according to your needs or even to come up with your own !</p>
 
 </div>
 </div>
@@ -119,7 +119,7 @@ nb_path: "nbs/index.ipynb"
 <ul>
 <li><b>Sparsity: </b> the percentage of weights that will be replaced by 0</li>
 <li><b>Granularity: </b> the granularity at which you operate the pruning (removing weights, vectors, kernels, filters)</li>
-<li><b>Method: </b> prune either each layer independantly (local pruning) or the whole model (global pruning)</li>
+<li><b>Context: </b> prune either each layer independantly (local pruning) or the whole model (global pruning)</li>
 <li><b>Criteria: </b> the criteria used to select the weights to remove (magnitude, movement, ...)</li>
 <li><b>Schedule: </b> which schedule you want to use for pruning (one shot, iterative, gradual, ...)</li>
 </ul>
@@ -129,7 +129,7 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This can be achieved by using the <code>SparsifyCallback(end_sparsity, granularity, method, criteria, sched_func)</code></p>
+<p>This can be achieved by using the <code>SparsifyCallback(sparsity, granularity, context, criteria, schedule)</code></p>
 
 </div>
 </div>
@@ -213,7 +213,7 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Distill the knowledge acquired by a big model into a smaller one, by using the <a href="/fasterai/knowledge_distillation.html#KnowledgeDistillation"><code>KnowledgeDistillation</code></a> callback.</p>
+<p>Distill the knowledge acquired by a big model into a smaller one, by using the <code>KnowledgeDistillation</code> callback.</p>
 
 </div>
 </div>
@@ -287,7 +287,7 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">end_sparsity</span><span class="p">,</span> <span class="n">granularity</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">sched_func</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">sp_cb</span><span class="o">=</span><span class="n">SparsifyCallback</span><span class="p">(</span><span class="n">sparsity</span><span class="p">,</span> <span class="n">granularity</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">criteria</span><span class="p">,</span> <span class="n">schedule</span><span class="p">)</span>
 </pre></div>
 
 </div>

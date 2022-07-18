@@ -2,8 +2,8 @@
 
 __all__ = ['Criteria', 'random', 'large_final', 'squared_final', 'small_final', 'large_init', 'small_init',
            'large_init_large_final', 'small_init_small_final', 'magnitude_increase', 'movement',
-           'updating_magnitude_increase', 'updating_movement', 'updating_movmag', 'available_criterias', 'criterias',
-           'grad_crit']
+           'updating_magnitude_increase', 'updating_movement', 'updating_movmag', 'updating_movmag',
+           'available_criterias', 'criterias', 'grad_crit']
 
 # Cell
 import torch
@@ -18,24 +18,42 @@ class Criteria():
     def __init__(self, f, needs_init=False, needs_update=False, output_f=None, return_init=False):
         store_attr()
         assert (needs_init and needs_update)==False, "The init values will be overwritten by the updating ones."
+        self.min_value=None
 
-    def __call__(self, m, g):
+    def __call__(self, m):
         if self.needs_update and hasattr(m, '_old_weights') == False:
             m.register_buffer("_old_weights", m._init_weights.clone()) # If the previous value of weights is not known, take the initial value
 
+        wf = self.f(m.weight)
+        if self.needs_init: wi = self.f(m._init_weights)
+        if self.needs_update: wi = self.f(m._old_weights)
+
+        if hasattr(m, '_mask') == False: m.register_buffer("_mask", torch.ones_like(wf)) # Put the mask into a buffer
+
+        if self.output_f: output = self.output_f(wf, wi)
+        elif self.return_init: output = wi
+        else: output = wf
+        return output
+
+    def granularize(self, m, scores, g):
         if g in granularities[m.__class__.__name__]:
             dim = granularities[m.__class__.__name__][g]
-            wf = self.f(m.weight)[None].mean(dim=dim, keepdim=True).squeeze(0)
-            if self.needs_init: wi = self.f(m._init_weights)[None].mean(dim=dim, keepdim=True).squeeze(0)
-            if self.needs_update: wi = self.f(m._old_weights)[None].mean(dim=dim, keepdim=True).squeeze(0)
-
+            scores = scores[None].mean(dim=dim, keepdim=True).squeeze(0)
         else: raise NameError('Invalid Granularity')
+        return scores
 
-        if self.needs_update: m._old_weights = m.weight.clone() # The current value becomes the old one for the next iteration
+    def get_scores(self, m, scores, g, min_value=None):
+        scores = self.granularize(m, self.rescale(scores, min_value).mul_(m._mask), g)
+        return scores
 
-        if self.output_f: return self.output_f(wf, wi)
-        elif self.return_init: return wi
-        else: return wf
+    def rescale(self, w, min_value=None):
+        self.min_value = min_value if min_value else w.min()
+        output =  w + self.min_value.abs() + torch.finfo(torch.float32).eps
+        return output
+
+    def update_weights(self, m):
+        if self.needs_update:
+            m._old_weights = m.weight.data.clone() # The current value becomes the old one for the next iteration
 
 # Cell
 random = Criteria(torch.randn_like)
@@ -68,10 +86,13 @@ magnitude_increase = Criteria(torch.abs, needs_init=True, output_f= torch.sub)
 movement = Criteria(noop, needs_init=True, output_f= lambda x,y: torch.abs(torch.sub(x,y)))
 
 # Cell
-updating_magnitude_increase = Criteria(torch.abs, needs_update=True, output_f= torch.sub)
+updating_magnitude_increase = Criteria(torch.abs, needs_update=True, output_f= lambda x,y: torch.sub(x,y))
 
 # Cell
 updating_movement = Criteria(noop, needs_update=True, output_f= lambda x,y: torch.abs(torch.sub(x,y)))
+
+# Cell
+updating_movmag = Criteria(noop, needs_init=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
 
 # Cell
 updating_movmag = Criteria(noop, needs_update=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
