@@ -2,8 +2,8 @@
 
 __all__ = ['Criteria', 'random', 'large_final', 'squared_final', 'small_final', 'large_init', 'small_init',
            'large_init_large_final', 'small_init_small_final', 'magnitude_increase', 'movement',
-           'updating_magnitude_increase', 'updating_movement', 'updating_movmag', 'updating_movmag',
-           'available_criterias', 'criterias', 'grad_crit']
+           'updating_magnitude_increase', 'updating_movement', 'movmag', 'updating_movmag', 'available_criterias',
+           'criterias', 'grad_crit']
 
 # Cell
 import torch
@@ -92,7 +92,7 @@ updating_magnitude_increase = Criteria(torch.abs, needs_update=True, output_f= l
 updating_movement = Criteria(noop, needs_update=True, output_f= lambda x,y: torch.abs(torch.sub(x,y)))
 
 # Cell
-updating_movmag = Criteria(noop, needs_init=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
+movmag = Criteria(noop, needs_init=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
 
 # Cell
 updating_movmag = Criteria(noop, needs_update=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
