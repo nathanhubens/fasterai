@@ -34,7 +34,7 @@ class Sparsifier():
         for k,m in enumerate(self.model.modules()):
             if isinstance(m, self.layer_type): 
                 sp = next(sparsities)
-                self.prune_layer(m, sp, round_to,k)
+                self.prune_layer(m, sp, round_to)
                 if isinstance(mods[k+1], nn.modules.batchnorm._BatchNorm): self.prune_batchnorm(m, mods[k+1])
                 
     def prune_batchnorm(self, m, bn):
