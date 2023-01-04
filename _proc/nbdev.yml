@@ -1,0 +1,9 @@
+project:
+  output-dir: docs
+
+website:
+  title: "fasterai"
+  site-url: "https://nathanhubens.github.io/fasterai/"
+  description: "A library to make neural networks lighter and faster with fastai"
+  repo-branch: master
+  repo-url: "https://github.com/nathanhubens/fasterai/tree/master/"
