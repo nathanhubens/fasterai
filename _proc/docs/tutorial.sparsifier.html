@@ -468,18 +468,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A sparse vector, as opposed to a dense one, is a vector which contains a lot of zeroes. When we speak about making a neural network sparse, we thus mean that the network’s weight are mostly zeroes.</p>
 <p>With fasterai, you can do that thanks to the <code>Sparsifier</code> class.</p>
 <p>Let’s start by creating a model</p>
-<div class="cell" data-execution_count="8">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As you probably know, weights in a convolutional neural network have 4 dimensions ($ c_{out} c_{in} k_h k_w$)</p>
-<div class="cell" data-execution_count="9">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model.conv1.weight.ndim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display">
 <pre><code>4</code></pre>
 </div>
 </div>
 <p>In the case of ResNet18, the dimension of the first layer weights is <span class="math inline">\(64 \times 3 \times 7 \times 7\)</span>. We thus can plot each of the <span class="math inline">\(64\)</span> filter as a <span class="math inline">\(7 \times 7\)</span> color image (because they contains <span class="math inline">\(3\)</span> channels).</p>
-<div class="cell" data-execution_count="13">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plot_kernels(model.conv1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="07b_tutorial.sparsifier_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
@@ -507,12 +507,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <blockquote class="blockquote">
 <pre><code> Sparsifier.prune_layer (m, sparsity, round_to=None, k=0)</code></pre>
 </blockquote>
-<div class="cell" data-execution_count="16">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'filter'</span>, <span class="st">'local'</span>, large_final)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_layer(model.conv1, <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="17">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 70.31%
@@ -546,12 +546,12 @@ Sparsity in Conv2d 64: 0.00%</code></pre>
 <pre><code> Sparsifier.prune_model (sparsity, round_to=None)</code></pre>
 </blockquote>
 <p>There are several ways in which we can make that first layer sparse. You will find the most important below:</p>
-<div class="cell" data-execution_count="19">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'weight'</span>, <span class="st">'local'</span>, large_final)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_model(<span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="20">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 69.99%
@@ -582,19 +582,19 @@ Sparsity in Conv2d 64: 70.00%</code></pre>
 <h2 class="anchored" data-anchor-id="granularity">Granularity</h2>
 <p>As we said earlier, the <code>granularity</code> defines the structure of parameter that you will remove.</p>
 <p>In the example below, we removed <code>weight</code> from each convolutional filter, meaning that we now have sparse filters, as can be seen in the image below:</p>
-<div class="cell" data-execution_count="21">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plot_kernels(model.conv1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="07b_tutorial.sparsifier_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Another granularity is, for example, removing <code>column</code> vectors from the filters. To do so, just change the granularity parameter accordingly.</p>
-<div class="cell" data-execution_count="22">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'column'</span>, <span class="st">'local'</span>, large_final)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_layer(model.conv1, <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="23">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plot_kernels(model.conv1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="07b_tutorial.sparsifier_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
@@ -605,12 +605,12 @@ Sparsity in Conv2d 64: 70.00%</code></pre>
 <section id="context" class="level2">
 <h2 class="anchored" data-anchor-id="context">Context</h2>
 <p>The context defines where to look in the model, i.e.&nbsp;from where do we compare weight. The two basic contexts are: - <code>local</code>, i.e.&nbsp;we compare weight from each layer individually. This will lead to layers with similar levels of sparsity. - <code>global</code>, i.e.&nbsp;we compare weight from the whole model. This will lead to layers with different levels of sparsity</p>
-<div class="cell" data-execution_count="24">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'weight'</span>, <span class="st">'local'</span>, large_final)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_model(<span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="25">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 69.99%
@@ -635,12 +635,12 @@ Sparsity in Conv2d 61: 70.00%
 Sparsity in Conv2d 64: 70.00%</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="26">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'weight'</span>, <span class="st">'global'</span>, large_final)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_model(<span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="27">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 66.20%
@@ -669,12 +669,12 @@ Sparsity in Conv2d 64: 75.86%</code></pre>
 <section id="criteria" class="level2">
 <h2 class="anchored" data-anchor-id="criteria">Criteria</h2>
 <p>The <code>criteria</code> defines how we select the parameters to remove. It is usually given by a scoring method. The most common one is the <code>large_final</code>, i.e.&nbsp;select parameters with the highest absolute value as they are supposed to contribute the most to the final results of the model.</p>
-<div class="cell" data-execution_count="28">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'weight'</span>, <span class="st">'global'</span>, large_final)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_model(<span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="29">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 67.08%
@@ -699,12 +699,12 @@ Sparsity in Conv2d 61: 75.90%
 Sparsity in Conv2d 64: 75.85%</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="30">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'weight'</span>, <span class="st">'global'</span>, small_final)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_model(<span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="31">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 72.49%
@@ -734,12 +734,12 @@ Sparsity in Conv2d 64: 66.87%</code></pre>
 <section id="remark" class="level2">
 <h2 class="anchored" data-anchor-id="remark">Remark</h2>
 <p>In some case, you may want to impose the remaining amount of parameters to be a multiple of 8, this can be done by passing the <code>round_to</code> parameter.</p>
-<div class="cell" data-execution_count="32">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'filter'</span>, <span class="st">'local'</span>, large_final)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_model(<span class="dv">70</span>, round_to<span class="op">=</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="33">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 62.50%
@@ -764,12 +764,12 @@ Sparsity in Conv2d 61: 68.75%
 Sparsity in Conv2d 64: 68.75%</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="34">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> resnet18()</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>pruner <span class="op">=</span> Sparsifier(model, <span class="st">'filter'</span>, <span class="st">'global'</span>, large_final)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>pruner.prune_model(<span class="dv">70</span>, round_to<span class="op">=</span><span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="35">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pruner.print_sparsity()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Sparsity in Conv2d 1: 87.50%
