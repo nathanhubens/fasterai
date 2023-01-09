@@ -3,13 +3,7 @@ project:
 
 format:
   html:
-    theme:
-      dark: 
-        - cosmo
-        - custom_dark.scss 
-      light: 
-        - cosmo
-        - custom.scss
+    theme: cosmo
     css: styles.css
     toc: true
 
