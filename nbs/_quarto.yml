@@ -3,7 +3,7 @@ project:
 
 format:
   html:
-    theme: cosmo
+    theme: ''
     css: styles.css
     toc: true
 
@@ -83,4 +83,4 @@ website:
         - 06a_misc.bn_folding.ipynb
         - 06b_misc.fc_decomposer.ipynb
 
-metadata-files: [nbdev.yml, sidebar.yml]
+metadata-files: [nbdev.yml]
