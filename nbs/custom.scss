@@ -1,0 +1,22 @@
+/*-- scss:defaults --*/
+$teal:    #00a89e !default;
+
+$primary:       $teal !default;
+$success:       $teal !default;
+$pre-color:     $teal !default;
+
+
+
+/*-- scss:rules --*/
+p code:not(.sourceCode), li code:not(.sourceCode) {
+    background-color: #f3f5f6;
+    padding: .2em;
+    }
+
+code {
+    font-size: 0.875em;
+    color: #00635d;
+    border-radius: .25rem;
+    padding: .125rem .25rem;
+    word-wrap: break-word;
+    }

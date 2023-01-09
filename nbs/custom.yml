@@ -1,0 +1,9 @@
+project:
+  type: website
+  output-dir: _docs
+
+website:
+  title: "FasterAI"
+  site-url: "https://nathanhubens.github.io/fasterai/"
+  description: "Create smaller and faster Neural Networks"
+  repo-url: "https://github.com/nathanhubens/fasterai"
