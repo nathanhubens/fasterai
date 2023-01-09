@@ -5,6 +5,7 @@ __all__ = ['RegularizationCallback']
 
 # %% ../../nbs/05_regularize.regularizer.ipynb 3
 from fastai.callback.all import *
+from fastcore.basics import store_attr
 from ..core.criteria import *
 
 import torch
@@ -23,4 +24,4 @@ class RegularizationCallback(Callback):
         self.learn.loss = self.learn.loss_grad.clone()
         
     def get_norm(self):
-        return self.wd*torch.stack([large_final(m, self.granularity).sum() for m in self.learn.modules() if isinstance(m, nn.Conv2d)]).sum()
+        return self.wd*torch.stack([large_final.get_scores(m, large_final(m),self.granularity).sum() for m in self.learn.modules() if isinstance(m, nn.Conv2d)]).sum()

@@ -92,12 +92,12 @@ class Sparsifier():
         if self.context == 'global':
             if self.threshold is None: 
                 global_criteria = torch.cat([self.criteria(m).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)]) # Get all scores
-                global_scores = torch.cat([self.criteria.get_scores(m, self.criteria(m), self.granularity, global_criteria.min()).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)])
+                global_scores = torch.cat([self.criteria.get_scores(m, self.granularity, True, global_criteria.min()).view(-1) for m in self.model.modules() if isinstance(m, self.layer_type)])
                 self.threshold = torch.quantile(global_scores, sparsity/100) # Compute the threshold globally (only once per model pruning)
-            scores = self.criteria.get_scores(m, scores, self.granularity, self.criteria.min_value) # min_value is computed only once per prune_model
+            scores = self.criteria.get_scores(m, self.granularity, True, self.criteria.min_value) # min_value is computed only once per prune_model
             return self.threshold, scores
         elif self.context == 'local':
-            scores = self.criteria.get_scores(m, scores, self.granularity)
+            scores = self.criteria.get_scores(m, self.granularity)
             return torch.quantile(scores.view(-1), sparsity/100), scores
         else: raise NameError('Invalid Context')
 

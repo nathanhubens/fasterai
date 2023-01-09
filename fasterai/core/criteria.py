@@ -36,22 +36,23 @@ class Criteria():
         else: output = wf
         return output
     
-    def granularize(self, m, scores, g):
+    def granularize(self, m, scores, g): # Put the scores into granularities
         if g in granularities[m.__class__.__name__]:
             dim = granularities[m.__class__.__name__][g]
             scores = scores[None].mean(dim=dim, keepdim=True).squeeze(0)
         else: raise NameError('Invalid Granularity')
         return scores
     
-    def get_scores(self, m, scores, g, min_value=None):  
-        scores = self.granularize(m, self.rescale(scores, min_value).mul_(m._mask), g)
+    def get_scores(self, m, g, rescale=False, min_value=None):  
+        if rescale: scores = self._rescale(self(m), min_value).mul_(m._mask)
+        scores = self.granularize(m, self(m), g)
         return scores
     
-    def rescale(self, w, min_value=None):
+    def _rescale(self, w, min_value): # Rescale scores to be >0, thus avoiding not pruning previously pruned weight (with a value of 0)
         self.min_value = min_value if min_value else w.min()
         output =  w + self.min_value.abs() + torch.finfo(torch.float32).eps
         return output
-        
+    
     def update_weights(self, m):
         if self.needs_update: 
             m._old_weights = m.weight.data.clone() # The current value becomes the old one for the next iteration
@@ -59,51 +60,51 @@ class Criteria():
 # %% ../../nbs/00b_core.criteria.ipynb 9
 random = Criteria(torch.randn_like)
 
-# %% ../../nbs/00b_core.criteria.ipynb 12
+# %% ../../nbs/00b_core.criteria.ipynb 15
 large_final = Criteria(torch.abs)
 
-# %% ../../nbs/00b_core.criteria.ipynb 15
+# %% ../../nbs/00b_core.criteria.ipynb 18
 squared_final = Criteria(torch.square)
 
-# %% ../../nbs/00b_core.criteria.ipynb 18
+# %% ../../nbs/00b_core.criteria.ipynb 21
 small_final = Criteria(compose(torch.abs, torch.neg))
 
-# %% ../../nbs/00b_core.criteria.ipynb 21
+# %% ../../nbs/00b_core.criteria.ipynb 24
 large_init = Criteria(torch.abs, needs_init=True, return_init=True)
 
-# %% ../../nbs/00b_core.criteria.ipynb 24
+# %% ../../nbs/00b_core.criteria.ipynb 27
 small_init = Criteria(compose(torch.abs, torch.neg), needs_init=True, return_init=True)
 
-# %% ../../nbs/00b_core.criteria.ipynb 27
+# %% ../../nbs/00b_core.criteria.ipynb 30
 large_init_large_final = Criteria(torch.abs, needs_init=True, output_f=torch.min)
 
-# %% ../../nbs/00b_core.criteria.ipynb 30
+# %% ../../nbs/00b_core.criteria.ipynb 33
 small_init_small_final = Criteria(torch.abs, needs_init=True, output_f=lambda x,y: torch.neg(torch.max(x,y)))
 
-# %% ../../nbs/00b_core.criteria.ipynb 33
+# %% ../../nbs/00b_core.criteria.ipynb 36
 magnitude_increase = Criteria(torch.abs, needs_init=True, output_f= torch.sub)
 
-# %% ../../nbs/00b_core.criteria.ipynb 36
+# %% ../../nbs/00b_core.criteria.ipynb 39
 movement = Criteria(noop, needs_init=True, output_f= lambda x,y: torch.abs(torch.sub(x,y)))
 
-# %% ../../nbs/00b_core.criteria.ipynb 41
+# %% ../../nbs/00b_core.criteria.ipynb 44
 updating_magnitude_increase = Criteria(torch.abs, needs_update=True, output_f= lambda x,y: torch.sub(x,y))
 
-# %% ../../nbs/00b_core.criteria.ipynb 44
+# %% ../../nbs/00b_core.criteria.ipynb 47
 updating_movement = Criteria(noop, needs_update=True, output_f= lambda x,y: torch.abs(torch.sub(x,y)))
 
-# %% ../../nbs/00b_core.criteria.ipynb 47
+# %% ../../nbs/00b_core.criteria.ipynb 50
 movmag = Criteria(noop, needs_init=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
 
-# %% ../../nbs/00b_core.criteria.ipynb 50
+# %% ../../nbs/00b_core.criteria.ipynb 53
 updating_movmag = Criteria(noop, needs_update=True, output_f=lambda x,y: torch.abs(torch.mul(x, torch.sub(x,y))))
 
-# %% ../../nbs/00b_core.criteria.ipynb 52
+# %% ../../nbs/00b_core.criteria.ipynb 55
 criterias = ('random', 'large_final', 'small_final', 'squared_final', 'small_init', 'small_final', 'large_init_large_final', 'small_init_small_final', 'magnitude_increase', 'movement', 'updating_magnitude_increase', 'updating_movement', 'updating_movmag')
 def available_criterias():
     print(criterias)
 
-# %% ../../nbs/00b_core.criteria.ipynb 73
+# %% ../../nbs/00b_core.criteria.ipynb 76
 def grad_crit(m, g):
     if g in granularities[m.__class__.__name__]: 
         dim = granularities[m.__class__.__name__][g]
