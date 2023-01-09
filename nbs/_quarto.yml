@@ -26,7 +26,7 @@ website:
     collapse-below: lg
     left:
       - text: "Get Started"
-        href: https://nathanhubens.github.io/07e_tutorial.using_fasterai.ipynb
+        href: https://nathanhubens.github.io/fasterai/quickstart.html
       - text: "Help"
         menu:
           - text: "Report an Issue"
