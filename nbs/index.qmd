@@ -32,7 +32,7 @@ description: Prune your neural networks
 
 ::: {.content-block style="text-align: justify"}
 
-## Bring Sparse capabilities to your neural networks in a single line of code
+## Bring sparse capabilities to your neural networks in a single line of code
 
 
 ::: {.code}
@@ -58,7 +58,7 @@ learn.fit(epochs, lr, cbs=sp_cb)
 
 ::: {.content-block}
 
-## Supported Methods
+## Supported methods
 
 
 ::: {.grid .gap-4 style="padding-bottom: 30px"}
