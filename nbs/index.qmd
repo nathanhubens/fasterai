@@ -71,7 +71,6 @@ learn.fit(epochs, lr, cbs=sp_cb)
 
 Create your own Sparse Neural Networks
 
-
 :::
 
 

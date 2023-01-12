@@ -14,6 +14,7 @@ format:
     toc: true
 
 website:
+  google-analytics: "G-424WWZFZ5F"
   twitter-card:
     creator: "@nathanhubens"
     site: "@fasterai" 
