@@ -124,7 +124,7 @@ pip install fasterai
 
 ## Tutorials
 
-- [Get Started with FasterAI](https://nathanhubens.github.io/fasterai/tutorial.using_fasterai.html)
+- [Get Started with FasterAI](https://nathanhubens.github.io/fasterai/quickstart.html)
 - [Create your own pruning schedule](https://nathanhubens.github.io/fasterai/tutorial.schedules.html)
 - [Find winning tickets using the Lottery Ticket Hypothesis](https://nathanhubens.github.io/fasterai/tutorial.lottery_ticket.html)
 - [Use Knowledge Distillation to help a student model to reach higher performance](https://nathanhubens.github.io/fasterai/tutorial.knowledge_distillation.html)
