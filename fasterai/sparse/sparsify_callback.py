@@ -24,7 +24,7 @@ class SparsifyCallback(Callback):
     def before_fit(self):
         print(f'Pruning of {self.granularity} until a sparsity of {self.sparsity}%')
         assert self.schedule.start_pct*self.n_epoch>=self.rewind_epoch, 'You must rewind to an epoch before the start of the pruning process'
-        model = self.model if self.model else self.learn.model
+        model = self.model or self.learn.model
         self.sparsifier = Sparsifier(model, self.granularity, self.context, self.criteria, self.layer_type)
 
     def before_epoch(self):

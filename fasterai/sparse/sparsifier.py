@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 import pickle
 from itertools import cycle
-from fastcore.basics import store_attr, listify
+from fastcore.basics import store_attr, listify, true
 from ..core.criteria import *
 
 # %% ../../nbs/01_sparse.sparsifier.ipynb 5
@@ -39,7 +39,7 @@ class Sparsifier():
                 
     def prune_batchnorm(self, m, bn):
         mask = getattr(m, "_mask", None)
-        if self.granularity == 'filter' and mask is not None:
+        if self.granularity == 'filter' and mask:
             bn.weight.data.mul_(mask.squeeze())
             bn.bias.data.mul_(mask.squeeze())
             
@@ -50,19 +50,19 @@ class Sparsifier():
         
     def _apply(self, m):
         mask = getattr(m, "_mask", None)
-        if mask is not None: m.weight.data.mul_(mask)
-        if self.granularity == 'filter' and m.bias is not None:
-            if mask is not None: m.bias.data.mul_(mask.squeeze()) # We want to prune the bias when pruning filters
+        if true(mask): m.weight.data.mul_(mask)
+        if self.granularity == 'filter' and true(m.bias):
+            if true(mask): m.bias.data.mul_(mask.squeeze()) # We want to prune the bias when pruning filters
     
     def _reset_weights(self, model=None):
-        if not model: model=self.model
+        model = model or self.model
         for m in model.modules():
             if hasattr(m, 'weight'):
                 init_weights = getattr(m, "_init_weights", m.weight)
                 init_biases = getattr(m, "_init_biases", m.bias)
                 with torch.no_grad():
-                    if m.weight is not None: m.weight.copy_(init_weights)
-                    if m.bias is not None: m.bias.copy_(init_biases)
+                    if true(m.weight): m.weight.copy_(init_weights)
+                    if true(m.bias): m.bias.copy_(init_biases)
                 self._apply(m)
             if isinstance(m, nn.modules.batchnorm._BatchNorm): m.reset_parameters()
                 
@@ -70,18 +70,18 @@ class Sparsifier():
         for m in self.model.modules():
             if hasattr(m, 'weight'):              
                 m.register_buffer("_init_weights", m.weight.clone())
-                b = getattr(m, 'bias', None)
-                if b is not None: m.register_buffer("_init_biases", b.clone())
+                bias = getattr(m, 'bias', None)
+                if true(bias): m.register_buffer("_init_biases", bias.clone())
                     
     def save_model(self, path, model=None):
-        if not model: model=self.model
+        model = model or self.model
         tmp_model = pickle.loads(pickle.dumps(model))
         self._reset_weights(tmp_model)
         self._clean_buffers(tmp_model)
         torch.save(tmp_model, path)
 
     def _clean_buffers(self, model=None):
-        if not model: model=self.model
+        model = model or self.model
         for m in model.modules():
             if hasattr(m, 'weight'):
                 if hasattr(m, '_mask'): del m._buffers["_mask"]
