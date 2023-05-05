@@ -7,6 +7,7 @@ __all__ = ['RegularizationCallback']
 from fastai.callback.all import *
 from fastcore.basics import store_attr
 from ..core.criteria import *
+from ..core.granularity import *
 
 import torch
 import torch.nn as nn
@@ -15,7 +16,7 @@ import torch.nn.functional as F
 # %% ../../nbs/05_regularize.regularizer.ipynb 4
 class RegularizationCallback(Callback):
     "Callback to apply grouped weight decay"
-    def __init__(self, granularity, wd=0.01):
+    def __init__(self, g, wd=0.01):
         store_attr()
 
     def after_loss(self):
@@ -24,4 +25,4 @@ class RegularizationCallback(Callback):
         self.learn.loss = self.learn.loss_grad.clone()
         
     def get_norm(self):
-        return self.wd*torch.stack([large_final.get_scores(m, large_final(m),self.granularity).sum() for m in self.learn.modules() if isinstance(m, nn.Conv2d)]).sum()
+        return self.wd*torch.stack([large_final.f(m.weight)[None].sum(Granularities.get_dim(m, self.g)).sum() for m in self.learn.modules() if isinstance(m, nn.Conv2d)]).sum()

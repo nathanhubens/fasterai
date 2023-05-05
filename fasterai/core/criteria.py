@@ -19,8 +19,7 @@ class Criteria():
     def __init__(self, f, reducer='mean', normalizer=None, needs_init=False, needs_update=False, output_f=None, return_init=False):
         store_attr()
         assert (needs_init and needs_update)==False, "The init values will be overwritten by the updating ones."
-         
-    @torch.no_grad()    
+   
     def __call__(self, m, g):
         try:
             dim = Granularities.get_dim(m, g)
@@ -41,7 +40,7 @@ class Criteria():
         elif self.return_init: scores = wi
         else: scores = wf
             
-        scores = self._rescale(scores).mul_(m._mask)
+        scores = self._rescale(scores)._mul(m._mask)
         scores = self._reduce(scores, dim)
         scores = self._normalize(scores)
         return scores
