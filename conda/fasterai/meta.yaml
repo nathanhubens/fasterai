@@ -1,9 +1,9 @@
 package:
   name: fasterai
-  version: 0.1.12
+  version: 0.1.13
 source:
-  sha256: 41eb94135382410c0ed4475111c1a5c7dc18e48f9b6d1e1954fc67d3a2d8cb98
-  url: https://files.pythonhosted.org/packages/aa/ac/218034da9af0c94b1095d462e7d79d22dec255b96449f022ce491305c9bf/fasterai-0.1.12.tar.gz
+  sha256: 61fd53a32080b08543a91cfceaaf28423a5bdf48bfd047bc95704c5fdc10b555
+  url: https://files.pythonhosted.org/packages/59/17/5ace7091abdcf7f8c5e53a84c87d099a77ae6a22eb252c51ce0a28aaae76/fasterai-0.1.13.tar.gz
 about:
   description: "# Fasterai\n\n\n\n![header](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=header&text=fasterai%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=A%20Library%20to%20make%20smaller%20and%20faster%20neural%20networks&descAlignY=51&descAlign=62)\n\
     \n<p align=\"center\">\n    <a href=\"https://pypi.org/project/fasterai/\"><img\
