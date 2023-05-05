@@ -1,9 +1,9 @@
 package:
   name: fasterai
-  version: 0.1.9
+  version: 0.1.12
 source:
-  sha256: 72618514cede1a710899d91c70d73b0f122af680b422304bb1fe8bf80c7337a7
-  url: https://files.pythonhosted.org/packages/e9/f9/134206f684f78491a7da0b270fa40e55cd4011cad69401c8d6428e1ef852/fasterai-0.1.9.tar.gz
+  sha256: 41eb94135382410c0ed4475111c1a5c7dc18e48f9b6d1e1954fc67d3a2d8cb98
+  url: https://files.pythonhosted.org/packages/aa/ac/218034da9af0c94b1095d462e7d79d22dec255b96449f022ce491305c9bf/fasterai-0.1.12.tar.gz
 about:
   description: "# Fasterai\n\n\n\n![header](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=header&text=fasterai%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=A%20Library%20to%20make%20smaller%20and%20faster%20neural%20networks&descAlignY=51&descAlign=62)\n\
     \n<p align=\"center\">\n    <a href=\"https://pypi.org/project/fasterai/\"><img\
@@ -55,7 +55,7 @@ about:
     \ make it sparse !\n\n```python\nlearn.fit_one_cycle(n_epochs, cbs=sp_cb)\n```\n\
     \n---\n\n##  Installation\n\n\n```\npip install git+https://github.com/nathanhubens/fasterai.git\n\
     ```\n\nor \n\n```\npip install fasterai\n```\n\n---\n\n## Tutorials\n\n- [Get\
-    \ Started with FasterAI](https://nathanhubens.github.io/fasterai/tutorial.using_fasterai.html)\n\
+    \ Started with FasterAI](https://nathanhubens.github.io/fasterai/quickstart.html)\n\
     - [Create your own pruning schedule](https://nathanhubens.github.io/fasterai/tutorial.schedules.html)\n\
     - [Find winning tickets using the Lottery Ticket Hypothesis](https://nathanhubens.github.io/fasterai/tutorial.lottery_ticket.html)\n\
     - [Use Knowledge Distillation to help a student model to reach higher performance](https://nathanhubens.github.io/fasterai/tutorial.knowledge_distillation.html)\n\
@@ -65,9 +65,9 @@ about:
     \  publisher    = {Zenodo},\n  version      = {v0.1.6},\n  doi          = {10.5281/zenodo.6469868},\n\
     \  url          = {https://doi.org/10.5281/zenodo.6469868}\n}\n```\n\n---\n\n\
     ## License\n\n[Apache-2.0](https://www.apache.org/licenses/) License.\n\n![footer](https://capsule-render.vercel.app/api?type=waving&color=008080&height=100&section=footer)\n"
-  dev_url: https://nathanhubens.github.io
-  doc_url: https://nathanhubens.github.io
-  home: https://nathanhubens.github.io
+  dev_url: https://github.com/nathanhubens/fasterai/tree/master/
+  doc_url: https://nathanhubens.github.io/fasterai/
+  home: https://github.com/nathanhubens/fasterai/tree/master/
   license: Apache Software
   license_family: APACHE
   summary: A library to make neural networks lighter and faster with fastai
