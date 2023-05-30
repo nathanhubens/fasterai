@@ -133,6 +133,12 @@ pip install fasterai
 
 ---
 
+## Join the community
+
+Join [our discord server](https://discord.gg/32BwhJSB9u) to meet other FasterAI users and share your projects!
+
+---
+
 ##  Citing
 ```
 @software{Hubens,
