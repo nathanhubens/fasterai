@@ -16,7 +16,7 @@
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#tutorials">Tutorials</a> •
-  <a href="#community">Community</a> •
+  <a href="#join-the-community">Community</a> •
   <a href="#citing">Citing</a> •
   <a href="#license">License</a>
 </p>
