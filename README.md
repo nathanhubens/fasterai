@@ -13,10 +13,10 @@
 
 
 <p align="center">
-  <a href="#methods">Methods</a> •
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#tutorials">Tutorials</a> •
+  <a href="#community">Community</a> •
   <a href="#citing">Citing</a> •
   <a href="#license">License</a>
 </p>
