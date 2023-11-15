@@ -56,9 +56,11 @@ website:
           - 07a_tutorial.schedules.ipynb
           - 07b_tutorial.sparsifier.ipynb
           - 07c_tutorial.sparsify_callback.ipynb
-          - 07d_tutorial.pruner.ipynb
           - 07e_tutorial.lottery_ticket.ipynb
           - 07f_tutorial.transformers.ipynb
+        - section: Prune
+          contents: 
+          - 07d_tutorial.prune_callback.ipynb
         - section: Distill
           contents:
           - 08a_tutorial.knowledge_distillation.ipynb
@@ -78,7 +80,10 @@ website:
         contents:
         - 01_sparse.sparsifier.ipynb
         - 02_sparse.sparsify_callback.ipynb
-        - 03_sparse.pruner.ipynb
+      - section: Prune
+        contents: 
+        - 03_prune.pruner.ipynb
+        - 03b_prune.prune_callback.ipynb
       - section: Distill
         contents:
         - 04_distill.knowledge_distillation.ipynb

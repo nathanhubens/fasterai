@@ -13,10 +13,11 @@ import torch.nn.functional as F
 from fastcore.basics import *
 from fastcore.imports import *
 from .granularity import *
+from typing import Callable
 
 # %% ../../nbs/00b_core.criteria.ipynb 6
 class Criteria():
-    def __init__(self, f, reducer='mean', normalizer=None, needs_init=False, needs_update=False, output_f=None, return_init=False):
+    def __init__(self, f:Callable, reducer:str='mean', normalizer:str=None, needs_init:bool=False, needs_update:bool=False, output_f:Callable=None, return_init=False):
         store_attr()
         assert (needs_init and needs_update)==False, "The init values will be overwritten by the updating ones."
    
@@ -35,13 +36,12 @@ class Criteria():
         if self.needs_init: wi = self.f(m._init_weights)
         if self.needs_update: wi = self.f(m._old_weights)
         
-        if hasattr(m, '_mask') == False: m.register_buffer("_mask", torch.ones_like(wf)) # Put the mask into a buffer
-        
         if self.output_f: scores = self.output_f(wf, wi)
         elif self.return_init: scores = wi
         else: scores = wf
             
-        scores = self._rescale(scores).mul_(m._mask)
+        scores = self._rescale(scores)
+        if hasattr(m, '_mask'): scores.mul_(m._mask)
         scores = self._reduce(scores, dim)
         scores = self._normalize(scores)
         return scores

@@ -38,7 +38,7 @@ class SparsifyCallback(Callback):
             if self.lth and self.save_tickets:
                 print('Saving Intermediate Ticket')
                 self.sparsifier.save_model(f'winning_ticket_{self.previous_sparsity[0]:.2f}.pth', self.learn.model)
-            self.sparsifier.prune_model(self.current_sparsity, self.round_to)
+            self.sparsifier.sparsify_model(self.current_sparsity, self.round_to)
 
     def after_step(self):
         if self.lth and self.schedule.pruned:

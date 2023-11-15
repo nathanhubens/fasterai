@@ -20,15 +20,15 @@ class Sparsifier():
         self._save_weights() # Save the original weights
         self._reset_threshold()
 
-    def prune_layer(self, m, sparsity, round_to=None):
+    def sparsify_layer(self, m, sparsity, round_to=None):
         scores    = self._compute_scores(m, sparsity)
         threshold = self._compute_threshold(scores, sparsity, round_to)
         mask      = self._compute_mask(scores, threshold)
-        setattr(m, '_mask', mask)
+        m.register_buffer('_mask', mask)
         self._apply(m)
         self.criteria.update_weights(m)
 
-    def prune_model(self, sparsity, round_to=None):
+    def sparsify_model(self, sparsity, round_to=None):
         self._reset_threshold()
         sparsity_list = listify(sparsity)
         if len(sparsity_list)>1: assert self.context=='local', f"A list of sparsities cannot be passed using: {self.context}"
@@ -37,10 +37,10 @@ class Sparsifier():
         for k,m in enumerate(self.model.modules()):
             if isinstance(m, self.layer_type): 
                 sp = next(sparsities)
-                self.prune_layer(m, sp, round_to)
-                if isinstance(mods[k+1], nn.modules.batchnorm._BatchNorm): self.prune_batchnorm(m, mods[k+1])
+                self.sparsify_layer(m, sp, round_to)
+                if isinstance(mods[k+1], nn.modules.batchnorm._BatchNorm): self.sparsify_batchnorm(m, mods[k+1])
                 
-    def prune_batchnorm(self, m, bn):
+    def sparsify_batchnorm(self, m, bn):
         mask = getattr(m, "_mask", None)
         if self.granularity == 'filter' and true(mask):
             bn.weight.data.mul_(mask.squeeze())
@@ -55,7 +55,7 @@ class Sparsifier():
         mask = getattr(m, "_mask", None)
         if true(mask): m.weight.data.mul_(mask)
         if self.granularity == 'filter' and true(m.bias):
-            if true(mask): m.bias.data.mul_(mask.squeeze()) # We want to prune the bias when pruning filters
+            if true(mask): m.bias.data.mul_(mask.squeeze()) # We want to sparsify the bias when pruning filters
     
     def _reset_weights(self, model=None):
         model = model or self.model
