@@ -13,10 +13,10 @@
 
 
 <p align="center">
-  <a href="#methods">Methods</a> •
   <a href="#features">Features</a> •
   <a href="#installation">Installation</a> •
   <a href="#tutorials">Tutorials</a> •
+  <a href="#join-the-community">Community</a> •
   <a href="#citing">Citing</a> •
   <a href="#license">License</a>
 </p>
@@ -130,6 +130,12 @@ pip install fasterai
 - [Use Knowledge Distillation to help a student model to reach higher performance](https://nathanhubens.github.io/fasterai/tutorial.knowledge_distillation.html)
 - [Sparsify Transformers](https://nathanhubens.github.io/fasterai/tutorial.transformers.html)
 - More to come...
+
+---
+
+## Join the community
+
+Join [our discord server](https://discord.gg/32BwhJSB9u) to meet other FasterAI users and share your projects!
 
 ---
 

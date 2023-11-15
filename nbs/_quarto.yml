@@ -36,6 +36,9 @@ website:
           - text: "Contact Me"
             icon: chat-right-text
             href: "mailto:nathan.hubens@gmail.com?subject=Hello"
+          - text: "Join the Community"
+            icon: discord
+            href: https://discord.gg/32BwhJSB9u
     right:
       - icon: github
         href: "https://github.com/nathanhubens/fasterai"
