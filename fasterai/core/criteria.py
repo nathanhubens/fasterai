@@ -22,7 +22,7 @@ class Criteria():
         assert (needs_init and needs_update)==False, "The init values will be overwritten by the updating ones."
    
     @torch.no_grad()
-    def __call__(self, m, g):
+    def __call__(self, m, g, squeeze=False):
         try:
             dim = Granularities.get_dim(m, g)
         except KeyError:
@@ -44,6 +44,7 @@ class Criteria():
         if hasattr(m, '_mask'): scores.mul_(m._mask)
         scores = self._reduce(scores, dim)
         scores = self._normalize(scores)
+        if squeeze: scores = scores[None].squeeze((0,*dim))
         return scores
     
     def _reduce(self, scores, dim):
