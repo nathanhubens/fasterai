@@ -82,17 +82,13 @@ class Pruner():
     
     def group_importance(self, group):
         handler_map = {
-            function.prune_conv_out_channels: ('filter', (1, 2, 3)),
-            function.prune_linear_out_channels: ('row', None),
-            function.prune_conv_in_channels: ('shared_kernel', (0, 2, 3)),
-            function.prune_linear_out_channels: ('column', None)
+            function.prune_conv_out_channels: 'filter',
+            function.prune_linear_out_channels: 'column',
+            function.prune_conv_in_channels: 'shared_kernel',
+            # Additional handlers can be added here
         }
 
-        group_importance = [
-            self.criteria(dep.target.module, granularity).squeeze(squeeze_dims)
-            for dep, _ in group
-            if dep.handler in handler_map
-            for granularity, squeeze_dims in [handler_map.get(dep.handler)]
-        ]
+        group_importance = [self.criteria(dep.target.module, handler_map.get(dep.handler), squeeze=True)
+                            for dep, _ in group if dep.handler in handler_map]
 
         return torch.stack(group_importance).mean(0)
