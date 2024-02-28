@@ -59,7 +59,7 @@ class KnowledgeDistillationCallback(Callback):
             self.remove_hooks(self.handles_t)
             self.remove_hooks(self.handles_st)
 
-# %% ../../nbs/04_distill.knowledge_distillation.ipynb 21
+# %% ../../nbs/04_distill.knowledge_distillation.ipynb 22
 def get_model_layers(model, getLayerRepr=False):
     layers = OrderedDict() if getLayerRepr else []
     def get_layers(net, prefix=[]):
@@ -83,7 +83,7 @@ def get_module_by_name(module: Union[torch.Tensor, nn.Module],
     names = access_string.split(sep='.')
     return reduce(getattr, names, module)
 
-# %% ../../nbs/04_distill.knowledge_distillation.ipynb 23
+# %% ../../nbs/04_distill.knowledge_distillation.ipynb 24
 def SoftTarget(pred, teacher_pred, T=5, **kwargs):
     return nn.KLDivLoss(reduction='batchmean')(F.log_softmax(pred/T, dim=1), F.softmax(teacher_pred/T, dim=1)) * (T*T)
 

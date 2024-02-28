@@ -1,1 +1,1 @@
-from .regularization_callback import *
+from .regularize_callback import *

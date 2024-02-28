@@ -71,8 +71,9 @@ class Pruner():
                 
     def _save_init_state(self):
         for m in self.model.modules():
-            if hasattr(m, 'weight'):
-                setattr(m, '_init_out_channels', self.DG.get_out_channels(m))
+            if isinstance(m, self.layer_type):
+                if hasattr(m, 'weight'):
+                    setattr(m, '_init_out_channels', self.DG.get_out_channels(m))
 
     def _rounded_sparsity(self, n_to_prune, round_to):
         return max(round_to*torch.floor(n_to_prune/round_to), round_to)

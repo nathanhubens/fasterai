@@ -90,6 +90,10 @@ website:
       - section: Distill
         contents:
         - 04_distill.knowledge_distillation.ipynb
+      - section: Quantize
+        contents:
+        - 06_quantize.quantizer.ipynb
+        - 06b_quantize.quantize_callback.ipynb
       - section: Regularize
         contents:
         - 05_regularize.regularizer.ipynb
