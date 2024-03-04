@@ -286,6 +286,7 @@ code span.op {
   padding-right: 15px;
   padding: 5px;
   text-align: center;
+  padding-bottom: 5px;
 }
 
 .feature p{
@@ -297,6 +298,7 @@ code span.op {
 .grid {
     align-self:center;
     align-items: center;
+    display: flex;
 }
 
 #feat {
@@ -309,8 +311,9 @@ code span.op {
 
 .feature img {
     float:center;
-    scale: 2;
+    scale: 3.5;
     padding-top: 5px;
+    padding-bottom: 20px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -370,4 +373,8 @@ code span.op {
 
 .quarto-figure {
   margin: 0;
+}
+
+.centered {
+  justify-self: center;
 }

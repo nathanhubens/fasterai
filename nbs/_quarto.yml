@@ -54,6 +54,7 @@ website:
       - quickstart.ipynb
       - section: Tutorials
         contents:
+        - 07aa_tutorial.walkthrough.ipynb
         - section: Sparse
           contents:
           - 07a_tutorial.schedules.ipynb
