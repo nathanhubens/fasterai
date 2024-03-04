@@ -5,11 +5,15 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=header&text=fasterai%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=A%20Library%20to%20make%20smaller%20and%20faster%20neural%20networks&descAlignY=51&descAlign=62)
 
 <p align="center">
-    <a href="https://pypi.org/project/fasterai/"><img src="https://img.shields.io/pypi/v/fasterai?color=%235BAFAF"></a>
-    <a href="https://pypi.org/project/fasterai/"><img src="https://static.pepy.tech/personalized-badge/fasterai?color=%235BAFAFperiod=total&units=international_system&left_color=grey&right_color=%235BAFAF&left_text=downloads"></a>
-    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/nathanhubens/fasterai?color=%235bafaf"></a>
-    <a href="https://pypi.org/project/fasterai/"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.6469868-y?color=%235BAFAF"></a>
+    <a href="https://pypi.org/project/fasterai/"><img src="https://img.shields.io/pypi/v/fasterai?color=black"></a>
+    <a href="https://pypi.org/project/fasterai/"><img src="https://static.pepy.tech/personalized-badge/fasterai?color=black&period=total&units=international_system&left_color=grey&right_color=black&left_text=downloads"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/github/license/nathanhubens/fasterai?color=black"></a>
+    <a href="https://pypi.org/project/fasterai/"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.6469868-y?color=black"></a>
 </p>
+
+
+
+
 
 
 <p align="center">
