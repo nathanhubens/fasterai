@@ -16,7 +16,7 @@ import torch.nn.functional as F
 # %% ../../nbs/05_regularize.regularizer.ipynb 4
 class RegularizeCallback(Callback):
     "Callback to apply grouped weight decay"
-    def __init__(self, g, wd=0.01):
+    def __init__(self, g, wd=0.01, layer_type=nn.Conv2d):
         store_attr()
 
     def after_loss(self):
@@ -25,4 +25,4 @@ class RegularizeCallback(Callback):
         self.learn.loss = self.learn.loss_grad.clone()
         
     def get_norm(self):
-        return self.wd*torch.stack([large_final.f(m.weight)[None].sum(Granularities.get_dim(m, self.g)).sum() for m in self.learn.modules() if isinstance(m, nn.Conv2d)]).sum()
+        return self.wd*torch.stack([large_final.f(m.weight)[None].sum(Granularities.get_dim(m, self.g)).sum() for m in self.learn.modules() if isinstance(m, self.layer_type)]).sum()
