@@ -1,0 +1,769 @@
+[
+  {
+    "objectID": "core.granularity.html",
+    "href": "core.granularity.html",
+    "title": "Granularity",
+    "section": "",
+    "text": "A Conv2d layer possess a 4d-tensor as weights. This means that there exist many ways of removing blocks from it.\n\n\nIn the case of convolution filters, removing 0-D elements is equivalent to removing individual weights.\n\nweight granularity\n\n\nget_pruned_conv('weight')\n\n\n\n\n\n\n\n\n\n\n\n1-D blocks of elements is equivalent to removing vectors from the convolution filters. There are several ways to chose the vectors, that will be represented below.\n\nshared_weight: this granularity is very particular as it removes individual weights from a filter, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_weight')\n\n\n\n\n\n\n\n\n\nchannel: remove vector of weights along the channel axis.\n\n\nget_pruned_conv('channel')\n\n\n\n\n\n\n\n\n\ncolumn: remove vector of weights along the height axis.\n\n\nget_pruned_conv('column')\n\n\n\n\n\n\n\n\n\nrow: remove vector of weights along the width axis.\n\n\nget_pruned_conv('row')\n\n\n\n\n\n\n\n\n\n\n\n\nshared_channel: remove vector of weight along the channel axis, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_channel')\n\n\n\n\n\n\n\n\n\nshared_column: remove vector of weight along the height axis, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_column')\n\n\n\n\n\n\n\n\n\nshared_row: remove vector of weight along the width axis, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_row')\n\n\n\n\n\n\n\n\n\nvertical_slice: remove vertical slices of weight along the height axis.\n\n\nget_pruned_conv('vertical_slice')\n\n\n\n\n\n\n\n\n\nhorizontal_slice: remove vertical slices of weight along the width axis.\n\n\nget_pruned_conv('horizontal_slice')\n\n\n\n\n\n\n\n\n\nkernel: remove kernels of from the convolution filters.\n\n\nget_pruned_conv('kernel')\n\n\n\n\n\n\n\n\n\n\n\n\nshared_vertical_slice: remove vertical slices of weight along the height axis, with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_vertical_slice')\n\n\n\n\n\n\n\n\n\nshared_horizontal_slice: remove horizontal slices of weight along the width axis, with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_horizontal_slice')\n\n\n\n\n\n\n\n\n\nshared_kernel: remove kernels of weight from the convolution filters, with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_kernel')\n\n\n\n\n\n\n\n\n\nfilter: remove entire filters.\n\n\nget_pruned_conv('filter')",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Granularity"
+    ]
+  },
+  {
+    "objectID": "core.granularity.html#conv2d-pruning",
+    "href": "core.granularity.html#conv2d-pruning",
+    "title": "Granularity",
+    "section": "",
+    "text": "A Conv2d layer possess a 4d-tensor as weights. This means that there exist many ways of removing blocks from it.\n\n\nIn the case of convolution filters, removing 0-D elements is equivalent to removing individual weights.\n\nweight granularity\n\n\nget_pruned_conv('weight')\n\n\n\n\n\n\n\n\n\n\n\n1-D blocks of elements is equivalent to removing vectors from the convolution filters. There are several ways to chose the vectors, that will be represented below.\n\nshared_weight: this granularity is very particular as it removes individual weights from a filter, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_weight')\n\n\n\n\n\n\n\n\n\nchannel: remove vector of weights along the channel axis.\n\n\nget_pruned_conv('channel')\n\n\n\n\n\n\n\n\n\ncolumn: remove vector of weights along the height axis.\n\n\nget_pruned_conv('column')\n\n\n\n\n\n\n\n\n\nrow: remove vector of weights along the width axis.\n\n\nget_pruned_conv('row')\n\n\n\n\n\n\n\n\n\n\n\n\nshared_channel: remove vector of weight along the channel axis, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_channel')\n\n\n\n\n\n\n\n\n\nshared_column: remove vector of weight along the height axis, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_column')\n\n\n\n\n\n\n\n\n\nshared_row: remove vector of weight along the width axis, but with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_row')\n\n\n\n\n\n\n\n\n\nvertical_slice: remove vertical slices of weight along the height axis.\n\n\nget_pruned_conv('vertical_slice')\n\n\n\n\n\n\n\n\n\nhorizontal_slice: remove vertical slices of weight along the width axis.\n\n\nget_pruned_conv('horizontal_slice')\n\n\n\n\n\n\n\n\n\nkernel: remove kernels of from the convolution filters.\n\n\nget_pruned_conv('kernel')\n\n\n\n\n\n\n\n\n\n\n\n\nshared_vertical_slice: remove vertical slices of weight along the height axis, with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_vertical_slice')\n\n\n\n\n\n\n\n\n\nshared_horizontal_slice: remove horizontal slices of weight along the width axis, with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_horizontal_slice')\n\n\n\n\n\n\n\n\n\nshared_kernel: remove kernels of weight from the convolution filters, with a pattern that is shared across all filters.\n\n\nget_pruned_conv('shared_kernel')\n\n\n\n\n\n\n\n\n\nfilter: remove entire filters.\n\n\nget_pruned_conv('filter')",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Granularity"
+    ]
+  },
+  {
+    "objectID": "core.granularity.html#linear-pruning",
+    "href": "core.granularity.html#linear-pruning",
+    "title": "Granularity",
+    "section": "Linear Pruning",
+    "text": "Linear Pruning\n\n0-D Blocks\nAs for the convolution filters, weights from a Linear layer can be removed independently.\n\nweight: remove individual weights.\n\n\nget_pruned_linear('weight')\n\n\n\n\n\n\n\n\n\n\n1-D Blocks\n\ncolumn: remove column of weight, which corresponds to removing input neurons.\n\n\nget_pruned_linear('column')\n\n\n\n\n\n\n\n\n\nrow: remove rows of weight, which corresponds to removing output neurons.\n\n\nget_pruned_linear('row')",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Granularity"
+    ]
+  },
+  {
+    "objectID": "core.granularity.html#transformer-pruning",
+    "href": "core.granularity.html#transformer-pruning",
+    "title": "Granularity",
+    "section": "Transformer Pruning",
+    "text": "Transformer Pruning\n\n\n\n\n\n\nNote\n\n\n\nThis is an experimental part of the library",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Granularity"
+    ]
+  },
+  {
+    "objectID": "sparse.sparsify_callback.html",
+    "href": "sparse.sparsify_callback.html",
+    "title": "Sparsify Callback",
+    "section": "",
+    "text": "SparsifyCallback\n\n SparsifyCallback (sparsity, granularity, context, criteria, schedule,\n                   lth=False, rewind_epoch=0, reset_end=False,\n                   save_tickets=False, model=None, round_to=None,\n                   layer_type=&lt;class 'torch.nn.modules.conv.Conv2d'&gt;)\n\nSparsify model during training\nThe most important part of our Callback happens in before_batch. There, we first compute the sparsity of our network according to our schedule and then we remove the parameters accordingly.\nThe SparsifyCallback requires a new argument compared to the Sparsifier. Indeed, we need to know the pruning schedule that we should follow during training in order to prune the parameters accordingly.\nYou can use any scheduling function already available in fastai or come up with your own ! For more information about the pruning schedules, take a look at the Schedules section.\nOn top of that, the SparsifyCallbackcan also take many optionnal arguments:\n\nlth: whether training using the Lottery Ticket Hypothesis, i.e. reset the weights to their original value at each pruning step (more information in the Lottery Ticket Hypothesis section)\nrewind_epoch: the epoch used as a reference for the Lottery Ticket Hypothesis with Rewinding (default to 0)\nreset_end: whether you want to reset the weights to their original values after training (pruning masks are still applied)\nsave_tickets: whether to save intermediate winning tickets.\nmodel: pass a model or a part of the model if you don’t want to apply pruning on the whole model trained.\nround_to: if specified, the weights will be pruned to the closest multiple value of round_to.\nlayer_type: specify the type of layer that you want to apply pruning to (default to nn.Conv2d)`",
+    "crumbs": [
+      "Get Started",
+      "Sparse",
+      "Sparsify Callback"
+    ]
+  },
+  {
+    "objectID": "tutorial.knowledge_distillation.html",
+    "href": "tutorial.knowledge_distillation.html",
+    "title": "KnowledgeDistillation Callback",
+    "section": "",
+    "text": "We’ll illustrate how to use Knowledge Distillation to distill the knowledge of a Resnet34 (the teacher), to a Resnet18 (the student)\nLet’s us grab some data\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64))\n\nThe first step is then to train the teacher model. We’ll start from a pretrained model, ensuring to get good results on our dataset.\n\nteacher = cnn_learner(dls, resnet34, metrics=accuracy)\nteacher.unfreeze()\nteacher.fit_one_cycle(10, 1e-3)\n\n/home/HubensN/miniconda3/envs/deep/lib/python3.8/site-packages/fastai/vision/learner.py:265: UserWarning: `cnn_learner` has been renamed to `vision_learner` -- please update your code\n  warn(\"`cnn_learner` has been renamed to `vision_learner` -- please update your code\")\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.721918\n0.643276\n0.841678\n00:09\n\n\n1\n0.484658\n0.604135\n0.828146\n00:08\n\n\n2\n0.401239\n1.103915\n0.815291\n00:08\n\n\n3\n0.394400\n0.318618\n0.860622\n00:08\n\n\n4\n0.276733\n0.276223\n0.878890\n00:08\n\n\n5\n0.187687\n0.515996\n0.851150\n00:08\n\n\n6\n0.127520\n0.230542\n0.911367\n00:08\n\n\n7\n0.071110\n0.233229\n0.924222\n00:08\n\n\n8\n0.044975\n0.199706\n0.931664\n00:08\n\n\n9\n0.031355\n0.177644\n0.939784\n00:08\n\n\n\n\n\n\n\nWithout KD\nWe’ll now train a Resnet18 from scratch, and without any help from the teacher model, to get that as a baseline\n\nstudent = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nstudent.fit_one_cycle(10, 1e-3)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.608119\n0.594279\n0.679296\n00:07\n\n\n1\n0.577984\n0.637746\n0.690798\n00:07\n\n\n2\n0.543163\n0.532345\n0.732070\n00:07\n\n\n3\n0.508363\n0.468151\n0.772666\n00:07\n\n\n4\n0.464459\n0.442890\n0.780108\n00:07\n\n\n5\n0.405926\n0.410481\n0.816644\n00:07\n\n\n6\n0.355392\n0.429471\n0.821380\n00:07\n\n\n7\n0.278941\n0.365873\n0.838972\n00:07\n\n\n8\n0.218126\n0.366222\n0.855886\n00:07\n\n\n9\n0.165694\n0.367872\n0.857239\n00:07\n\n\n\n\n\n\n\n\nWith KD\nAnd now we train the same model, but with the help of the teacher. The chosen loss is a combination of the regular classification loss (Cross-Entropy) and a loss pushing the student to learn from the teacher’s predictions.\n\nstudent = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nkd = KnowledgeDistillationCallback(teacher.model, SoftTarget)\nstudent.fit_one_cycle(10, 1e-3, cbs=kd)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n2.335700\n1.860445\n0.692828\n00:09\n\n\n1\n2.241398\n1.773348\n0.727334\n00:09\n\n\n2\n2.055018\n1.710084\n0.723951\n00:09\n\n\n3\n1.851421\n1.632465\n0.761840\n00:09\n\n\n4\n1.620585\n1.675239\n0.755751\n00:09\n\n\n5\n1.393245\n1.410955\n0.774019\n00:09\n\n\n6\n1.155736\n1.087842\n0.826116\n00:09\n\n\n7\n0.908853\n0.983743\n0.838972\n00:09\n\n\n8\n0.696537\n0.852848\n0.857916\n00:09\n\n\n9\n0.564625\n0.854901\n0.857239\n00:09\n\n\n\n\n\n\nWhen helped, the student model performs better !\nThere exist more complicated KD losses, such as the one coming from Paying Attention to Attention, where the student tries to replicate the same attention maps of the teacher at intermediate layers.\nUsing such a loss requires to be able to specify from which layer we want to replicate those attention maps. To do so, we have to specify them from their string name, which can be obtained with the get_model_layers function.\nFor example, we set the loss to be applied after each Residual block of our models:\n\nstudent = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nkd = KnowledgeDistillationCallback(teacher.model, Attention, ['layer1', 'layer2', 'layer3', 'layer4'], ['0.4', '0.5', '0.6', '0.7'], weight=0.9)\nstudent.fit_one_cycle(10, 1e-3, cbs=kd)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.088313\n0.088667\n0.679973\n00:09\n\n\n1\n0.079737\n0.077369\n0.719892\n00:09\n\n\n2\n0.070380\n0.065641\n0.765223\n00:09\n\n\n3\n0.061056\n0.061554\n0.792963\n00:09\n\n\n4\n0.055300\n0.058515\n0.790934\n00:09\n\n\n5\n0.048522\n0.052656\n0.830853\n00:09\n\n\n6\n0.040360\n0.047567\n0.847767\n00:09\n\n\n7\n0.032288\n0.046334\n0.855210\n00:09\n\n\n8\n0.023988\n0.045383\n0.868065\n00:09\n\n\n9\n0.020456\n0.044370\n0.866712\n00:09",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Distill",
+      "KnowledgeDistillation Callback"
+    ]
+  },
+  {
+    "objectID": "core.criteria.html",
+    "href": "core.criteria.html",
+    "title": "Criteria",
+    "section": "",
+    "text": "The criteria implemented come from this paper.",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Criteria"
+    ]
+  },
+  {
+    "objectID": "core.criteria.html#weight-based-criteria",
+    "href": "core.criteria.html#weight-based-criteria",
+    "title": "Criteria",
+    "section": "Weight Based Criteria",
+    "text": "Weight Based Criteria\n\nRandom\n\ndemo_model(random)\n\n\n\n\n\n\n\n\n\n\nLarge Final Value\n\ndemo_model(large_final)\n\n\n\n\n\n\n\n\n\n\nSquared Final Value\n\ndemo_model(squared_final)\n\n\n\n\n\n\n\n\n\n\nSmall Final Value\n\ndemo_model(small_final)\n\n\n\n\n\n\n\n\n\n\nLarge Init Value\n\ndemo_model(large_init)\n\n\n\n\n\n\n\n\n\n\nSmall Init Value\n\ndemo_model(small_init)\n\n\n\n\n\n\n\n\n\n\nLarge Init Large Final Value\n\ndemo_model(large_init_large_final, 80)\n\n\n\n\n\n\n\n\n\n\nSmall Init Small Final Value\n\ndemo_model(small_init_small_final)\n\n\n\n\n\n\n\n\n\n\nIncreasing Magnitude\n\ndemo_model(magnitude_increase, 60)\n\n\n\n\n\n\n\n\n\n\nMovement Pruning\n\ndemo_model(movement)",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Criteria"
+    ]
+  },
+  {
+    "objectID": "core.criteria.html#updating-versions",
+    "href": "core.criteria.html#updating-versions",
+    "title": "Criteria",
+    "section": "Updating Versions",
+    "text": "Updating Versions\nThe following criteria use an updating value of the weights, i.e. the value from the previous iteration of training, instead of the initialization value to better capture the training dynamics.\n\nUpdating Magnitude Increase\n\ndemo_model(updating_magnitude_increase)\n\n\n\n\n\n\n\n\n\n\nUpdating Movement\n\ndemo_model(updating_movement, 50)\n\n\n\n\n\n\n\n\n\n\nmov-magnitude\n\ndemo_model(movmag)\n\n\n\n\n\n\n\n\n\n\nUpdating mov-magnitude\n\ndemo_model(updating_movmag)",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Criteria"
+    ]
+  },
+  {
+    "objectID": "core.criteria.html#gradient-based-criteria",
+    "href": "core.criteria.html#gradient-based-criteria",
+    "title": "Criteria",
+    "section": "Gradient Based Criteria",
+    "text": "Gradient Based Criteria",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Criteria"
+    ]
+  },
+  {
+    "objectID": "sparse.sparsifier.html",
+    "href": "sparse.sparsifier.html",
+    "title": "Sparsifier",
+    "section": "",
+    "text": "A sparse vector, as opposed to a dense one, is a vector which contains a lot of zeroes. When we speak about making a neural network sparse, we thus mean that the network’s weight are mostly zeroes.\nWith fasterai, you can do that thanks to the Sparsifier class.\n\nsource\n\nSparsifier\n\n Sparsifier (model, granularity, context, criteria, layer_type=&lt;class\n             'torch.nn.modules.conv.Conv2d'&gt;)\n\nClass providing sparsifying capabilities\nThe Sparsifier class allows us to remove some weights, that are considered to be less useful than others. This can be done by first creating an instance of the class, specifying:\n\nThe granularity, i.e. the part of filters that you want to remove. Typically, we usually remove weights, vectors, kernels or even complete filters.\nThe context, i.e. if you want to consider each layer independently (local), or compare the parameters to remove across the whole network (global).\nThe criteria, i.e. the way to assess the usefulness of a parameter. Common methods compare parameters using their magnitude, the lowest magnitude ones considered to be less useful.\n\nUser can pass a single layer to prune by using the Sparsifier.sparsify_layer method.\n\nsource\n\n\nSparsifier.sparsify_layer\n\n Sparsifier.sparsify_layer (m, sparsity, round_to=None)\n\nMost of the time, we may want to prune the whole model at once, using the Sparsifier.prune_model method, indicating the percentage of sparsity to you want to apply.\n\nsource\n\n\nSparsifier.sparsify_model\n\n Sparsifier.sparsify_model (sparsity, round_to=None)\n\nIn some case, you may want to impose the remaining amount of parameters to be a multiple of a given number (e.g. 8), this can be done by passing the round_to parameter.\n\nAlso, instead of passing a single value of sparsity, a list of sparsities can also be provided. In that case, each value in the list is the sparsity that will be applied to all layers.\nExample: I have a 4-layer network and want to remove half of the parameters from the layers 2 and 3, I can provide the list: sparsity = [0, 50, 50, 0]",
+    "crumbs": [
+      "Get Started",
+      "Sparse",
+      "Sparsifier"
+    ]
+  },
+  {
+    "objectID": "prune.prune_callback.html",
+    "href": "prune.prune_callback.html",
+    "title": "Prune Callback",
+    "section": "",
+    "text": "PruneCallback\n\n PruneCallback (sparsity:int, context:str, criteria:Callable,\n                schedule:Callable,\n                model:torch.nn.modules.module.Module=None,\n                round_to:int=None,\n                layer_type:torch.nn.modules.module.Module=&lt;class\n                'torch.nn.modules.conv.Conv2d'&gt;)\n\nBasic class handling tweaks of the training loop by changing a Learner in various events",
+    "crumbs": [
+      "Get Started",
+      "Prune",
+      "Prune Callback"
+    ]
+  },
+  {
+    "objectID": "quickstart.html",
+    "href": "quickstart.html",
+    "title": "Quick Start",
+    "section": "",
+    "text": "Embark on a journey to supercharge your neural network models with FasterAI, a PyTorch-based library dedicated exclusively to advanced compression techniques. In today’s fast-paced world, where efficiency and performance are paramount, FasterAI stands out by providing cutting-edge solutions designed to make your neural networks not just lighter, but significantly faster.",
+    "crumbs": [
+      "Get Started",
+      "Quick Start"
+    ]
+  },
+  {
+    "objectID": "quickstart.html#why-choose-fasterai",
+    "href": "quickstart.html#why-choose-fasterai",
+    "title": "Quick Start",
+    "section": "Why Choose FasterAI?",
+    "text": "Why Choose FasterAI?\n\nStreamlined Efficiency: Dive into a suite of compression methodologies, including sparsification, pruning, quantization, and knowledge distillation, each tailored to enhance model efficiency without compromising on accuracy.\nEdge-Ready Models: With FasterAI, prepare your models for the edge, ensuring they run smoothly on devices with limited computational resources, from smartphones to IoT devices.\nCutting-edge Technology: Built on the latest research in data and model compression, FasterAI offers tools that are not just powerful but also easy to integrate into your existing workflows.\nVersatility: From image and video compression to deep learning model optimization, FasterAI is versatile enough to handle a wide range of compression needs, making it suitable for various industries and applications.\nOpen and Accessible: As a community-driven project, FasterAI encourages contributions and feedback, ensuring that the library continues to evolve to meet the needs of its users.",
+    "crumbs": [
+      "Get Started",
+      "Quick Start"
+    ]
+  },
+  {
+    "objectID": "quickstart.html#getting-started-with-fasterai",
+    "href": "quickstart.html#getting-started-with-fasterai",
+    "title": "Quick Start",
+    "section": "Getting Started with FasterAI",
+    "text": "Getting Started with FasterAI\nWhether you’re looking to optimize models for production, research, or hobby projects, FasterAI provides the tools and guidance to achieve your goals. Let’s make your neural networks faster and lighter, together.\n\nHow to use fasterai ?\nFasterAI’s integration with the callback system of fastai represents a significant advancement in how compression techniques can be applied to neural networks, particularly during the training phase. This approach allows for a more seamless and flexible implementation of compression strategies, making it possible to optimize models on-the-fly and potentially achieve better efficiency and performance.\n\n\nUnderstanding Callbacks in fastai\nBefore diving into how FasterAI leverages callbacks, it’s important to understand what callbacks are in the context of the fastai library. Callbacks are a programming pattern that allows users to inject custom behavior into certain stages of the training loop or model lifecycle without altering the core logic of the training process. They can be used for a variety of purposes, such as logging metrics, modifying learning rates, or implementing early stopping.\n\n\nFasterAI’s Use of Callbacks\nFasterAI takes advantage of the callback system in fastai to integrate neural network compression techniques directly into the training process. This integration means that instead of applying compression post-training as a separate step, FasterAI allows for compression techniques like pruning, quantization, and knowledge distillation to be applied dynamically as the model trains. Here’s how it enhances the training process:\n\nDynamic Compression: By using callbacks, FasterAI can dynamically adjust the compression parameters based on the model’s performance during training. For example, it can gradually increase the amount of pruning as the model becomes more stable, leading to a more efficient compression process that minimally impacts performance.\nReal-time Optimization: This approach enables real-time optimization of the model. As the model learns and adapts to the data, FasterAI can apply compression techniques in a way that’s informed by the model’s current state, potentially leading to more effective and efficient compression.\nSeamless Integration: Leveraging fastai’s callback system means that users of FasterAI can integrate compression into their training pipelines with minimal code changes. This seamless integration simplifies the process of applying advanced compression techniques, making it accessible even to those with limited experience in model optimization.\n\n\n\nPractical Implications\nFor practitioners, this means they can train models that are not only high-performing but also optimized for size and speed from the outset. It also opens up new possibilities for experimenting with compression techniques during training, which could lead to novel optimization strategies and more efficient models.\nIn essence, FasterAI’s use of the callback system in fastai democratizes the application of sophisticated neural network compression techniques, making them an integral part of the model development lifecycle rather than an afterthought. This approach aligns with the broader goal of developing AI models that are not just powerful but also efficient and adaptable to various deployment environments.\nTo illustrate the practical application of FasterAI’s integration with the fastai callback system for on-the-fly compression during the training phase, let’s walk through an example. This example will demonstrate how to apply dynamic pruning to a neural network model while it’s being trained, leveraging the callback system for seamless integration.\n\n\nSetting Up Your Environment\nFirst, ensure you have both fastai and FasterAI installed in your Python environment. If you haven’t installed these libraries yet, you can do so using pip:\npip install fastai fasterai\n\n\nImporting Necessary Libraries\nBegin by importing the required libraries from fasterai:\nfrom fasterai.sparse.all import *\n\n\nDefining the Dataloader and Learner\nJust get your favorite Dataloader and Learner as usual with fastai:\ndls = get_dls()\nlearner = get_learner()\n\n\nApplying Dynamic Sparsification with a Callback\nNow, integrate FasterAI’s dynamic sparsification into the training process by adding the SparsifyCallback to your model. This callback will apply sparsify dynamically based on the defined parameters:\nsparsify_callback = SparsifyCallback(sparsity, granularity, context, criteria, schedule)\nlearner.fit(n_epoch, max_lr, cbs=[sparsify_callback])\nIn this example, SparsifyCallback is initialized with different parameters (see the tutorial to better understand those parameters). The fit method trains the model for n_epochs, and the SparsifyCallback is passed through the cbs (callbacks) parameter, enabling dynamic sparsification during the training process.\n\n\nObserving the Effects\nAfter training, you can evaluate the model’s performance and size to observe the effects of dynamic sparsification. You should notice a reduction in the model size with minimal impact on accuracy, showcasing the efficiency of integrating compression techniques during training.\n\n\nConclusion\nThis example demonstrates how FasterAI’s integration with the fastai callback system allows for the application of compression techniques like sparsification directly within the training loop. By leveraging callbacks, you can dynamically optimize your neural network models, making them lighter and faster without a significant compromise on performance. This approach not only simplifies the compression process but also opens up new avenues for creating efficient AI models optimized for various deployment scenarios.",
+    "crumbs": [
+      "Get Started",
+      "Quick Start"
+    ]
+  },
+  {
+    "objectID": "tutorial.lottery_ticket.html",
+    "href": "tutorial.lottery_ticket.html",
+    "title": "Lottery Ticket Hypothesis",
+    "section": "",
+    "text": "The Lottery Ticket Hypothesis is a really intriguing discovery made in 2019 by Frankle & Carbin. It states that:\n\nA randomly-initialized, dense neural network contains a subnetwork that is initialised such that — when trained in isolation — it can match the test accuracy of the original network after training for at most the same number of iterations.\n\nMeaning that, once we find that subnetwork. Every other parameter in the network becomes useless.\nThe way authors propose to find those subnetwork is as follows:\n\n\nInitialize the neural network\nTrain it to convergence\nPrune the smallest magnitude weights by creating a mask \\(m\\)\nReinitialize the weights to their original value; i.e at iteration \\(0\\).\nRepeat from step 2 until reaching the desired level of sparsity.\n\n\nfrom fasterai.sparse.all import *\n\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndevice = 'cuda:0' if torch.cuda.is_available() else 'cpu'\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64), device=device)\n\nWhat we are trying to prove is that: in a neural network A, there exists a subnetwork B able to get an accuracy \\(a_B &gt; a_A\\), in a training time \\(t_B &lt; t_A\\).\nLet’s get the baseline for network A:\n\nlearn = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\n\nLet’s save original weights\n\ninitial_weights = deepcopy(learn.model.state_dict())\n\n\nlearn.fit(5, 1e-3)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.595053\n0.543628\n0.717185\n00:07\n\n\n1\n0.546125\n0.531834\n0.728687\n00:07\n\n\n2\n0.521566\n0.521680\n0.746279\n00:07\n\n\n3\n0.478598\n0.478660\n0.764547\n00:07\n\n\n4\n0.421515\n0.719835\n0.633288\n00:07\n\n\n\n\n\n\nWe now have our accuracy \\(a_A\\) of \\(79\\%\\) and our training time \\(t_A\\) of \\(5\\) epochs\nTo find the lottery ticket, we will perform iterative pruning but, at each pruning step we will re-initialize the remaining weights to their original values (i.e. before training).\nWe will restart from the same initialization to be sure to not get lucky.\n\nlearn = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nlearn.model.load_state_dict(initial_weights)\n\n&lt;All keys matched successfully&gt;\n\n\nWe can pass the parameters lth=True to make the weights of the network reset to their original value after each pruning step, i.e. step 4) of the LTH. To empirically validate the LTH, we need to retrain the found “lottery ticket” after the pruning phase. Lottery tickets are usually found following an iterative pruning schedule. We set the start_epoch parameter to \\(5\\) to begin the pruning process after \\(5\\) epochs.\n\nschedule = Schedule(sched_iterative, start_pct=0.25)\n\n\nsp_cb = SparsifyCallback(50, 'weight', 'local', large_final, schedule, lth=True)\n\nAs our iterative schedule makes \\(3\\) pruning steps by default, it means that we have to train our network for start_epoch + \\(3*t_B\\), so \\(20\\) epochs in order to get our LTH. After each step, the remaining weights will be reinitialized to their original value\n\nlearn.fit(20, 1e-3, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [0.0]%\nSparsity at the end of epoch 1: [0.0]%\nSparsity at the end of epoch 2: [0.0]%\nSparsity at the end of epoch 3: [0.0]%\nSparsity at the end of epoch 4: [0.0]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 5: [16.67]%\nSparsity at the end of epoch 6: [16.67]%\nSparsity at the end of epoch 7: [16.67]%\nSparsity at the end of epoch 8: [16.67]%\nSparsity at the end of epoch 9: [16.67]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 10: [33.33]%\nSparsity at the end of epoch 11: [33.33]%\nSparsity at the end of epoch 12: [33.33]%\nSparsity at the end of epoch 13: [33.33]%\nSparsity at the end of epoch 14: [33.33]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 15: [50.0]%\nSparsity at the end of epoch 16: [50.0]%\nSparsity at the end of epoch 17: [50.0]%\nSparsity at the end of epoch 18: [50.0]%\nSparsity at the end of epoch 19: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 1: 50.00%\nSparsity in Conv2d 7: 50.00%\nSparsity in Conv2d 10: 50.00%\nSparsity in Conv2d 13: 50.00%\nSparsity in Conv2d 16: 50.00%\nSparsity in Conv2d 20: 50.00%\nSparsity in Conv2d 23: 50.00%\nSparsity in Conv2d 26: 50.00%\nSparsity in Conv2d 29: 50.00%\nSparsity in Conv2d 32: 50.00%\nSparsity in Conv2d 36: 50.00%\nSparsity in Conv2d 39: 50.00%\nSparsity in Conv2d 42: 50.00%\nSparsity in Conv2d 45: 50.00%\nSparsity in Conv2d 48: 50.00%\nSparsity in Conv2d 52: 50.00%\nSparsity in Conv2d 55: 50.00%\nSparsity in Conv2d 58: 50.00%\nSparsity in Conv2d 61: 50.00%\nSparsity in Conv2d 64: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.587271\n0.612850\n0.668471\n00:07\n\n\n1\n0.547513\n0.573875\n0.701624\n00:07\n\n\n2\n0.501447\n0.514319\n0.738160\n00:07\n\n\n3\n0.467517\n0.518835\n0.740189\n00:07\n\n\n4\n0.431308\n0.621117\n0.654263\n00:07\n\n\n5\n0.561822\n0.546851\n0.728011\n00:07\n\n\n6\n0.514754\n0.570669\n0.765223\n00:07\n\n\n7\n0.469772\n0.576346\n0.675913\n00:07\n\n\n8\n0.427512\n0.454539\n0.799053\n00:07\n\n\n9\n0.385058\n0.537472\n0.728011\n00:07\n\n\n10\n0.482251\n0.442526\n0.778078\n00:07\n\n\n11\n0.430115\n0.510421\n0.777402\n00:07\n\n\n12\n0.383115\n0.424600\n0.811908\n00:07\n\n\n13\n0.341061\n0.663934\n0.681326\n00:07\n\n\n14\n0.322339\n0.383250\n0.830853\n00:07\n\n\n15\n0.402276\n0.441383\n0.799053\n00:07\n\n\n16\n0.348916\n0.384334\n0.814614\n00:07\n\n\n17\n0.311075\n0.409829\n0.817321\n00:07\n\n\n18\n0.280943\n0.405584\n0.824763\n00:07\n\n\n19\n0.244700\n0.385061\n0.827470\n00:07\n\n\n\n\n\n\nWe indeed have a network B, whose accuracy \\(a_B &gt; a_A\\) in the same training time.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Lottery Ticket Hypothesis"
+    ]
+  },
+  {
+    "objectID": "tutorial.lottery_ticket.html#the-lottery-ticket-hypothesis",
+    "href": "tutorial.lottery_ticket.html#the-lottery-ticket-hypothesis",
+    "title": "Lottery Ticket Hypothesis",
+    "section": "",
+    "text": "The Lottery Ticket Hypothesis is a really intriguing discovery made in 2019 by Frankle & Carbin. It states that:\n\nA randomly-initialized, dense neural network contains a subnetwork that is initialised such that — when trained in isolation — it can match the test accuracy of the original network after training for at most the same number of iterations.\n\nMeaning that, once we find that subnetwork. Every other parameter in the network becomes useless.\nThe way authors propose to find those subnetwork is as follows:\n\n\nInitialize the neural network\nTrain it to convergence\nPrune the smallest magnitude weights by creating a mask \\(m\\)\nReinitialize the weights to their original value; i.e at iteration \\(0\\).\nRepeat from step 2 until reaching the desired level of sparsity.\n\n\nfrom fasterai.sparse.all import *\n\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndevice = 'cuda:0' if torch.cuda.is_available() else 'cpu'\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64), device=device)\n\nWhat we are trying to prove is that: in a neural network A, there exists a subnetwork B able to get an accuracy \\(a_B &gt; a_A\\), in a training time \\(t_B &lt; t_A\\).\nLet’s get the baseline for network A:\n\nlearn = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\n\nLet’s save original weights\n\ninitial_weights = deepcopy(learn.model.state_dict())\n\n\nlearn.fit(5, 1e-3)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.595053\n0.543628\n0.717185\n00:07\n\n\n1\n0.546125\n0.531834\n0.728687\n00:07\n\n\n2\n0.521566\n0.521680\n0.746279\n00:07\n\n\n3\n0.478598\n0.478660\n0.764547\n00:07\n\n\n4\n0.421515\n0.719835\n0.633288\n00:07\n\n\n\n\n\n\nWe now have our accuracy \\(a_A\\) of \\(79\\%\\) and our training time \\(t_A\\) of \\(5\\) epochs\nTo find the lottery ticket, we will perform iterative pruning but, at each pruning step we will re-initialize the remaining weights to their original values (i.e. before training).\nWe will restart from the same initialization to be sure to not get lucky.\n\nlearn = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nlearn.model.load_state_dict(initial_weights)\n\n&lt;All keys matched successfully&gt;\n\n\nWe can pass the parameters lth=True to make the weights of the network reset to their original value after each pruning step, i.e. step 4) of the LTH. To empirically validate the LTH, we need to retrain the found “lottery ticket” after the pruning phase. Lottery tickets are usually found following an iterative pruning schedule. We set the start_epoch parameter to \\(5\\) to begin the pruning process after \\(5\\) epochs.\n\nschedule = Schedule(sched_iterative, start_pct=0.25)\n\n\nsp_cb = SparsifyCallback(50, 'weight', 'local', large_final, schedule, lth=True)\n\nAs our iterative schedule makes \\(3\\) pruning steps by default, it means that we have to train our network for start_epoch + \\(3*t_B\\), so \\(20\\) epochs in order to get our LTH. After each step, the remaining weights will be reinitialized to their original value\n\nlearn.fit(20, 1e-3, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [0.0]%\nSparsity at the end of epoch 1: [0.0]%\nSparsity at the end of epoch 2: [0.0]%\nSparsity at the end of epoch 3: [0.0]%\nSparsity at the end of epoch 4: [0.0]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 5: [16.67]%\nSparsity at the end of epoch 6: [16.67]%\nSparsity at the end of epoch 7: [16.67]%\nSparsity at the end of epoch 8: [16.67]%\nSparsity at the end of epoch 9: [16.67]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 10: [33.33]%\nSparsity at the end of epoch 11: [33.33]%\nSparsity at the end of epoch 12: [33.33]%\nSparsity at the end of epoch 13: [33.33]%\nSparsity at the end of epoch 14: [33.33]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 15: [50.0]%\nSparsity at the end of epoch 16: [50.0]%\nSparsity at the end of epoch 17: [50.0]%\nSparsity at the end of epoch 18: [50.0]%\nSparsity at the end of epoch 19: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 1: 50.00%\nSparsity in Conv2d 7: 50.00%\nSparsity in Conv2d 10: 50.00%\nSparsity in Conv2d 13: 50.00%\nSparsity in Conv2d 16: 50.00%\nSparsity in Conv2d 20: 50.00%\nSparsity in Conv2d 23: 50.00%\nSparsity in Conv2d 26: 50.00%\nSparsity in Conv2d 29: 50.00%\nSparsity in Conv2d 32: 50.00%\nSparsity in Conv2d 36: 50.00%\nSparsity in Conv2d 39: 50.00%\nSparsity in Conv2d 42: 50.00%\nSparsity in Conv2d 45: 50.00%\nSparsity in Conv2d 48: 50.00%\nSparsity in Conv2d 52: 50.00%\nSparsity in Conv2d 55: 50.00%\nSparsity in Conv2d 58: 50.00%\nSparsity in Conv2d 61: 50.00%\nSparsity in Conv2d 64: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.587271\n0.612850\n0.668471\n00:07\n\n\n1\n0.547513\n0.573875\n0.701624\n00:07\n\n\n2\n0.501447\n0.514319\n0.738160\n00:07\n\n\n3\n0.467517\n0.518835\n0.740189\n00:07\n\n\n4\n0.431308\n0.621117\n0.654263\n00:07\n\n\n5\n0.561822\n0.546851\n0.728011\n00:07\n\n\n6\n0.514754\n0.570669\n0.765223\n00:07\n\n\n7\n0.469772\n0.576346\n0.675913\n00:07\n\n\n8\n0.427512\n0.454539\n0.799053\n00:07\n\n\n9\n0.385058\n0.537472\n0.728011\n00:07\n\n\n10\n0.482251\n0.442526\n0.778078\n00:07\n\n\n11\n0.430115\n0.510421\n0.777402\n00:07\n\n\n12\n0.383115\n0.424600\n0.811908\n00:07\n\n\n13\n0.341061\n0.663934\n0.681326\n00:07\n\n\n14\n0.322339\n0.383250\n0.830853\n00:07\n\n\n15\n0.402276\n0.441383\n0.799053\n00:07\n\n\n16\n0.348916\n0.384334\n0.814614\n00:07\n\n\n17\n0.311075\n0.409829\n0.817321\n00:07\n\n\n18\n0.280943\n0.405584\n0.824763\n00:07\n\n\n19\n0.244700\n0.385061\n0.827470\n00:07\n\n\n\n\n\n\nWe indeed have a network B, whose accuracy \\(a_B &gt; a_A\\) in the same training time.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Lottery Ticket Hypothesis"
+    ]
+  },
+  {
+    "objectID": "tutorial.lottery_ticket.html#lottery-ticket-hypothesis-with-rewinding",
+    "href": "tutorial.lottery_ticket.html#lottery-ticket-hypothesis-with-rewinding",
+    "title": "Lottery Ticket Hypothesis",
+    "section": "Lottery Ticket Hypothesis with Rewinding",
+    "text": "Lottery Ticket Hypothesis with Rewinding\nIn some case, LTH fails for deeper networks, author then propose a solution, which is to rewind the weights to a more advanced iteration instead of the initialization value.\n\nlearn = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nlearn.model.load_state_dict(initial_weights)\n\n&lt;All keys matched successfully&gt;\n\n\nThis can be done in fasterai by passing the rewind_epoch parameter, that will save the weights at that epoch, then resetting the weights accordingly.\n\nsp_cb = SparsifyCallback(50, 'weight', 'local', large_final, schedule, lth=True, rewind_epoch=1)\n\n\nlearn.fit(20, 1e-3, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSparsity at the end of epoch 0: [0.0]%\nSaving Weights at epoch 1\nSparsity at the end of epoch 1: [0.0]%\nSparsity at the end of epoch 2: [0.0]%\nSparsity at the end of epoch 3: [0.0]%\nSparsity at the end of epoch 4: [0.0]%\nResetting Weights to their epoch 1 values\nSparsity at the end of epoch 5: [16.67]%\nSparsity at the end of epoch 6: [16.67]%\nSparsity at the end of epoch 7: [16.67]%\nSparsity at the end of epoch 8: [16.67]%\nSparsity at the end of epoch 9: [16.67]%\nResetting Weights to their epoch 1 values\nSparsity at the end of epoch 10: [33.33]%\nSparsity at the end of epoch 11: [33.33]%\nSparsity at the end of epoch 12: [33.33]%\nSparsity at the end of epoch 13: [33.33]%\nSparsity at the end of epoch 14: [33.33]%\nResetting Weights to their epoch 1 values\nSparsity at the end of epoch 15: [50.0]%\nSparsity at the end of epoch 16: [50.0]%\nSparsity at the end of epoch 17: [50.0]%\nSparsity at the end of epoch 18: [50.0]%\nSparsity at the end of epoch 19: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 1: 50.00%\nSparsity in Conv2d 7: 50.00%\nSparsity in Conv2d 10: 50.00%\nSparsity in Conv2d 13: 50.00%\nSparsity in Conv2d 16: 50.00%\nSparsity in Conv2d 20: 50.00%\nSparsity in Conv2d 23: 50.00%\nSparsity in Conv2d 26: 50.00%\nSparsity in Conv2d 29: 50.00%\nSparsity in Conv2d 32: 50.00%\nSparsity in Conv2d 36: 50.00%\nSparsity in Conv2d 39: 50.00%\nSparsity in Conv2d 42: 50.00%\nSparsity in Conv2d 45: 50.00%\nSparsity in Conv2d 48: 50.00%\nSparsity in Conv2d 52: 50.00%\nSparsity in Conv2d 55: 50.00%\nSparsity in Conv2d 58: 50.00%\nSparsity in Conv2d 61: 50.00%\nSparsity in Conv2d 64: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.594580\n0.625727\n0.685386\n00:07\n\n\n1\n0.543424\n0.667005\n0.675237\n00:07\n\n\n2\n0.509345\n0.483691\n0.748309\n00:07\n\n\n3\n0.470524\n0.478201\n0.763870\n00:07\n\n\n4\n0.451323\n0.550612\n0.725981\n00:07\n\n\n5\n0.518282\n0.483968\n0.762517\n00:07\n\n\n6\n0.478035\n0.729290\n0.709743\n00:07\n\n\n7\n0.425959\n0.479093\n0.782815\n00:07\n\n\n8\n0.393114\n0.407376\n0.815968\n00:07\n\n\n9\n0.350740\n0.755570\n0.654939\n00:07\n\n\n10\n0.442296\n0.497535\n0.759134\n00:07\n\n\n11\n0.390260\n0.617039\n0.677267\n00:07\n\n\n12\n0.346842\n0.365099\n0.836942\n00:07\n\n\n13\n0.311359\n0.431787\n0.811908\n00:07\n\n\n14\n0.276918\n0.389922\n0.835589\n00:07\n\n\n15\n0.342124\n0.495095\n0.748985\n00:07\n\n\n16\n0.308753\n0.553223\n0.734777\n00:07\n\n\n17\n0.278255\n0.491012\n0.803112\n00:07\n\n\n18\n0.254106\n0.564554\n0.782815\n00:07\n\n\n19\n0.224321\n0.341632\n0.855210\n00:07",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Lottery Ticket Hypothesis"
+    ]
+  },
+  {
+    "objectID": "tutorial.lottery_ticket.html#super-masks",
+    "href": "tutorial.lottery_ticket.html#super-masks",
+    "title": "Lottery Ticket Hypothesis",
+    "section": "Super-Masks",
+    "text": "Super-Masks\nResearchers from Uber AI investigated the LTH and found the existence of what they call “Super-Masks”, i.e. masks that, applied on a untrained neural network, allows to reach better-than-random results.\n\nlearn = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nlearn.model.load_state_dict(initial_weights)\n\n&lt;All keys matched successfully&gt;\n\n\nTo find supermasks, authors perform the LTH method then apply the mask on the original, untrained network. In fasterai, you can pass the parameter reset_end=True, which will reset the weights to their original value at the end of the training, but keeping the pruned weights (i.e. the mask) unchanged.\n\nsp_cb = SparsifyCallback(50, 'weight', 'local', large_final, schedule, lth=True, reset_end=True)\n\n\nlearn.fit(20, 1e-3, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [0.0]%\nSparsity at the end of epoch 1: [0.0]%\nSparsity at the end of epoch 2: [0.0]%\nSparsity at the end of epoch 3: [0.0]%\nSparsity at the end of epoch 4: [0.0]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 5: [16.67]%\nSparsity at the end of epoch 6: [16.67]%\nSparsity at the end of epoch 7: [16.67]%\nSparsity at the end of epoch 8: [16.67]%\nSparsity at the end of epoch 9: [16.67]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 10: [33.33]%\nSparsity at the end of epoch 11: [33.33]%\nSparsity at the end of epoch 12: [33.33]%\nSparsity at the end of epoch 13: [33.33]%\nSparsity at the end of epoch 14: [33.33]%\nResetting Weights to their epoch 0 values\nSparsity at the end of epoch 15: [50.0]%\nSparsity at the end of epoch 16: [50.0]%\nSparsity at the end of epoch 17: [50.0]%\nSparsity at the end of epoch 18: [50.0]%\nSparsity at the end of epoch 19: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 1: 50.00%\nSparsity in Conv2d 7: 50.00%\nSparsity in Conv2d 10: 50.00%\nSparsity in Conv2d 13: 50.00%\nSparsity in Conv2d 16: 50.00%\nSparsity in Conv2d 20: 50.00%\nSparsity in Conv2d 23: 50.00%\nSparsity in Conv2d 26: 50.00%\nSparsity in Conv2d 29: 50.00%\nSparsity in Conv2d 32: 50.00%\nSparsity in Conv2d 36: 50.00%\nSparsity in Conv2d 39: 50.00%\nSparsity in Conv2d 42: 50.00%\nSparsity in Conv2d 45: 50.00%\nSparsity in Conv2d 48: 50.00%\nSparsity in Conv2d 52: 50.00%\nSparsity in Conv2d 55: 50.00%\nSparsity in Conv2d 58: 50.00%\nSparsity in Conv2d 61: 50.00%\nSparsity in Conv2d 64: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.611311\n0.796523\n0.674560\n00:07\n\n\n1\n0.560894\n0.608468\n0.685386\n00:07\n\n\n2\n0.529301\n0.537641\n0.736130\n00:08\n\n\n3\n0.476619\n0.542131\n0.740866\n00:07\n\n\n4\n0.441745\n0.456982\n0.776725\n00:07\n\n\n5\n0.538183\n0.558080\n0.737483\n00:07\n\n\n6\n0.497710\n0.502065\n0.749662\n00:07\n\n\n7\n0.457478\n0.542794\n0.731394\n00:07\n\n\n8\n0.425738\n0.548435\n0.725981\n00:07\n\n\n9\n0.393300\n0.562673\n0.680650\n00:07\n\n\n10\n0.475655\n0.520430\n0.756428\n00:08\n\n\n11\n0.433569\n0.582280\n0.740866\n00:08\n\n\n12\n0.408267\n0.755556\n0.547361\n00:08\n\n\n13\n0.364271\n0.421615\n0.809202\n00:07\n\n\n14\n0.324698\n0.368889\n0.832882\n00:07\n\n\n15\n0.394710\n0.604650\n0.738836\n00:07\n\n\n16\n0.350399\n0.412777\n0.814614\n00:07\n\n\n17\n0.318693\n0.443487\n0.803789\n00:07\n\n\n18\n0.280467\n0.395299\n0.826793\n00:07\n\n\n19\n0.251164\n0.380674\n0.831529\n00:07\n\n\n\n\n\n\n\nlearn.validate()\n\n\n\n\n\n\n\n\n(#2) [0.8659006357192993,0.665764570236206]",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Lottery Ticket Hypothesis"
+    ]
+  },
+  {
+    "objectID": "tutorial.bn_folding.html",
+    "href": "tutorial.bn_folding.html",
+    "title": "BatchNorm Folding",
+    "section": "",
+    "text": "This is how to do it with fasterai !\n\nGet the data\n\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64))\n\n\nTrain the model\n\n\nlearn = Learner(dls, resnet18(num_classes=2), metrics=accuracy)\nlearn.fit_one_cycle(5)\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.615641\n0.596630\n0.688092\n00:10\n\n\n1\n0.582679\n0.558671\n0.689445\n00:10\n\n\n2\n0.529308\n0.517995\n0.744926\n00:10\n\n\n3\n0.481804\n0.449941\n0.784168\n00:10\n\n\n4\n0.400030\n0.414093\n0.800406\n00:10\n\n\n\n\n\n\n\nFold !\n\n\nbn = BN_Folder()\nnew_model = bn.fold(learn.model)\n\nThe batch norm layers have been replaced by an Identity layer, and the weights of the convolutions have been modified accordingly.\n\nnew_model\n\nResNet(\n  (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3))\n  (bn1): Identity()\n  (relu): ReLU(inplace=True)\n  (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)\n  (layer1): Sequential(\n    (0): BasicBlock(\n      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n    )\n    (1): BasicBlock(\n      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n    )\n  )\n  (layer2): Sequential(\n    (0): BasicBlock(\n      (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n      (downsample): Sequential(\n        (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2))\n        (1): Identity()\n      )\n    )\n    (1): BasicBlock(\n      (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n    )\n  )\n  (layer3): Sequential(\n    (0): BasicBlock(\n      (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n      (downsample): Sequential(\n        (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2))\n        (1): Identity()\n      )\n    )\n    (1): BasicBlock(\n      (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n    )\n  )\n  (layer4): Sequential(\n    (0): BasicBlock(\n      (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n      (downsample): Sequential(\n        (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2))\n        (1): Identity()\n      )\n    )\n    (1): BasicBlock(\n      (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn1): Identity()\n      (relu): ReLU(inplace=True)\n      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n      (bn2): Identity()\n    )\n  )\n  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))\n  (fc): Linear(in_features=512, out_features=2, bias=True)\n)\n\n\nWe can see that the new model possess fewer parameters\n\ncount_parameters(learn.model)\n\n11177538\n\n\n\ncount_parameters(new_model)\n\n11172738\n\n\nBut is also faster to run !\n\nx,y = dls.one_batch()\n\n\nlearn.model(x[0][None].cuda())\n\n5.59 ms ± 547 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)\n\n\n\nnew_model(x[0][None].cuda())\n\n4.14 ms ± 446 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)\n\n\nBut most importantly, has the exact same perfomance as before:\n\nnew_learn = Learner(dls, new_model, metrics=accuracy)\n\n\nnew_learn.validate()\n\n\n\n\n(#2) [0.4140927791595459,0.8004059791564941]",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Misc",
+      "BatchNorm Folding"
+    ]
+  },
+  {
+    "objectID": "misc.bn_folding.html",
+    "href": "misc.bn_folding.html",
+    "title": "Batch Norm Folding",
+    "section": "",
+    "text": "Batch Normalization is a technique which takes care of normalizing the input of each layer to make the training process faster and more stable. In practice, it is an extra layer that we generally add after the computation layer and before the non-linearity.\nIt consists of 2 steps:\n\nNormalize the batch by first subtracting its mean \\(\\mu\\), then dividing it by its standard deviation \\(\\sigma\\).\nFurther scale by a factor \\(\\gamma\\) and shift by a factor \\(\\beta\\). Those are the parameters of the batch normalization layer, required in case of the network not needing the data to have a mean of \\(0\\) and a standard deviation of \\(1\\).\n\n\\[\n\\begin{aligned}\\mu_{\\mathcal{B}} & \\leftarrow \\frac{1}{m} \\sum_{i=1}^{m} x_{i} \\\\ \\sigma_{\\mathcal{B}}^{2} & \\leftarrow \\frac{1}{m} \\sum_{i=1}^{m}\\left(x_{i}-\\mu_{\\mathcal{B}}\\right)^{2} \\\\ \\widehat{x}_{i} & \\leftarrow \\frac{x_{i}-\\mu_{\\mathcal{B}}}{\\sqrt{\\sigma_{\\mathcal{B}}^{2}+\\epsilon}} \\\\ y_{i} & \\leftarrow \\gamma \\widehat{x}_{i}+\\beta \\equiv \\mathrm{BN}_{\\gamma, \\beta}\\left(x_{i}\\right) \\end{aligned}\\]\nDue to its efficiency for training neural networks, batch normalization is now widely used. But how useful is it at inference time?\nOnce the training has ended, each batch normalization layer possesses a specific set of \\(\\gamma\\) and \\(\\beta\\), but also \\(\\mu\\) and \\(\\sigma\\), the latter being computed using an exponentially weighted average during training. It means that during inference, the batch normalization acts as a simple linear transformation of what comes out of the previous layer, often a convolution.\nAs a convolution is also a linear transformation, it also means that both operations can be merged into a single linear transformation!\nThis would remove some unnecessary parameters but also reduce the number of operations to be performed at inference time.\nWith a little bit of math, we can easily rearrange the terms of the convolution to take the batch normalization into account.\nAs a little reminder, the convolution operation followed by the batch normalization operation can be expressed, for an input \\(x\\), as:\n\\[\\begin{aligned} z &=W * x+b \\\\ \\mathrm{out} &=\\gamma \\cdot \\frac{z-\\mu}{\\sqrt{\\sigma^{2}+\\epsilon}}+\\beta \\end{aligned}\\]\nSo, if we re-arrange the \\(W\\) and \\(b\\) of the convolution to take the parameters of the batch normalization into account, as such:\n\\[\\begin{aligned} w_{\\text {fold }} &=\\gamma \\cdot \\frac{W}{\\sqrt{\\sigma^{2}+\\epsilon}} \\\\ b_{\\text {fold }} &=\\gamma \\cdot \\frac{b-\\mu}{\\sqrt{\\sigma^{2}+\\epsilon}}+\\beta \\end{aligned}\\]\nIn practice, this can be achieved in FasterAI with the BN_folder class\n\n\nBN_Folder.fold\n\n BN_Folder.fold (model)\n\nA tutorial about how to use the BN_Folder functionalities can be found here",
+    "crumbs": [
+      "Get Started",
+      "Misc",
+      "Batch Norm Folding"
+    ]
+  },
+  {
+    "objectID": "misc.fc_decomposer.html",
+    "href": "misc.fc_decomposer.html",
+    "title": "Fully-Connected Layers Decomposer",
+    "section": "",
+    "text": "We can factorize our big fully-connected layers and replace them by an approximation of two smaller layers. The idea is to make an SVD decomposition of the weight matrix, which will express the original matrix in a product of 3 matrices: \\(U \\Sigma V^T\\) With \\(\\Sigma\\) being a diagonal matrix with non-negative values along its diagonal (the singular values). We then define a value \\(k\\) of singular values to keep and modify matrices \\(U\\) and \\(V^T\\) accordingly. The resulting will be an approximation of the initial matrix.\n\n\n\nFC_Decomposer.decompose\n\n FC_Decomposer.decompose (model, percent_removed=0.5)\n\nA tutorial about how to use the FC_Decomposer functionalities can be found here",
+    "crumbs": [
+      "Get Started",
+      "Misc",
+      "Fully-Connected Layers Decomposer"
+    ]
+  },
+  {
+    "objectID": "quantize.quantizer.html",
+    "href": "quantize.quantizer.html",
+    "title": "Quantizer",
+    "section": "",
+    "text": "Quantizer\n\n Quantizer (backend='x86')\n\nInitialize self. See help(type(self)) for accurate signature.\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64))\n\n\nmodel = resnet18()\nmodel.fc = nn.Linear(512, 2)\n\nqt = Quantizer()\n\nq_model = qt.quantize(model, dls); q_model\n\nGraphModule(\n  (conv1): QuantizedConvReLU2d(3, 64, kernel_size=(7, 7), stride=(2, 2), scale=0.006076872814446688, zero_point=0, padding=(3, 3))\n  (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)\n  (layer1): Module(\n    (0): Module(\n      (conv1): QuantizedConvReLU2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.005395939573645592, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.012689124792814255, zero_point=69, padding=(1, 1))\n    )\n    (1): Module(\n      (conv1): QuantizedConvReLU2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.008369455114006996, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.02112608030438423, zero_point=63, padding=(1, 1))\n    )\n  )\n  (layer2): Module(\n    (0): Module(\n      (conv1): QuantizedConvReLU2d(64, 128, kernel_size=(3, 3), stride=(2, 2), scale=0.008486122824251652, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), scale=0.022716786712408066, zero_point=56, padding=(1, 1))\n      (downsample): Module(\n        (0): QuantizedConv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), scale=0.023265432566404343, zero_point=72)\n      )\n    )\n    (1): Module(\n      (conv1): QuantizedConvReLU2d(128, 128, kernel_size=(3, 3), stride=(1, 1), scale=0.013281081803143024, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), scale=0.029971959069371223, zero_point=72, padding=(1, 1))\n    )\n  )\n  (layer3): Module(\n    (0): Module(\n      (conv1): QuantizedConvReLU2d(128, 256, kernel_size=(3, 3), stride=(2, 2), scale=0.014814700931310654, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), scale=0.023894084617495537, zero_point=62, padding=(1, 1))\n      (downsample): Module(\n        (0): QuantizedConv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), scale=0.03019792214035988, zero_point=64)\n      )\n    )\n    (1): Module(\n      (conv1): QuantizedConvReLU2d(256, 256, kernel_size=(3, 3), stride=(1, 1), scale=0.020521966740489006, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), scale=0.03235113248229027, zero_point=61, padding=(1, 1))\n    )\n  )\n  (layer4): Module(\n    (0): Module(\n      (conv1): QuantizedConvReLU2d(256, 512, kernel_size=(3, 3), stride=(2, 2), scale=0.019714996218681335, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), scale=0.02032352052628994, zero_point=63, padding=(1, 1))\n      (downsample): Module(\n        (0): QuantizedConv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), scale=0.03903292119503021, zero_point=69)\n      )\n    )\n    (1): Module(\n      (conv1): QuantizedConvReLU2d(512, 512, kernel_size=(3, 3), stride=(1, 1), scale=0.012691169045865536, zero_point=0, padding=(1, 1))\n      (conv2): QuantizedConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), scale=0.020157843828201294, zero_point=69, padding=(1, 1))\n    )\n  )\n  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))\n  (fc): QuantizedLinear(in_features=512, out_features=2, scale=0.005360545124858618, zero_point=127, qscheme=torch.per_channel_affine)\n)",
+    "crumbs": [
+      "Get Started",
+      "Quantize",
+      "Quantizer"
+    ]
+  },
+  {
+    "objectID": "quantize.quantize_callback.html",
+    "href": "quantize.quantize_callback.html",
+    "title": "Quantize Callback",
+    "section": "",
+    "text": "QuantizeCallback\n\n QuantizeCallback (qconfig_mapping=None, backend='x86')\n\nBasic class handling tweaks of the training loop by changing a Learner in various events\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\nlearn.fit(5, cbs=QuantizeCallback())\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.571546\n0.424050\n0.789581\n00:06\n\n\n1\n0.469406\n0.363851\n0.843708\n00:06\n\n\n2\n0.407703\n0.399239\n0.817997\n00:06\n\n\n3\n0.375065\n0.309377\n0.865359\n00:06\n\n\n4\n0.323774\n0.331475\n0.873478\n00:06\n\n\n\n\n\n\n\nlearn.model\n\nGraphModule(\n  (0): Module(\n    (0): QuantizedConvReLU2d(3, 64, kernel_size=(7, 7), stride=(2, 2), scale=0.029317768290638924, zero_point=0, padding=(3, 3))\n    (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)\n    (4): Module(\n      (0): Module(\n        (conv1): QuantizedConvReLU2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.017887497320771217, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.0466480627655983, zero_point=66, padding=(1, 1))\n      )\n      (1): Module(\n        (conv1): QuantizedConvReLU2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.017889995127916336, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), scale=0.07470479607582092, zero_point=66, padding=(1, 1))\n      )\n    )\n    (5): Module(\n      (0): Module(\n        (conv1): QuantizedConvReLU2d(64, 128, kernel_size=(3, 3), stride=(2, 2), scale=0.0174386166036129, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), scale=0.047718875110149384, zero_point=60, padding=(1, 1))\n        (downsample): Module(\n          (0): QuantizedConv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), scale=0.04965509846806526, zero_point=68)\n        )\n      )\n      (1): Module(\n        (conv1): QuantizedConvReLU2d(128, 128, kernel_size=(3, 3), stride=(1, 1), scale=0.019585009664297104, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), scale=0.05827442184090614, zero_point=70, padding=(1, 1))\n      )\n    )\n    (6): Module(\n      (0): Module(\n        (conv1): QuantizedConvReLU2d(128, 256, kernel_size=(3, 3), stride=(2, 2), scale=0.02278205193579197, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), scale=0.05654977634549141, zero_point=57, padding=(1, 1))\n        (downsample): Module(\n          (0): QuantizedConv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), scale=0.019852932542562485, zero_point=75)\n        )\n      )\n      (1): Module(\n        (conv1): QuantizedConvReLU2d(256, 256, kernel_size=(3, 3), stride=(1, 1), scale=0.021630365401506424, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), scale=0.06945421546697617, zero_point=73, padding=(1, 1))\n      )\n    )\n    (7): Module(\n      (0): Module(\n        (conv1): QuantizedConvReLU2d(256, 512, kernel_size=(3, 3), stride=(2, 2), scale=0.019869942218065262, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), scale=0.07700460404157639, zero_point=63, padding=(1, 1))\n        (downsample): Module(\n          (0): QuantizedConv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), scale=0.045847173780202866, zero_point=68)\n        )\n      )\n      (1): Module(\n        (conv1): QuantizedConvReLU2d(512, 512, kernel_size=(3, 3), stride=(1, 1), scale=0.02446889691054821, zero_point=0, padding=(1, 1))\n        (conv2): QuantizedConv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), scale=0.3400780260562897, zero_point=54, padding=(1, 1))\n      )\n    )\n  )\n  (1): Module(\n    (0): Module(\n      (mp): AdaptiveMaxPool2d(output_size=1)\n      (ap): AdaptiveAvgPool2d(output_size=1)\n    )\n    (2): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (3): QuantizedDropout(p=0.25, inplace=False)\n    (4): QuantizedLinearReLU(in_features=1024, out_features=512, scale=0.5987890958786011, zero_point=0, qscheme=torch.per_channel_affine)\n    (6): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (7): QuantizedDropout(p=0.5, inplace=False)\n    (8): QuantizedLinear(in_features=512, out_features=2, scale=0.6221694350242615, zero_point=113, qscheme=torch.per_channel_affine)\n  )\n)",
+    "crumbs": [
+      "Get Started",
+      "Quantize",
+      "Quantize Callback"
+    ]
+  },
+  {
+    "objectID": "tutorial.sparsify_callback.html",
+    "href": "tutorial.sparsify_callback.html",
+    "title": "Sparsify Callback",
+    "section": "",
+    "text": "from fastai.vision.all import *\n\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64))\n\nThe most important part of our Callback happens in before_batch. There, we first compute the sparsity of our network according to our schedule and then we remove the parameters accordingly.\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\n\nlearn.fit_one_cycle(5)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.711885\n1.064277\n0.843708\n00:45\n\n\n1\n0.409735\n0.217008\n0.913396\n00:03\n\n\n2\n0.265280\n0.284833\n0.898512\n00:03\n\n\n3\n0.144334\n0.158726\n0.936401\n00:03\n\n\n4\n0.082726\n0.153889\n0.939784\n00:03\n\n\n\n\n\n\nLet’s now try adding some sparsity in our model\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\nThe SparsifyCallback requires a new argument compared to the Sparsifier. Indeed, we need to know the pruning schedule that we should follow during training in order to prune the parameters accordingly.\nYou can use any scheduling function already available in fastai or come up with your own ! For more information about the pruning schedules, take a look at the Schedules section.\n\nsp_cb = SparsifyCallback(sparsity=50, granularity='weight', context='local', criteria=large_final, schedule=one_cycle)\n\n\nlearn.fit_one_cycle(5, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [1.96]%\nSparsity at the end of epoch 1: [20.07]%\nSparsity at the end of epoch 2: [45.86]%\nSparsity at the end of epoch 3: [49.74]%\nSparsity at the end of epoch 4: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 2: 50.00%\nSparsity in Conv2d 8: 50.00%\nSparsity in Conv2d 11: 50.00%\nSparsity in Conv2d 14: 50.00%\nSparsity in Conv2d 17: 50.00%\nSparsity in Conv2d 21: 50.00%\nSparsity in Conv2d 24: 50.00%\nSparsity in Conv2d 27: 50.00%\nSparsity in Conv2d 30: 50.00%\nSparsity in Conv2d 33: 50.00%\nSparsity in Conv2d 37: 50.00%\nSparsity in Conv2d 40: 50.00%\nSparsity in Conv2d 43: 50.00%\nSparsity in Conv2d 46: 50.00%\nSparsity in Conv2d 49: 50.00%\nSparsity in Conv2d 53: 50.00%\nSparsity in Conv2d 56: 50.00%\nSparsity in Conv2d 59: 50.00%\nSparsity in Conv2d 62: 50.00%\nSparsity in Conv2d 65: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.711270\n0.742762\n0.775372\n00:07\n\n\n1\n0.383374\n0.307700\n0.864005\n00:07\n\n\n2\n0.219235\n0.217708\n0.905954\n00:07\n\n\n3\n0.121921\n0.213659\n0.933018\n00:07\n\n\n4\n0.067208\n0.200506\n0.930988\n00:07\n\n\n\n\n\n\nSurprisingly, our network that is composed of \\(50 \\%\\) of zeroes performs reasonnably well when compared to our plain and dense network.\nThe SparsifyCallback also accepts a list of sparsities, corresponding to each layer of layer_type to be pruned. Below, we show how to prune only the intermediate layers of ResNet-18.\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\n\nsparsities = [0, 0, 0, 0, 0, 0, 50, 50, 50, 50, 50, 50, 50, 50, 0, 0, 0, 0, 0, 0]\n\n\nsp_cb = SparsifyCallback(sparsity=sparsities, granularity='weight', context='local', criteria=large_final, schedule=cos)\n\n\nlearn.fit_one_cycle(5, cbs=sp_cb)\n\nPruning of weight until a sparsity of [0, 0, 0, 0, 0, 0, 50, 50, 50, 50, 50, 50, 50, 50, 0, 0, 0, 0, 0, 0]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.77, 4.77, 4.77, 4.77, 4.77, 4.77, 4.77, 4.77, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%\nSparsity at the end of epoch 1: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 17.27, 17.27, 17.27, 17.27, 17.27, 17.27, 17.27, 17.27, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%\nSparsity at the end of epoch 2: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 32.73, 32.73, 32.73, 32.73, 32.73, 32.73, 32.73, 32.73, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%\nSparsity at the end of epoch 3: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.23, 45.23, 45.23, 45.23, 45.23, 45.23, 45.23, 45.23, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%\nSparsity at the end of epoch 4: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%\nFinal Sparsity: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]%\nSparsity in Conv2d 2: 0.00%\nSparsity in Conv2d 8: 0.00%\nSparsity in Conv2d 11: 0.00%\nSparsity in Conv2d 14: 0.00%\nSparsity in Conv2d 17: 0.00%\nSparsity in Conv2d 21: 0.00%\nSparsity in Conv2d 24: 50.00%\nSparsity in Conv2d 27: 50.00%\nSparsity in Conv2d 30: 50.00%\nSparsity in Conv2d 33: 50.00%\nSparsity in Conv2d 37: 50.00%\nSparsity in Conv2d 40: 50.00%\nSparsity in Conv2d 43: 50.00%\nSparsity in Conv2d 46: 50.00%\nSparsity in Conv2d 49: 0.00%\nSparsity in Conv2d 53: 0.00%\nSparsity in Conv2d 56: 0.00%\nSparsity in Conv2d 59: 0.00%\nSparsity in Conv2d 62: 0.00%\nSparsity in Conv2d 65: 0.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.731650\n0.570400\n0.811908\n00:07\n\n\n1\n0.396108\n0.262083\n0.895805\n00:07\n\n\n2\n0.250992\n0.210679\n0.909337\n00:07\n\n\n3\n0.132799\n0.192091\n0.925575\n00:07\n\n\n4\n0.079732\n0.159255\n0.938430\n00:07\n\n\n\n\n\n\nOn top of that, the SparsifyCallbackcan also take many optionnal arguments:\n\nlth: whether training using the Lottery Ticket Hypothesis, i.e. reset the weights to their original value at each pruning step (more information in the Lottery Ticket Hypothesis section)\nrewind_epoch: the epoch used as a reference for the Lottery Ticket Hypothesis with Rewinding (default to 0)\nreset_end: whether you want to reset the weights to their original values after training (pruning masks are still applied)\nsave_tickets: whether to save intermediate winning tickets.\nmodel: pass a model or a part of the model if you don’t want to apply pruning on the whole model trained.\nround_to: if specified, the weights will be pruned to the closest multiple value of round_to.\nlayer_type: specify the type of layer that you want to apply pruning to (default to nn.Conv2d)`\n\nFor example, we correctly pruned the convolution layers of our model, but we could imagine pruning the Linear Layers of even only the BatchNorm ones !",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Sparsify Callback"
+    ]
+  },
+  {
+    "objectID": "overview.html",
+    "href": "overview.html",
+    "title": "Overview",
+    "section": "",
+    "text": "Methods • Features • Installation • Tutorials • Citing • License\nfasterai is a library created to make neural network smaller and faster. It essentially relies on common compression techniques for networks such as pruning, knowledge distillation, Lottery Ticket Hypothesis, …\nThe core feature of fasterai is its Sparsifying capabilities, constructed around 4 main modules: granularity, context, criteria, schedule. Each of these modules is highly customizable, allowing you to change them according to your needs or even to come up with your own !",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "overview.html#project-documentation",
+    "href": "overview.html#project-documentation",
+    "title": "Overview",
+    "section": "Project Documentation",
+    "text": "Project Documentation\nVisit Read The Docs Project Page or read following README to know more about using fasterai.",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "overview.html#features",
+    "href": "overview.html#features",
+    "title": "Overview",
+    "section": "Features",
+    "text": "Features\n\n1. Sparsifying\n\nMake your model sparse according to a:  - Sparsity:  the percentage of weights that will be replaced by 0  - Granularity:  the granularity at which you operate the pruning (removing weights, vectors, kernels, filters)  - Context:  prune either each layer independantly (local pruning) or the whole model (global pruning)  - Criteria:  the criteria used to select the weights to remove (magnitude, movement, …)  - Schedule:  which schedule you want to use for pruning (one shot, iterative, gradual, …) \nThis can be achieved by using the SparsifyCallback(sparsity, granularity, context, criteria, schedule)\n\n\n2. Pruning\n\nOnce your model has useless nodes due to zero-weights, they can be removed to not be a part of the network anymore.\nThis can be achieved by using the PruneCallback(sparsity, context, criteria, schedule)\n\n\n3. Regularization\n\nInstead of explicitely make your network sparse, let it train towards sparse connections by pushing the weights to be as small as possible.\nRegularization can be applied to groups of weights, following the same granularities as for sparsifying, i.e.: - Granularity:  the granularity at which you operate the regularization (weights, vectors, kernels, filters, …)\nThis can be achieved by using the RegularizationCallback(granularity)\n\n\n4. Knowledge Distillation\n\n\n\nalt text\n\n\nDistill the knowledge acquired by a big model into a smaller one, by using the KnowledgeDistillation callback.\n\n\n5. Lottery Ticket Hypothesis\n\nFind the winning ticket in you network, i.e. the initial subnetwork able to attain at least similar performances than the network as a whole.",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "overview.html#quick-start",
+    "href": "overview.html#quick-start",
+    "title": "Overview",
+    "section": "Quick Start",
+    "text": "Quick Start\n\n0. Import fasterai\nfrom fasterai.sparse.all import *\n\n\n1. Create your model with fastai\nlearn = cnn_learner(dls, model)\n\n\n2. Get you Fasterai Callback\nsp_cb=SparsifyCallback(sparsity, granularity, context, criteria, schedule)\n\n\n3. Train you model to make it sparse !\nlearn.fit_one_cycle(n_epochs, cbs=sp_cb)",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "overview.html#installation",
+    "href": "overview.html#installation",
+    "title": "Overview",
+    "section": "Installation",
+    "text": "Installation\npip install git+https://github.com/nathanhubens/fasterai.git\nor\npip install fasterai",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "overview.html#tutorials",
+    "href": "overview.html#tutorials",
+    "title": "Overview",
+    "section": "Tutorials",
+    "text": "Tutorials\n\nGet Started with FasterAI\nCreate your own pruning schedule\nFind winning tickets using the Lottery Ticket Hypothesis\nUse Knowledge Distillation to help a student model to reach higher performance\nSparsify Transformers\nMore to come…",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "overview.html#citing",
+    "href": "overview.html#citing",
+    "title": "Overview",
+    "section": "Citing",
+    "text": "Citing\n@software{Hubens,\n  author       = {Nathan Hubens},\n  title        = {fasterai},\n  year         = 2022,\n  publisher    = {Zenodo},\n  version      = {v0.1.6},\n  doi          = {10.5281/zenodo.6469868},\n  url          = {https://doi.org/10.5281/zenodo.6469868}\n}",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "overview.html#license",
+    "href": "overview.html#license",
+    "title": "Overview",
+    "section": "License",
+    "text": "License\nApache-2.0 License.",
+    "crumbs": [
+      "Get Started",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "distill.knowledge_distillation.html",
+    "href": "distill.knowledge_distillation.html",
+    "title": "Knowledge Distillation",
+    "section": "",
+    "text": "Knowledge Distillation, sometimes called teacher-student training, is a compression method in which a small (the student) model is trained to mimic the behaviour of a larger (the teacher) model.\nThe main goal is to reveal what is called the Dark Knowledge hidden in the teacher model.\nIf we take the same example provided by Geoffrey Hinton et al., we have\nThe main problem of classification is that the output activation function (softmax) will, by design, make a single value really high and squash others.\n\\[\np_{i}=\\frac{\\exp \\left(z_{i}\\right)}{\\sum_{j} \\exp \\left(z_{j}\\right)}\n\\]\nWith \\(p_i\\) the probability of class \\(i\\), computed from the logits \\(z\\)\nHere is an example to illustrate this phenomenon:\nLet’s say that we have trained a model to discriminate between the following 5 classes: [cow, dog, plane, cat, car]\nAnd here is the output of the final layer (the logits) when the model is fed a new input image:\n\nlogits = torch.tensor([1.3, 3.1, 0.2, 1.9, -0.3])\n\nBy judging on the predictions, the model seems confident that the input data is a dog and quite confident that it is definitely not a plane nor a car, with predictions for cow and cat being moderately high.\nSo the model not only has learned to recognize a dog in the image, but also that a dog is very different from a car and a plane and share similarities with cats and cows. This information is what is called dark knowledge !\nWhen passing those predictions through a softmax, we have:\n\npredictions = F.softmax(logits, dim=-1); predictions\n\ntensor([0.1063, 0.6431, 0.0354, 0.1937, 0.0215])\n\n\nThis is accuenting the differences that we had earlier, discarding some of the dark knowledge acquired earlier. The way to keep this knowledge is to “soften” our softmax outputs, by adding a temperature parameter. The higher the temperature, the softer the predictions.\n\nsoft_predictions = F.softmax(logits/3, dim=-1); soft_predictions\n\ntensor([0.1879, 0.3423, 0.1302, 0.2294, 0.1102])\n\n\n\n\n\n\n\n\nNote\n\n\n\nif the Temperature is equal to 1, then we have regular softmax\n\n\nWhen applying Knowledge Distillation, we want to keep the Dark Knowledge that the teacher model has acquired during its training but not rely entirely on it. So we combine two losses:\n\nThe Teacher loss between the softened predictions of the teacher and the softened predictions of the student\nThe Classification loss, which is the regular loss between hard labels and hard predictions\n\nThe combination between those losses are weighted by an additional parameter α, as:\n\\[\nL_{K D}=\\alpha  * \\text { CrossEntropy }\\left(p_{S}^{\\tau}, p_{T}^{\\tau}\\right)+(1-\\alpha) * \\text { CrossEntropy }\\left(p_{S}, y_{\\text {true }}\\right)\n\\]\nWith \\(p^{\\tau}\\) being the softened predictions of the student and teacher\n\n\n\n\n\n\nNote\n\n\n\nIn practice, the distillation loss will be a bit different in the implementation\n\n\n\nThis can be done with fastai, using the Callback system !\n\n\nKnowledgeDistillationCallback\n\n KnowledgeDistillationCallback (teacher, loss, activations_student=None,\n                                activations_teacher=None, weight=0.5)\n\nBasic class handling tweaks of the training loop by changing a Learner in various events\nThe loss function that is used may depend on the use case. For classification, we usually use the one presented above, named SoftTarget in fasterai. But for regression cases, we may want to perform regression on the logits directly.",
+    "crumbs": [
+      "Get Started",
+      "Distill",
+      "Knowledge Distillation"
+    ]
+  },
+  {
+    "objectID": "prune.pruner.html",
+    "href": "prune.pruner.html",
+    "title": "Pruner",
+    "section": "",
+    "text": "Pruner.prune_model\n\n Pruner.prune_model (sparsity, round_to=None)\n\nLet’s try the Pruner with a VGG16 model\n\nmodel = vgg16_bn()\nmodel\n\nVGG(\n  (features): Sequential(\n    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (2): ReLU(inplace=True)\n    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (5): ReLU(inplace=True)\n    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (9): ReLU(inplace=True)\n    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (12): ReLU(inplace=True)\n    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (16): ReLU(inplace=True)\n    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (19): ReLU(inplace=True)\n    (20): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (21): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (22): ReLU(inplace=True)\n    (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (24): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (25): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (26): ReLU(inplace=True)\n    (27): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (28): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (29): ReLU(inplace=True)\n    (30): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (31): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (32): ReLU(inplace=True)\n    (33): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (34): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (35): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (36): ReLU(inplace=True)\n    (37): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (38): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (39): ReLU(inplace=True)\n    (40): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (41): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (42): ReLU(inplace=True)\n    (43): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n  )\n  (avgpool): AdaptiveAvgPool2d(output_size=(7, 7))\n  (classifier): Sequential(\n    (0): Linear(in_features=25088, out_features=4096, bias=True)\n    (1): ReLU(inplace=True)\n    (2): Dropout(p=0.5, inplace=False)\n    (3): Linear(in_features=4096, out_features=4096, bias=True)\n    (4): ReLU(inplace=True)\n    (5): Dropout(p=0.5, inplace=False)\n    (6): Linear(in_features=4096, out_features=1000, bias=True)\n  )\n)\n\n\nThe Prunercan either remove filters based on local criteria (i.e. each layer will be trimmed of the same % of filters)\n\npruner = Pruner(model, 'local', large_final)\npruner.prune_model(50)\nmodel\n\nVGG(\n  (features): Sequential(\n    (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (2): ReLU(inplace=True)\n    (3): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (5): ReLU(inplace=True)\n    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (7): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (8): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (9): ReLU(inplace=True)\n    (10): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (11): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (12): ReLU(inplace=True)\n    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (14): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (15): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (16): ReLU(inplace=True)\n    (17): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (18): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (19): ReLU(inplace=True)\n    (20): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (21): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (22): ReLU(inplace=True)\n    (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (24): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (25): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (26): ReLU(inplace=True)\n    (27): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (28): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (29): ReLU(inplace=True)\n    (30): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (31): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (32): ReLU(inplace=True)\n    (33): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (34): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (35): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (36): ReLU(inplace=True)\n    (37): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (38): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (39): ReLU(inplace=True)\n    (40): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (41): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (42): ReLU(inplace=True)\n    (43): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n  )\n  (avgpool): AdaptiveAvgPool2d(output_size=(7, 7))\n  (classifier): Sequential(\n    (0): Linear(in_features=12544, out_features=4096, bias=True)\n    (1): ReLU(inplace=True)\n    (2): Dropout(p=0.5, inplace=False)\n    (3): Linear(in_features=4096, out_features=4096, bias=True)\n    (4): ReLU(inplace=True)\n    (5): Dropout(p=0.5, inplace=False)\n    (6): Linear(in_features=4096, out_features=1000, bias=True)\n  )\n)\n\n\nThe Prunercan also remove filters based on global criteria (i.e. each layer will be trimmed of a different % of filters, but we specify the sparsity of the whole network)\n\npruner = Pruner(model, 'global', large_final)\npruner.prune_model(50)\nmodel\n\nVGG(\n  (features): Sequential(\n    (0): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (2): ReLU(inplace=True)\n    (3): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (4): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (5): ReLU(inplace=True)\n    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (7): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (8): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (9): ReLU(inplace=True)\n    (10): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (11): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (12): ReLU(inplace=True)\n    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (14): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (15): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (16): ReLU(inplace=True)\n    (17): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (18): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (19): ReLU(inplace=True)\n    (20): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (21): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (22): ReLU(inplace=True)\n    (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (24): Conv2d(128, 69, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (25): BatchNorm2d(69, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (26): ReLU(inplace=True)\n    (27): Conv2d(69, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (28): BatchNorm2d(48, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (29): ReLU(inplace=True)\n    (30): Conv2d(48, 62, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (31): BatchNorm2d(62, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (32): ReLU(inplace=True)\n    (33): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (34): Conv2d(62, 84, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (35): BatchNorm2d(84, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (36): ReLU(inplace=True)\n    (37): Conv2d(84, 98, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (38): BatchNorm2d(98, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (39): ReLU(inplace=True)\n    (40): Conv2d(98, 119, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (41): BatchNorm2d(119, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (42): ReLU(inplace=True)\n    (43): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n  )\n  (avgpool): AdaptiveAvgPool2d(output_size=(7, 7))\n  (classifier): Sequential(\n    (0): Linear(in_features=5831, out_features=4096, bias=True)\n    (1): ReLU(inplace=True)\n    (2): Dropout(p=0.5, inplace=False)\n    (3): Linear(in_features=4096, out_features=4096, bias=True)\n    (4): ReLU(inplace=True)\n    (5): Dropout(p=0.5, inplace=False)\n    (6): Linear(in_features=4096, out_features=1000, bias=True)\n  )\n)",
+    "crumbs": [
+      "Get Started",
+      "Prune",
+      "Pruner"
+    ]
+  },
+  {
+    "objectID": "tutorial.fc_decomposer.html#get-the-data",
+    "href": "tutorial.fc_decomposer.html#get-the-data",
+    "title": "Fully-Connected layers decomposition",
+    "section": "1. Get the data",
+    "text": "1. Get the data\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64))",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Misc",
+      "Fully-Connected layers decomposition"
+    ]
+  },
+  {
+    "objectID": "tutorial.fc_decomposer.html#train-the-model",
+    "href": "tutorial.fc_decomposer.html#train-the-model",
+    "title": "Fully-Connected layers decomposition",
+    "section": "2. Train the model",
+    "text": "2. Train the model\n\nlearn = Learner(dls, vgg16_bn(num_classes=2), metrics=accuracy)\nlearn.fit_one_cycle(3)\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.886644\n0.652151\n0.685386\n00:22\n\n\n1\n0.692583\n0.627857\n0.685386\n00:21\n\n\n2\n0.646516\n0.622866\n0.685386\n00:22\n\n\n\n\n\n\n\nDecompose !\n\n\nfc = FC_Decomposer()\nnew_model = fc.decompose(learn.model)\n\nThe fc layers have been factorized and replace by smaller ones.\n\nnew_model\n\nVGG(\n  (features): Sequential(\n    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (2): ReLU(inplace=True)\n    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (5): ReLU(inplace=True)\n    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (9): ReLU(inplace=True)\n    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (12): ReLU(inplace=True)\n    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (16): ReLU(inplace=True)\n    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (19): ReLU(inplace=True)\n    (20): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (21): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (22): ReLU(inplace=True)\n    (23): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (24): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (25): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (26): ReLU(inplace=True)\n    (27): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (28): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (29): ReLU(inplace=True)\n    (30): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (31): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (32): ReLU(inplace=True)\n    (33): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n    (34): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (35): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (36): ReLU(inplace=True)\n    (37): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (38): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (39): ReLU(inplace=True)\n    (40): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))\n    (41): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (42): ReLU(inplace=True)\n    (43): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)\n  )\n  (avgpool): AdaptiveAvgPool2d(output_size=(7, 7))\n  (classifier): Sequential(\n    (0): Sequential(\n      (0): Linear(in_features=25088, out_features=2048, bias=False)\n      (1): Linear(in_features=2048, out_features=4096, bias=True)\n    )\n    (1): ReLU(inplace=True)\n    (2): Dropout(p=0.5, inplace=False)\n    (3): Sequential(\n      (0): Linear(in_features=4096, out_features=2048, bias=False)\n      (1): Linear(in_features=2048, out_features=4096, bias=True)\n    )\n    (4): ReLU(inplace=True)\n    (5): Dropout(p=0.5, inplace=False)\n    (6): Sequential(\n      (0): Linear(in_features=4096, out_features=1, bias=False)\n      (1): Linear(in_features=1, out_features=2, bias=True)\n    )\n  )\n)\n\n\nWe can see compare the amount of parameters before/after:\n\ncount_parameters(learn.model)\n\n134277186\n\n\n\ncount_parameters(new_model)\n\n91281476\n\n\nThis represents a decrease of ~40M parameters !\nNow this is an approximation, so it isn’t really lossless and we should expect to see a performance drop, which will be bigger as we keep fewer singular values. Here we have:\n\nnew_learn = Learner(dls, new_model, metrics=accuracy)\nnew_learn.validate()\n\n\n\n\n(#2) [0.6868855357170105,0.6853856444358826]",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Misc",
+      "Fully-Connected layers decomposition"
+    ]
+  },
+  {
+    "objectID": "core.schedules.html#one-shot",
+    "href": "core.schedules.html#one-shot",
+    "title": "Schedules",
+    "section": "One-Shot",
+    "text": "One-Shot\nThe easiest schedule is the one-shot pruning, i.e. prune the network once. This can be done by simply returning the desired sparsity value. The moment when you want to prune will be controlled by the start_epoch argument in the SparsifyCallback.\n\n\nsched_oneshot\n\n sched_oneshot (start, end, pos)\n\n\none_shot.plot(50)",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "core.schedules.html#iterative",
+    "href": "core.schedules.html#iterative",
+    "title": "Schedules",
+    "section": "Iterative",
+    "text": "Iterative\nInstead of pruning the network to desired sparsity in one step, you can do it iteratively. In fasterai, you can change the amount of iterations\n\n\nsched_iterative\n\n sched_iterative (start, end, pos, n_steps=3)\n\nPerform iterative pruning, and pruning in n_steps steps\n\niterative.plot(50)\n\n\n\n\n\n\n\n\n\n\nTo modify the default n_steps, you can use the partial function.\n\niterative = Schedule(partial(sched_iterative, n_steps=5), start_pct=0.2)\n\n\niterative.plot(50)",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "core.schedules.html#automated-gradual-pruning",
+    "href": "core.schedules.html#automated-gradual-pruning",
+    "title": "Schedules",
+    "section": "Automated Gradual Pruning",
+    "text": "Automated Gradual Pruning\nSome researchers have come up with more sophisticated schedules, such as the Automated Gradual Pruning.\n\n\nsched_agp\n\n sched_agp (start, end, pos)\n\n\nagp.plot(50)",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "core.schedules.html#one-cycle-pruning",
+    "href": "core.schedules.html#one-cycle-pruning",
+    "title": "Schedules",
+    "section": "One-Cycle Pruning",
+    "text": "One-Cycle Pruning\n\n\nsched_onecycle\n\n sched_onecycle (start, end, pos, α=14, β=6)\n\n\none_cycle.plot(50)\n\n\n\n\n\n\n\n\n\n\nOn top of that, all of the schedules available in fastai by default are also available: - sched_cos - sched_linear",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "core.schedules.html#dense-sparse-dense",
+    "href": "core.schedules.html#dense-sparse-dense",
+    "title": "Schedules",
+    "section": "Dense-Sparse-Dense",
+    "text": "Dense-Sparse-Dense\nYou can also create even more interesting behaviours such as the DSD method, where you prune the model in the first place, then re-grow it to its initial amount of parameter.\n\n\nsched_dsd\n\n sched_dsd (start, end, pos)\n\n\ndsd.plot(50)",
+    "crumbs": [
+      "Get Started",
+      "Core",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "tutorial.regularizer.html",
+    "href": "tutorial.regularizer.html",
+    "title": "Regularize Callback",
+    "section": "",
+    "text": "from fasterai.core.criteria import *\nfrom fasterai.regularize.all import *\nfrom fastai.vision.all import *\n\nGet your data\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64))\n\nTrain a model without Regularization as a baseline\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\nlearn.fit_one_cycle(3)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.675158\n0.390553\n0.845061\n00:06\n\n\n1\n0.334588\n0.219738\n0.901894\n00:03\n\n\n2\n0.178833\n0.194565\n0.919486\n00:04\n\n\n\n\n\n\nCreate the RegularizeCallback\n\nreg_cb = RegularizeCallback('filter', wd=0.0001)\n\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\nlearn.fit_one_cycle(3, cbs=reg_cb)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n16.783606\n15.932514\n0.855210\n00:04\n\n\n1\n14.619355\n13.426625\n0.922192\n00:03\n\n\n2\n13.077019\n12.727697\n0.921516\n00:04",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Regularize",
+      "Regularize Callback"
+    ]
+  },
+  {
+    "objectID": "tutorial.prune_callback.html",
+    "href": "tutorial.prune_callback.html",
+    "title": "Prune Callback",
+    "section": "",
+    "text": "Let’s try our PruneCallback on the Pets dataset\n\npath = untar_data(URLs.PETS)\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64))\n\nWe’ll train a vanilla ResNet18 for 5 epochs to have an idea of the expected performance\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\nlearn.fit_one_cycle(5)\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.652405\n0.571230\n0.849120\n00:25\n\n\n1\n0.385789\n0.302065\n0.893775\n00:03\n\n\n2\n0.235413\n0.224269\n0.911367\n00:03\n\n\n3\n0.137657\n0.202212\n0.928281\n00:03\n\n\n4\n0.076987\n0.183882\n0.930988\n00:03\n\n\n\n\n\n\n\nbase_macs, base_params = tp.utils.count_ops_and_params(learn.model, torch.randn(1,3,224,224).to(default_device()))\n\nLet’s now try adding to remove some filters in our model\n\nlearn = vision_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\nWe’ll set the sparsity to 50 (i.e. remove 50% of filters), the context to global (i.e. we remove filters from anywhere in the network), the criteria to large_final (i.e. keep the highest value filters and the schedule to one_cycle (i.e. follow the One-Cycle schedule to remove filters along training).\n\npr_cb = PruneCallback(sparsity=50, context='global', criteria=large_final, schedule=one_cycle)\nlearn.fit_one_cycle(10, cbs=pr_cb)\n\nPruning until a sparsity of [50]%\n\n\n\n\n    \n        \n      \n      0.00% [0/10 00:00&lt;00:00]\n    \n    \n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n\n\n\n    \n        \n      \n      72.83% [67/92 00:02&lt;00:00 0.9935]\n    \n    \n\n\n\nKeyboardInterrupt: \n\n\n\npruned_macs, pruned_params = tp.utils.count_ops_and_params(learn.model, torch.randn(1,3,224,224).to(default_device()))\n\nWe observe that our network has lost 2.5% of accuracy. But how much parameters have we removed and how much compute does that save ?\n\nprint(f'The pruned model has {pruned_macs/base_macs:.2f} the compute of original model')\n\nThe pruned model has 0.71 the compute of original model\n\n\n\nprint(f'The pruned model has {pruned_params/base_params:.2f} the parameters of original model')\n\nThe pruned model has 0.21 the parameters of original model\n\n\nSo at the price of a slight decrease in accuracy, we now have a model that is 5x smaller and requires 1.5x fewer compute.\n\nTest Timm Vit",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Prune",
+      "Prune Callback"
+    ]
+  },
+  {
+    "objectID": "tutorial.walkthrough.html",
+    "href": "tutorial.walkthrough.html",
+    "title": "Walkthrough",
+    "section": "",
+    "text": "size, bs = 128, 32\ndls = get_dls(size, bs)\nLet’s start with a bit of context for the purpose of the demonstration. Imagine that we want to deploy a VGG16 model on a mobile device that has limited storage capacity and that our task requires our model to run sufficiently fast. It is known that parameters and speed efficiency are not the strong points of VGG16 but let’s see what we can do with it.\nLet’s first check the number of parameters and the inference time of VGG16.\nlearn = Learner(dls, models.vgg16_bn(num_classes=10), metrics=[accuracy])\nSo, VGG16 has 134 millions of parameters\ncount_parameters(learn.model)\n\nTotal parameters : 134,309,962\nAnd takes 157ms to perform inference on a single image.\nmodel = learn.model.eval().to('cpu')\nx,y = dls.one_batch()\nmodel(x[0][None].to('cpu'))\n\n36.7 ms ± 15.5 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)\nSnap ! This is more than we can afford for deployment, ideally we would like our model to take only half of that…but should we give up ? Nope, there are actually a lot of techniques that we can use to help reducing the size and improve the speed of our models! Let’s see how to apply them with FasterAI.\nWe will first train our VGG16 model to have a baseline of what performance we should expect from it.\nlearn.fit_one_cycle(10, 1e-4)\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n2.106332\n1.766819\n0.405350\n00:59\n\n\n1\n1.668967\n2.647663\n0.288662\n00:23\n\n\n2\n1.383120\n1.250985\n0.601274\n00:24\n\n\n3\n1.211088\n1.602067\n0.496561\n00:24\n\n\n4\n1.052488\n1.269606\n0.627261\n00:23\n\n\n5\n0.875793\n0.923895\n0.704459\n00:24\n\n\n6\n0.793592\n0.850951\n0.731720\n00:24\n\n\n7\n0.699599\n0.660154\n0.788025\n00:23\n\n\n8\n0.612895\n0.587406\n0.809172\n00:23\n\n\n9\n0.580625\n0.582983\n0.811210\n00:24\nSo we would like our network to have comparable accuracy but fewer parameters and running faster… And the first technique that we will show how to use is called Knowledge Distillation",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Walkthrough"
+    ]
+  },
+  {
+    "objectID": "tutorial.walkthrough.html#knowledge-distillation",
+    "href": "tutorial.walkthrough.html#knowledge-distillation",
+    "title": "Walkthrough",
+    "section": "Knowledge Distillation",
+    "text": "Knowledge Distillation\nKnowledge distillation is a simple yet very efficient way to train a model. It was introduced in 2006 by Caruana et al.. The main idea behind is to use a small model (called the student) to approximate the function learned by a larger and high-performing model (called the teacher). This can be done by using the large model to pseudo-label the data. This idea has been used very recently to break the state-of-the-art accuracy on ImageNet.\nWhen we train our model for classification, we usually use a softmax as last layer. This softmax has the particularity to squish low value logits towards 0, and the highest logit towards 1. This has for effect to completely lose all the inter-class information, or what is sometimes called the dark knowledge. This is the information that is valuable and that we want to transfer from the teacher to the student.\nTo do so, we still use a regular classification loss but at the same time, we’ll use another loss, computed between the softened logits of the teacher (our soft labels) and the softened logits of the student (our soft predictions). Those soft values are obtained when you use a soft-softmax, that avoids squishing the values at its output. Our implementation follows this paper and the basic principle of training is represented in the figure below:\n\n\n\nTo use Knowledge Distillation with FasterAI, you only need to use this callback when training your student model:\n\n\n KnowledgeDistillation(teacher.model, loss) \n\n You only need to give to the callback function your teacher learner. Behind the scenes, FasterAI will take care of making your model train using knowledge distillation. \n\n\n\n\nfrom fasterai.distill.all import *\n\nThe first thing to do is to find a teacher, which can be any model, that preferrably performs well. We will chose VGG19 for our demonstration. To make sure it performs better than our VGG16 model, let’s start from a pretrained version.\n\nteacher = vision_learner(dls, models.vgg19_bn, metrics=[accuracy])\nteacher.fit_one_cycle(3, 1e-4)\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.866055\n0.341548\n0.900382\n00:16\n\n\n1\n0.452240\n0.200227\n0.935541\n00:16\n\n\n2\n0.351471\n0.192142\n0.939618\n00:16\n\n\n\n\n\n\nOur teacher has 94% of accuracy which is pretty good, it is ready to take a student under its wing. So let’s create our student model and train it with the Knowledge Distillation callback:\n\nstudent = Learner(dls, models.vgg16_bn(num_classes=10), metrics=[accuracy])\nkd_cb = KnowledgeDistillationCallback(teacher.model, SoftTarget)\nstudent.fit_one_cycle(10, 1e-4, cbs=kd_cb)\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n5.925861\n5.334671\n0.418853\n00:38\n\n\n1\n4.492806\n4.586231\n0.506242\n00:39\n\n\n2\n3.557508\n3.664468\n0.561783\n00:38\n\n\n3\n3.022583\n3.295815\n0.638471\n00:38\n\n\n4\n2.647308\n2.486543\n0.710318\n00:38\n\n\n5\n2.325359\n2.047090\n0.753376\n00:38\n\n\n6\n2.010013\n1.755023\n0.789045\n00:38\n\n\n7\n1.745726\n1.563290\n0.809682\n00:38\n\n\n8\n1.640569\n1.468163\n0.823185\n00:38\n\n\n9\n1.557862\n1.463353\n0.826497\n00:38\n\n\n\n\n\n\nAnd we can see that indeed, the knowledge of the teacher was useful for the student, as it is clearly overperforming the vanilla VGG16.\nOk, so now we are able to get more from a given model which is kind of cool ! With some experimentations we could come up with a model smaller than VGG16 but able to reach the same performance as our baseline! You can try to find it by yourself later, but for now let’s continue with the next technique !",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Walkthrough"
+    ]
+  },
+  {
+    "objectID": "tutorial.walkthrough.html#sparsifying",
+    "href": "tutorial.walkthrough.html#sparsifying",
+    "title": "Walkthrough",
+    "section": "Sparsifying",
+    "text": "Sparsifying\nNow that we have a student model that is performing better than our baseline, we have some room to compress it. And we’ll start by making the network sparse. As explained in a previous article, there are many ways leading to a sparse network.\n\n\n\n\n\n\n\nNote\n\n\n\nUsually, the process of making a network sparse is called Pruning. I prefer using the term Pruning when parameters are actually removed from the network, which we will do in the next section.\n\n\n\n\n\nBy default, FasterAI uses the Automated Gradual Pruning paradigm as it removes parameters as the model trains and doesn’t require to pretrain the model, so it is usually much faster. In FasterAI, this is also managed by using a callback, that will replace the least important parameters of your model by zeroes during the training. The callback has a wide variety of parameters to tune your Sparsifying operation, let’s take a look at them:\n\n\nSparsifyCallback(learn, sparsity, granularity, context, criteria, schedule)\n\n\n\nsparsity: the percentage of sparsity that you want in your network\n\n\ngranularity: on what granularity you want the sparsification to be operated\n\n\ncontext: either local or global, will affect the selection of parameters to be choosen in each layer independently (local) or on the whole network (global).\n\n\ncriteria: the criteria used to select which parameters to remove (currently supported: l1, taylor)\n\n\nschedule: which schedule you want to follow for the sparsification (currently supported: any scheduling function of fastai, i.e linear, cosine, … and gradual, common schedules such as One-Shot, Iterative or Automated Gradual)\n\n\n\n\n\nBut let’s come back to our example!\nHere, we will make our network 40% sparse, and remove entire filters, selected locally and based on L1 norm. We will train with a learning rate a bit smaller to be gentle with our network because it has already been trained. The scheduling selected is cosinusoidal, so the pruning starts and ends quite slowly.\n\nsp_cb = SparsifyCallback(sparsity=50, granularity='filter', context='global', criteria=large_final, schedule=cos)\nstudent.fit(10, 1e-5, cbs=sp_cb)\n\nPruning of filter until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [1.22]%\nSparsity at the end of epoch 1: [4.77]%\nSparsity at the end of epoch 2: [10.31]%\nSparsity at the end of epoch 3: [17.27]%\nSparsity at the end of epoch 4: [25.0]%\nSparsity at the end of epoch 5: [32.73]%\nSparsity at the end of epoch 6: [39.69]%\nSparsity at the end of epoch 7: [45.23]%\nSparsity at the end of epoch 8: [48.78]%\nSparsity at the end of epoch 9: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 2: 0.00%\nSparsity in Conv2d 5: 0.00%\nSparsity in Conv2d 9: 0.00%\nSparsity in Conv2d 12: 0.00%\nSparsity in Conv2d 16: 0.00%\nSparsity in Conv2d 19: 0.00%\nSparsity in Conv2d 22: 0.00%\nSparsity in Conv2d 26: 62.30%\nSparsity in Conv2d 29: 72.85%\nSparsity in Conv2d 32: 70.51%\nSparsity in Conv2d 36: 72.27%\nSparsity in Conv2d 39: 68.55%\nSparsity in Conv2d 42: 66.02%\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.566723\n0.553824\n0.820127\n00:24\n\n\n1\n0.614897\n0.574386\n0.816306\n00:24\n\n\n2\n0.546641\n0.550967\n0.822420\n00:24\n\n\n3\n0.565639\n0.540383\n0.825223\n00:24\n\n\n4\n0.574205\n0.522705\n0.834904\n00:24\n\n\n5\n0.556102\n0.561365\n0.816561\n00:24\n\n\n6\n0.594366\n0.565789\n0.817834\n00:24\n\n\n7\n0.598630\n0.598039\n0.807134\n00:24\n\n\n8\n0.608116\n0.590361\n0.804331\n00:24\n\n\n9\n0.569425\n0.585550\n0.811465\n00:24\n\n\n\n\n\n\nOur network now has 50% of its filters composed entirely of zeroes, without even losing accuracy. Obviously, choosing a higher sparsity makes it more difficult for the network to keep a similar accuracy. Other parameters can also widely change the behaviour of our sparsification process. For example choosing a more fine-grained sparsity usually leads to better results but is then more difficult to take advantage of in terms of speed.\n\nLet’s now see how much we gained in terms of speed. Because we removed 50% of convolution filters, we should expect crazy speed-up right ?\n\nmodel = student.model.eval().to('cpu')\n\n\nmodel(x[0][None].to('cpu'))\n\n27.9 ms ± 1.17 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)\n\n\nWell actually, no. We didn’t remove any parameters, we just replaced some by zeroes, remember? The amount of parameters is still the same:\n\ncount_parameters(model)\n\nTotal parameters : 134,309,962\n\n\nWhich leads us to the next section.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Walkthrough"
+    ]
+  },
+  {
+    "objectID": "tutorial.walkthrough.html#pruning",
+    "href": "tutorial.walkthrough.html#pruning",
+    "title": "Walkthrough",
+    "section": "Pruning",
+    "text": "Pruning\nWhy don’t we see any acceleration even though we removed half of the parameters? That’s because natively, our GPU does not know that our matrices are sparse and thus isn’t able to accelerate the computation. The easiest work around, is to physically remove the parameters we zeroed-out. But this operation requires to change the architecture of the network.\nThis pruning only works if we remove entire filters as it is the only case where we can change the architecture accordingly. Hopefully, sparse computations will soon be available on common deep learning librairies so this section will become useless in the future.\n\nHere is what it looks like with fasterai: \n\n\n\nPruneCallback(learn, sparsity, context, criteria, schedule)\n\n\n\nsparsity: the percentage of sparsity that you want in your network\n\n\ncontext: either local or global, will affect the selection of parameters to be choosen in each layer independently (local) or on the whole network (global).\n\n\ncriteria: the criteria used to select which parameters to remove (currently supported: l1, taylor)\n\n\nschedule: which schedule you want to follow for the sparsification (currently supported: any scheduling function of fastai, i.e linear, cosine, … and gradual, common schedules such as One-Shot, Iterative or Automated Gradual)\n\n\n\n\n\nSo in the case of our example, it gives:\n\nfrom fasterai.prune.all import *\n\n/home/HubensN/miniconda3/envs/prune/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version &gt;=1.17.3 and &lt;1.25.0 is required for this version of SciPy (detected version 1.26.3\n  warnings.warn(f\"A NumPy version &gt;={np_minversion} and &lt;{np_maxversion}\"\n/home/HubensN/miniconda3/envs/prune/lib/python3.9/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: libtorch_cuda_cu.so: cannot open shared object file: No such file or directory\n  warn(f\"Failed to load image Python extension: {e}\")\n\n\nLet’s now see what our model is capable of now:\n\nsp_cb = PruneCallback(sparsity=50, context='global', criteria=large_final, schedule=cos)\nstudent.fit(5, 1e-5, cbs=sp_cb)\n\nPruning until a sparsity of [50]%\nSparsity at the end of epoch 0: [4.77]%\nSparsity at the end of epoch 1: [17.27]%\nSparsity at the end of epoch 2: [32.73]%\nSparsity at the end of epoch 3: [45.23]%\nSparsity at the end of epoch 4: [50.0]%\nFinal Sparsity: [50.0]%\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.555465\n0.556082\n0.818599\n01:16\n\n\n1\n0.553234\n0.553072\n0.815032\n00:54\n\n\n2\n0.531846\n0.557609\n0.820892\n00:43\n\n\n3\n0.580146\n0.561880\n0.815287\n00:43\n\n\n4\n0.567529\n0.557436\n0.818089\n00:42\n\n\n\n\n\n\n\ncount_parameters(student.model)\n\nTotal parameters : 55,015,424\n\n\nAnd in terms of speed:\n\nmodel = student.model.eval().to('cpu')\n\n\nmodel(x[0][None].to('cpu'))\n\n21.5 ms ± 2.78 ms per loop (mean ± std. dev. of 7 runs, 100 loops each)\n\n\nYay ! Now we can talk ! Let’s just double check that our accuracy is unchanged and that we didn’t mess up somewhere:\n\nAnd there is actually more that we can do ! Let’s keep going !",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Walkthrough"
+    ]
+  },
+  {
+    "objectID": "tutorial.walkthrough.html#batch-normalization-folding",
+    "href": "tutorial.walkthrough.html#batch-normalization-folding",
+    "title": "Walkthrough",
+    "section": "Batch Normalization Folding",
+    "text": "Batch Normalization Folding\nBatch Normalization Folding is a really easy to implement and straightforward idea. The gist is that batch normalization is nothing more than a normalization of the input data at each layer. Moreover, at inference time, the batch statistics used for this normalization are fixed. We can thus incorporate the normalization process directly in the convolution by changing its weights and completely remove the batch normalization layers, which is a gain both in terms of parameters and in terms of computations. For a more in-depth explaination, see this blog post.\nThis is how to use it with FasterAI:\n\nbn_folder = BN_Folder()\nbn_folder.fold(learn.model))\n\n Again, you only need to pass your model and FasterAI takes care of the rest. For models built using the nn.Sequential, you don’t need to change anything. For others, if you want to see speedup and compression, you actually need to subclass your model to remove the batch norm from the parameters and from the forward method of your network. \n\n\n\n\n\n\n\n\nNote\n\n\n\nThis operation should also be lossless as it redefines the convolution to take batch norm into account and is thus equivalent.\n\n\n\n\nfrom fasterai.misc.bn_folding import *\n\nLet’s do this with our model !\n\nbn_f = BN_Folder()\nfolded_model = bn_f.fold(student.model)\n\nThe parameters drop is generally not that significant, especially in a network such as VGG where almost all parameters are contained in the FC layers but, hey, any gain is good to take.\n\ncount_parameters(folded_model)\n\nTotal parameters : 55,011,200\n\n\n\nNow that we removed the batch normalization layers, we should again see a speedup.\n\nfolded_model = folded_model.eval().to('cpu')\n\n\nfolded_model(x[0][None].to('cpu'))\n\n16.6 ms ± 2.05 ms per loop (mean ± std. dev. of 7 runs, 100 loops each)\n\n\nAgain, let’s double check that we didn’t mess up somewhere:\n\nfolded_learner = Learner(dls, folded_model, metrics=[accuracy])\nfolded_learner.validate()\n\n\n\n\n(#2) [0.5574015378952026,0.8180891871452332]\n\n\n\nAnd we’re still not done yet ! As we know for VGG16, most of the parameters are comprised in the fully-connected layers so there should be something that we can do about it, right ?",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Walkthrough"
+    ]
+  },
+  {
+    "objectID": "tutorial.walkthrough.html#fc-layers-factorization",
+    "href": "tutorial.walkthrough.html#fc-layers-factorization",
+    "title": "Walkthrough",
+    "section": "FC Layers Factorization",
+    "text": "FC Layers Factorization\nWe can indeed, factorize our big fully-connected layers and replace them by an approximation of two smaller layers. The idea is to make an SVD decomposition of the weight matrix, which will express the original matrix in a product of 3 matrices: \\(U \\Sigma V^T\\). With \\(\\Sigma\\) being a diagonal matrix with non-negative values along its diagonal (the singular values). We then define a value \\(k\\) of singular values to keep and modify matrices \\(U\\) and \\(V^T\\) accordingly. The resulting will be an approximation of the initial matrix.\n\nIn FasterAI, to decompose the fully-connected layers of your model, here is what you need to do: \n\nFCD = FCDecomposer()\ndecomposed_model = FCD.decompose(model, percent_removed)\n\n The percent_removed corresponds to the percentage of singular values removed (k value above). \n\n\n\n\n\n\n\n\nNote\n\n\n\nThis time, the decomposition is not exact, so we expect a drop in performance afterwards and further retraining will be needed.\n\n\n\nWhich gives with our example, if we only want to keep half of them:\n\nfrom fasterai.misc.fc_decomposer import *\n\n\nfc_decomposer = FC_Decomposer()\ndecomposed_model = fc_decomposer.decompose(folded_model, percent_removed=0.5)\n\nHow many parameters do we have now ?\n\ncount_parameters(decomposed_model)\n\nTotal parameters : 45,918,130\n\n\nAnd how much time did we gain ?\n\ndecomposed_model = decomposed_model.eval().to('cpu')\n\n\ndecomposed_model(x[0][None].to('cpu'))\n\n15.1 ms ± 82.3 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)\n\n\nWe actually get a network that is a little bit slower, but at the expense of reducing the by 10M the number of parameter. This is thus a matter of compromise between network weight and speed.\n\nHowever, this technique is an approximation so it is not lossless, so we should retrain our network a bit to recover its performance.\n\nfinal_learner = Learner(dls, decomposed_model, metrics=[accuracy])\nfinal_learner.fit_one_cycle(5, 1e-5)\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.948468\n0.958711\n0.626242\n00:15\n\n\n1\n0.813343\n0.853844\n0.765860\n00:15\n\n\n2\n0.707337\n0.730561\n0.787261\n00:15\n\n\n3\n0.611412\n0.685227\n0.803057\n00:15\n\n\n4\n0.609516\n0.671448\n0.807898\n00:15\n\n\n\n\n\n\nThis operation is usually less useful for more recent architectures as they usually do not have that many parameters in their fully-connected layers.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Walkthrough"
+    ]
+  },
+  {
+    "objectID": "tutorial.walkthrough.html#quantization",
+    "href": "tutorial.walkthrough.html#quantization",
+    "title": "Walkthrough",
+    "section": "Quantization",
+    "text": "Quantization\n\nfrom fasterai.quantize.all import QuantizationAwareTrainingCallback\n\n\nfinal_learner.fit_one_cycle(5, 1e-5, cbs=QuantizationAwareTrainingCallback())\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.688162\n0.750797\n0.781911\n00:21\n\n\n1\n0.657024\n0.715372\n0.793885\n00:21\n\n\n2\n0.619336\n0.677237\n0.803057\n00:21\n\n\n3\n0.580757\n0.638669\n0.812994\n00:21\n\n\n4\n0.564272\n0.632011\n0.813758\n00:21\n\n\n\n\n\n\n\nfinal_learner.model(x[0][None].to('cpu'))\n\n10.6 ms ± 24.6 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)\n\n\n\ncount_parameters_quantized(final_learner.model)\n\nTotal parameters: 45,918,130\n\n\n\n\nSo to recap, we saw in this article how to use fasterai to:  1. Make a student model learn from a teacher model (Knowledge Distillation)  2. Make our network sparse (Sparsifying)  3. Optionnaly physically remove the zero-filters (Pruning)  4. Remove the batch norm layers (Batch Normalization Folding)  5. Approximate our big fully-connected layers by smaller ones (Fully-Connected Layers Factorization) \n\nAnd we saw that by applying those, we could reduce our VGG16 model from 134 million of parameters down to 45 million, and also speed-up the inference from 157ms to 43ms without any drop in accuracy compared to the baseline.\nOf course, those techniques can be used in conjunction with quantization or mixed-precision training, which are already available in Pytorch for even more compression and speedup.\n\n\n\n\n\n\n\nNote\n\n\n\nPlease keep in mind that the techniques presented above are not magic 🧙‍♂️, so do not expect to see a 200% speedup and compression everytime. What you can achieve highly depend on the architecture that you are using (some are already speed/parameter efficient by design) or the task it is doing (some datasets are so easy that you can remove almost all your network without seeing a drop in performance)",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Walkthrough"
+    ]
+  },
+  {
+    "objectID": "tutorial.sparsifier.html",
+    "href": "tutorial.sparsifier.html",
+    "title": "Sparsifier",
+    "section": "",
+    "text": "A sparse vector, as opposed to a dense one, is a vector which contains a lot of zeroes. When we speak about making a neural network sparse, we thus mean that the network’s weight are mostly zeroes.\nWith fasterai, you can do that thanks to the Sparsifier class.\nLet’s start by creating a model\nmodel = resnet18()\nAs you probably know, weights in a convolutional neural network have 4 dimensions ($ c_{out} c_{in} k_h k_w$)\nmodel.conv1.weight.ndim\n\n4\nIn the case of ResNet18, the dimension of the first layer weights is \\(64 \\times 3 \\times 7 \\times 7\\). We thus can plot each of the \\(64\\) filter as a \\(7 \\times 7\\) color image (because they contains \\(3\\) channels).\nplot_kernels(model.conv1)\nThe Sparsifier class allows us to remove some (part of) the filters, that are considered to be less useful than others. This can be done by first creating an instance of the class, specifying:\nUser can pass a single layer to prune by using the Sparsifier.sparsify_layer method.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Sparsifier"
+    ]
+  },
+  {
+    "objectID": "tutorial.sparsifier.html#granularity",
+    "href": "tutorial.sparsifier.html#granularity",
+    "title": "Sparsifier",
+    "section": "Granularity",
+    "text": "Granularity\nAs we said earlier, the granularity defines the structure of parameter that you will remove.\nIn the example below, we removed weight from each convolutional filter, meaning that we now have sparse filters, as can be seen in the image below:\n\nplot_kernels(model.conv1)\n\n\n\n\n\n\n\n\nAnother granularity is, for example, removing column vectors from the filters. To do so, just change the granularity parameter accordingly.\n\nmodel = resnet18()\nsparsifier = Sparsifier(model, 'column', 'local', large_final)\nsparsifier.sparsify_layer(model.conv1, 70)\n\n\nplot_kernels(model.conv1)\n\n\n\n\n\n\n\n\nFor more information and examples about the pruning granularities, I suggest you to take a look at the corresponding section.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Sparsifier"
+    ]
+  },
+  {
+    "objectID": "tutorial.sparsifier.html#context",
+    "href": "tutorial.sparsifier.html#context",
+    "title": "Sparsifier",
+    "section": "Context",
+    "text": "Context\nThe context defines where to look in the model, i.e. from where do we compare weight. The two basic contexts are: * local, i.e. we compare weight from each layer individually. This will lead to layers with similar levels of sparsity. * global, i.e. we compare weight from the whole model. This will lead to layers with different levels of sparsity\n\nmodel = resnet18()\nsparsifier = Sparsifier(model, 'weight', 'local', large_final)\nsparsifier.sparsify_model(70)\n\n\nsparsifier.print_sparsity()\n\nSparsity in Conv2d 1: 69.99%\nSparsity in Conv2d 7: 70.00%\nSparsity in Conv2d 10: 70.00%\nSparsity in Conv2d 13: 70.00%\nSparsity in Conv2d 16: 70.00%\nSparsity in Conv2d 20: 70.00%\nSparsity in Conv2d 23: 70.00%\nSparsity in Conv2d 26: 70.00%\nSparsity in Conv2d 29: 70.00%\nSparsity in Conv2d 32: 70.00%\nSparsity in Conv2d 36: 70.00%\nSparsity in Conv2d 39: 70.00%\nSparsity in Conv2d 42: 70.00%\nSparsity in Conv2d 45: 70.00%\nSparsity in Conv2d 48: 70.00%\nSparsity in Conv2d 52: 70.00%\nSparsity in Conv2d 55: 70.00%\nSparsity in Conv2d 58: 70.00%\nSparsity in Conv2d 61: 70.00%\nSparsity in Conv2d 64: 70.00%\n\n\n\nmodel = resnet18()\nsparsifier = Sparsifier(model, 'weight', 'global', large_final)\nsparsifier.sparsify_model(70)\n\n\nsparsifier.print_sparsity()\n\nSparsity in Conv2d 1: 66.14%\nSparsity in Conv2d 7: 32.17%\nSparsity in Conv2d 10: 32.31%\nSparsity in Conv2d 13: 32.28%\nSparsity in Conv2d 16: 31.73%\nSparsity in Conv2d 20: 44.03%\nSparsity in Conv2d 23: 44.44%\nSparsity in Conv2d 26: 15.32%\nSparsity in Conv2d 29: 44.43%\nSparsity in Conv2d 32: 44.24%\nSparsity in Conv2d 36: 59.17%\nSparsity in Conv2d 39: 59.22%\nSparsity in Conv2d 42: 22.02%\nSparsity in Conv2d 45: 59.24%\nSparsity in Conv2d 48: 59.14%\nSparsity in Conv2d 52: 75.82%\nSparsity in Conv2d 55: 75.86%\nSparsity in Conv2d 58: 30.28%\nSparsity in Conv2d 61: 75.86%\nSparsity in Conv2d 64: 75.88%",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Sparsifier"
+    ]
+  },
+  {
+    "objectID": "tutorial.sparsifier.html#criteria",
+    "href": "tutorial.sparsifier.html#criteria",
+    "title": "Sparsifier",
+    "section": "Criteria",
+    "text": "Criteria\nThe criteria defines how we select the parameters to remove. It is usually given by a scoring method. The most common one is the large_final, i.e. select parameters with the highest absolute value as they are supposed to contribute the most to the final results of the model.\n\nmodel = resnet18()\nsparsifier = Sparsifier(model, 'weight', 'global', large_final)\nsparsifier.sparsify_model(70)\n\n\nsparsifier.print_sparsity()\n\nSparsity in Conv2d 1: 66.46%\nSparsity in Conv2d 7: 31.56%\nSparsity in Conv2d 10: 31.81%\nSparsity in Conv2d 13: 31.92%\nSparsity in Conv2d 16: 32.47%\nSparsity in Conv2d 20: 44.29%\nSparsity in Conv2d 23: 43.94%\nSparsity in Conv2d 26: 15.31%\nSparsity in Conv2d 29: 44.11%\nSparsity in Conv2d 32: 44.10%\nSparsity in Conv2d 36: 59.13%\nSparsity in Conv2d 39: 59.23%\nSparsity in Conv2d 42: 21.60%\nSparsity in Conv2d 45: 59.36%\nSparsity in Conv2d 48: 59.32%\nSparsity in Conv2d 52: 75.91%\nSparsity in Conv2d 55: 75.88%\nSparsity in Conv2d 58: 30.19%\nSparsity in Conv2d 61: 75.80%\nSparsity in Conv2d 64: 75.87%\n\n\n\nmodel = resnet18()\nsparsifier = Sparsifier(model, 'weight', 'global', small_final)\nsparsifier.sparsify_model(70)\n\n\nsparsifier.print_sparsity()\n\nSparsity in Conv2d 1: 38.87%\nSparsity in Conv2d 7: 2.38%\nSparsity in Conv2d 10: 0.65%\nSparsity in Conv2d 13: 1.63%\nSparsity in Conv2d 16: 1.32%\nSparsity in Conv2d 20: 1.72%\nSparsity in Conv2d 23: 4.12%\nSparsity in Conv2d 26: 0.17%\nSparsity in Conv2d 29: 0.97%\nSparsity in Conv2d 32: 7.12%\nSparsity in Conv2d 36: 26.24%\nSparsity in Conv2d 39: 8.62%\nSparsity in Conv2d 42: 0.22%\nSparsity in Conv2d 45: 10.87%\nSparsity in Conv2d 48: 4.43%\nSparsity in Conv2d 52: 90.31%\nSparsity in Conv2d 55: 94.71%\nSparsity in Conv2d 58: 0.41%\nSparsity in Conv2d 61: 96.16%\nSparsity in Conv2d 64: 84.94%\n\n\nFor more information and examples about the pruning criteria, I suggest you to take a look at the corresponding section.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Sparsifier"
+    ]
+  },
+  {
+    "objectID": "tutorial.sparsifier.html#remark",
+    "href": "tutorial.sparsifier.html#remark",
+    "title": "Sparsifier",
+    "section": "Remark",
+    "text": "Remark\nIn some case, you may want to impose the remaining amount of parameters to be a multiple of 8, this can be done by passing the round_to parameter.\n\nmodel = resnet18()\nsparsifier = Sparsifier(model, 'filter', 'local', large_final)\nsparsifier.sparsify_model(70, round_to=8)\n\n\nsparsifier.print_sparsity()\n\nSparsity in Conv2d 1: 62.50%\nSparsity in Conv2d 7: 62.50%\nSparsity in Conv2d 10: 62.50%\nSparsity in Conv2d 13: 62.50%\nSparsity in Conv2d 16: 62.50%\nSparsity in Conv2d 20: 68.75%\nSparsity in Conv2d 23: 68.75%\nSparsity in Conv2d 26: 68.75%\nSparsity in Conv2d 29: 68.75%\nSparsity in Conv2d 32: 68.75%\nSparsity in Conv2d 36: 68.75%\nSparsity in Conv2d 39: 68.75%\nSparsity in Conv2d 42: 68.75%\nSparsity in Conv2d 45: 68.75%\nSparsity in Conv2d 48: 68.75%\nSparsity in Conv2d 52: 68.75%\nSparsity in Conv2d 55: 68.75%\nSparsity in Conv2d 58: 68.75%\nSparsity in Conv2d 61: 68.75%\nSparsity in Conv2d 64: 68.75%\n\n\n\nmodel = resnet18()\nsparsifier = Sparsifier(model, 'filter', 'global', large_final)\nsparsifier.sparsify_model(70, round_to=8)\n\n\nsparsifier.print_sparsity()\n\nSparsity in Conv2d 1: 87.50%\nSparsity in Conv2d 7: 0.00%\nSparsity in Conv2d 10: 0.00%\nSparsity in Conv2d 13: 0.00%\nSparsity in Conv2d 16: 0.00%\nSparsity in Conv2d 20: 93.75%\nSparsity in Conv2d 23: 93.75%\nSparsity in Conv2d 26: 0.00%\nSparsity in Conv2d 29: 93.75%\nSparsity in Conv2d 32: 93.75%\nSparsity in Conv2d 36: 96.88%\nSparsity in Conv2d 39: 96.88%\nSparsity in Conv2d 42: 0.00%\nSparsity in Conv2d 45: 96.88%\nSparsity in Conv2d 48: 93.75%\nSparsity in Conv2d 52: 98.44%\nSparsity in Conv2d 55: 98.44%\nSparsity in Conv2d 58: 0.00%\nSparsity in Conv2d 61: 98.44%\nSparsity in Conv2d 64: 96.88%\n\n\nFor more information about granularities at which you can operate, please check the related page.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Sparsifier"
+    ]
+  },
+  {
+    "objectID": "tutorial.schedules.html",
+    "href": "tutorial.schedules.html",
+    "title": "Schedules",
+    "section": "",
+    "text": "Neural Network Pruning usually follows one of the next 3 schedules:\nIn fasterai, all those 3 schedules can be applied from the same callback. We’ll cover each below\nIn the SparsifyCallback, there are several parameters to ‘shape’ our pruning schedule: * start_sparsity: the initial sparsity of our model, generally kept at 0 as after initialization, our weights are generally non-zero. * end_sparsity: the target sparsity at the end of the training * start_epoch: we can decide to start pruning right from the beginning or let it train a bit before removing weights. * sched_func: this is where the general shape of the schedule is specified as it specifies how the sparsity evolves along the training. You can either use a schedule available in fastai our even coming with your own !\npath = untar_data(URLs.PETS)\n\nfiles = get_image_files(path/\"images\")\n\ndef label_func(f): return f[0].isupper()\n\ndevice = 'cuda:0' if torch.cuda.is_available() else 'cpu'\n\ndls = ImageDataLoaders.from_name_func(path, files, label_func, item_tfms=Resize(64), device=device)\nWe will first train a network without any pruning, which will serve as a baseline.\nlearn = cnn_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\nlearn.fit_one_cycle(6)\n\n/home/HubensN/miniconda3/envs/deep/lib/python3.8/site-packages/fastai/vision/learner.py:265: UserWarning: `cnn_learner` has been renamed to `vision_learner` -- please update your code\n  warn(\"`cnn_learner` has been renamed to `vision_learner` -- please update your code\")\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.703338\n0.584460\n0.833559\n00:08\n\n\n1\n0.409266\n0.277945\n0.886333\n00:07\n\n\n2\n0.272164\n0.230810\n0.900541\n00:07\n\n\n3\n0.171919\n0.202396\n0.920162\n00:07\n\n\n4\n0.095116\n0.168309\n0.937754\n00:07\n\n\n5\n0.055808\n0.167708\n0.939107\n00:07",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "tutorial.schedules.html#one-shot-pruning",
+    "href": "tutorial.schedules.html#one-shot-pruning",
+    "title": "Schedules",
+    "section": "One-Shot Pruning",
+    "text": "One-Shot Pruning\nThe simplest way to perform pruning is called One-Shot Pruning. It consists of the following three steps:\n\nYou first need to train a network\nYou then need to remove some weights (depending on your criteria, needs,…)\nYou fine-tune the remaining weights to recover from the loss of parameters.\n\nWith fasterai, this is really easy to do. Let’s illustrate it by an example:\n\nlearn = cnn_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\nIn this case, your network needs to be trained before pruning. This training can be done independently from the pruning callback, or simulated by the start_epoch that will delay the pruning process.\nYou thus only need to create the Callback with the one_shot schedule and set the start_epoch argument, i.e. how many epochs you want to train your network before pruning it.\n\nsp_cb=SparsifyCallback(sparsity=50, granularity='weight', context='local', criteria=large_final, schedule=one_shot)\n\nLet’s start pruningn after 3 epochs and train our model for 6 epochs to have the same total amount of training as before\n\nlearn.fit_one_cycle(6, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [0.0]%\nSparsity at the end of epoch 1: [0.0]%\nSparsity at the end of epoch 2: [50.0]%\nSparsity at the end of epoch 3: [50.0]%\nSparsity at the end of epoch 4: [50.0]%\nSparsity at the end of epoch 5: [50.0]%\nFinal Sparsity: [50]%\nSparsity in Conv2d 2: 50.00%\nSparsity in Conv2d 8: 50.00%\nSparsity in Conv2d 11: 50.00%\nSparsity in Conv2d 14: 50.00%\nSparsity in Conv2d 17: 50.00%\nSparsity in Conv2d 21: 50.00%\nSparsity in Conv2d 24: 50.00%\nSparsity in Conv2d 27: 50.00%\nSparsity in Conv2d 30: 50.00%\nSparsity in Conv2d 33: 50.00%\nSparsity in Conv2d 37: 50.00%\nSparsity in Conv2d 40: 50.00%\nSparsity in Conv2d 43: 50.00%\nSparsity in Conv2d 46: 50.00%\nSparsity in Conv2d 49: 50.00%\nSparsity in Conv2d 53: 50.00%\nSparsity in Conv2d 56: 50.00%\nSparsity in Conv2d 59: 50.00%\nSparsity in Conv2d 62: 50.00%\nSparsity in Conv2d 65: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.671942\n0.521863\n0.809878\n00:07\n\n\n1\n0.433165\n0.335386\n0.868742\n00:07\n\n\n2\n0.252873\n0.223187\n0.906631\n00:07\n\n\n3\n0.151653\n0.195924\n0.922869\n00:07\n\n\n4\n0.091317\n0.169764\n0.929635\n00:07\n\n\n5\n0.055428\n0.161210\n0.934371\n00:07",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "tutorial.schedules.html#iterative-pruning",
+    "href": "tutorial.schedules.html#iterative-pruning",
+    "title": "Schedules",
+    "section": "Iterative Pruning",
+    "text": "Iterative Pruning\nResearchers have come up with a better way to do pruning than pruning all the weigths in once (as in One-Shot Pruning). The idea is to perform several iterations of pruning and fine-tuning and is thus called Iterative Pruning.\n\nYou first need to train a network\nYou then need to remove a part of the weights weights (depending on your criteria, needs,…)\nYou fine-tune the remaining weights to recover from the loss of parameters.\nBack to step 2.\n\n\nlearn = cnn_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\nIn this case, your network needs to be trained before pruning.\nYou only need to create the Callback with the iterative schedule and set the start_epoch argument, i.e. how many epochs you want to train your network before pruning it.\nThe iterative schedules has a n_stepsparameter, i.e. how many iterations of pruning/fine-tuning you want to perform. To modify its value, we can use the partial function like this:\niterative = partial(iterative, n_steps=5)\n\nsp_cb=SparsifyCallback(sparsity=50, granularity='weight', context='local', criteria=large_final, schedule=iterative)\n\nLet’s start pruningn after 3 epochs and train our model for 6 epochs to have the same total amount of training as before\n\nlearn.fit_one_cycle(6, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [0.0]%\nSparsity at the end of epoch 1: [16.67]%\nSparsity at the end of epoch 2: [33.33]%\nSparsity at the end of epoch 3: [33.33]%\nSparsity at the end of epoch 4: [50.0]%\nSparsity at the end of epoch 5: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 2: 50.00%\nSparsity in Conv2d 8: 50.00%\nSparsity in Conv2d 11: 50.00%\nSparsity in Conv2d 14: 50.00%\nSparsity in Conv2d 17: 50.00%\nSparsity in Conv2d 21: 50.00%\nSparsity in Conv2d 24: 50.00%\nSparsity in Conv2d 27: 50.00%\nSparsity in Conv2d 30: 50.00%\nSparsity in Conv2d 33: 50.00%\nSparsity in Conv2d 37: 50.00%\nSparsity in Conv2d 40: 50.00%\nSparsity in Conv2d 43: 50.00%\nSparsity in Conv2d 46: 50.00%\nSparsity in Conv2d 49: 50.00%\nSparsity in Conv2d 53: 50.00%\nSparsity in Conv2d 56: 50.00%\nSparsity in Conv2d 59: 50.00%\nSparsity in Conv2d 62: 50.00%\nSparsity in Conv2d 65: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.747520\n0.534082\n0.823410\n00:07\n\n\n1\n0.406695\n0.292009\n0.876184\n00:07\n\n\n2\n0.248393\n0.211495\n0.912720\n00:07\n\n\n3\n0.138455\n0.226409\n0.912720\n00:07\n\n\n4\n0.092650\n0.205549\n0.926928\n00:07\n\n\n5\n0.056216\n0.195934\n0.931664\n00:07",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "tutorial.schedules.html#gradual-pruning",
+    "href": "tutorial.schedules.html#gradual-pruning",
+    "title": "Schedules",
+    "section": "Gradual Pruning",
+    "text": "Gradual Pruning\nHere is for example how to implement the Automated Gradual Pruning schedule.\n\nlearn = cnn_learner(dls, resnet18, metrics=accuracy)\nlearn.unfreeze()\n\n\nsp_cb=SparsifyCallback(sparsity=50, granularity='weight', context='local', criteria=large_final, schedule=agp)\n\nLet’s start pruning after 3 epochs and train our model for 6 epochs to have the same total amount of training as before\n\nlearn.fit_one_cycle(6, cbs=sp_cb)\n\nPruning of weight until a sparsity of [50]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [0.0]%\nSparsity at the end of epoch 1: [21.02]%\nSparsity at the end of epoch 2: [37.79]%\nSparsity at the end of epoch 3: [46.39]%\nSparsity at the end of epoch 4: [49.55]%\nSparsity at the end of epoch 5: [50.0]%\nFinal Sparsity: [50.0]%\nSparsity in Conv2d 2: 50.00%\nSparsity in Conv2d 8: 50.00%\nSparsity in Conv2d 11: 50.00%\nSparsity in Conv2d 14: 50.00%\nSparsity in Conv2d 17: 50.00%\nSparsity in Conv2d 21: 50.00%\nSparsity in Conv2d 24: 50.00%\nSparsity in Conv2d 27: 50.00%\nSparsity in Conv2d 30: 50.00%\nSparsity in Conv2d 33: 50.00%\nSparsity in Conv2d 37: 50.00%\nSparsity in Conv2d 40: 50.00%\nSparsity in Conv2d 43: 50.00%\nSparsity in Conv2d 46: 50.00%\nSparsity in Conv2d 49: 50.00%\nSparsity in Conv2d 53: 50.00%\nSparsity in Conv2d 56: 50.00%\nSparsity in Conv2d 59: 50.00%\nSparsity in Conv2d 62: 50.00%\nSparsity in Conv2d 65: 50.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\naccuracy\ntime\n\n\n\n\n0\n0.675533\n0.671494\n0.815291\n00:07\n\n\n1\n0.414929\n0.261510\n0.888363\n00:07\n\n\n2\n0.261279\n0.247027\n0.903924\n00:07\n\n\n3\n0.151988\n0.198519\n0.914750\n00:07\n\n\n4\n0.088916\n0.157761\n0.933694\n00:07\n\n\n5\n0.043516\n0.148362\n0.940460\n00:07\n\n\n\n\n\n\nEven though they are often considered as different pruning methods, those 3 schedules can be captured by the same Callback. Here is how the sparsity in the network evolves for those methods;\nLet’s take an example here. Let’s say that we want to train our network for 3 epochs without pruning and then 7 epochs with pruning.\nThen this is what our different pruning schedules will look like:\n\n\n\n\n\n\n\n\n\nYou can also come up with your own pruning schedule !",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Schedules"
+    ]
+  },
+  {
+    "objectID": "tutorial.transformers.html",
+    "href": "tutorial.transformers.html",
+    "title": "Prune Transformers",
+    "section": "",
+    "text": "Note\n\n\n\nThis example code is taken from the fastai docs\npretrained_weights = 'gpt2'\ntokenizer = GPT2TokenizerFast.from_pretrained(pretrained_weights)\nmodel = GPT2LMHeadModel.from_pretrained(pretrained_weights)\npath = untar_data(URLs.WIKITEXT_TINY)\nLet’s create our fastai Learner.\nlearn = Learner(dls, model, loss_func=CrossEntropyLossFlat(), cbs=[DropOutput], metrics=Perplexity())\nAnd let’s try to extend a given prompt with the pretrained model.\nprompt = \"\\n = Unicorn = \\n \\n A unicorn is a magical creature with a rainbow tail and a horn\"\npreds = learn.model.generate(inp, max_length=40, num_beams=5, temperature=1.5)\n\nThe attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.\nSetting `pad_token_id` to `eos_token_id`:50256 for open-end generation.\ntokenizer.decode(preds[0].cpu().numpy())\n\n'\\n = Unicorn = \\n \\n A unicorn is a magical creature with a rainbow tail and a horn on its head.\\n\\nA unicorn is a magical creature with a rainbow tail and a horn'\nlearn.validate()\n\n\n\n\n\n\n\n\n(#2) [3.695716619491577,40.2744255065918]\nlearn.fit_one_cycle(1, 1e-4)\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nperplexity\ntime\n\n\n\n\n0\n3.124115\n2.844266\n17.188944\n07:50\nprompt_ids = tokenizer.encode(prompt)\ninp = tensor(prompt_ids)[None]\n\npreds = learn.model.generate(inp.cuda(), max_length=40, num_beams=5, temperature=1.5)\n\ntokenizer.decode(preds[0].cpu().numpy())\n\nThe attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.\nSetting `pad_token_id` to `eos_token_id`:50256 for open-end generation.\n\n\nRuntimeError: Expected all tensors to be on the same device, but found at least two devices, cpu and cuda:0! (when checking argument for argument index in method wrapper__index_select)",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Prune Transformers"
+    ]
+  },
+  {
+    "objectID": "tutorial.transformers.html#make-it-sparse",
+    "href": "tutorial.transformers.html#make-it-sparse",
+    "title": "Prune Transformers",
+    "section": "Make it sparse !",
+    "text": "Make it sparse !\nLet’s see now if we retrain our model, this time introducing sparsity\n\nlearn = Learner(dls, model, loss_func=CrossEntropyLossFlat(), cbs=[DropOutput], metrics=Perplexity())\n\nUnfortunately, the transformer model uses a custom layer: Conv1D, which is not a part of PyTorch. To overcome this problem, we have to add this layer to our Granularities class, so that it knows what to sparsify.\nHere, the Conv1D behaves like a Linear layer, i.e. the weights are defined by a matrix of dimension (nf,nx)\n\ndoc(Conv1D)\n\nhuggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...\nTo disable this warning, you can either:\n    - Avoid using `tokenizers` before the fork if possible\n    - Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)\n\n\n\nConv1D\nConv1D(nf, nx)1D-convolutional layer as defined by Radford et al. for OpenAI GPT (and also used in GPT-2).\n\nBasically works like a linear layer but the weights are transposed.\n\nArgs:\n    nf (`int`): The number of output features.\n    nx (`int`): The number of input features.\n\n\nWe can thus add the Conv1D granularity by using the add_granularity method, indicating the target module and the corresponding granularities that it can handle (the same as Linear so we can reuse it)\n\nGranularities.add_granularity(Conv1D, Granularities._granularities_Linear)\n\nLet’s now define our SparsifyCallback. Let’s say we want to make our model 30% sparse, by removing the highest-norm weight in each attention head.\n\nsp_cb = SparsifyCallback(sparsity=30, granularity='weight', context='local', criteria=large_final, schedule=one_cycle, layer_type=Conv1D)\n\nWe now only have to pass our callback to fastai\n\nlearn.fit_one_cycle(1, 1e-4, cbs=sp_cb)\n\nPruning of weight until a sparsity of [30]%\nSaving Weights at epoch 0\nSparsity at the end of epoch 0: [30.0]%\nFinal Sparsity: [30.0]%\nSparsity in Conv1D 9: 30.00%\nSparsity in Conv1D 10: 30.00%\nSparsity in Conv1D 15: 30.00%\nSparsity in Conv1D 16: 30.00%\nSparsity in Conv1D 22: 30.00%\nSparsity in Conv1D 23: 30.00%\nSparsity in Conv1D 28: 30.00%\nSparsity in Conv1D 29: 30.00%\nSparsity in Conv1D 34: 30.00%\nSparsity in Conv1D 35: 30.00%\nSparsity in Conv1D 40: 30.00%\nSparsity in Conv1D 41: 30.00%\nSparsity in Conv1D 46: 30.00%\nSparsity in Conv1D 47: 30.00%\nSparsity in Conv1D 52: 30.00%\nSparsity in Conv1D 53: 30.00%\nSparsity in Conv1D 58: 30.00%\nSparsity in Conv1D 59: 30.00%\nSparsity in Conv1D 64: 30.00%\nSparsity in Conv1D 65: 30.00%\nSparsity in Conv1D 70: 30.00%\nSparsity in Conv1D 71: 30.00%\nSparsity in Conv1D 76: 30.00%\nSparsity in Conv1D 77: 30.00%\nSparsity in Conv1D 82: 30.00%\nSparsity in Conv1D 83: 30.00%\nSparsity in Conv1D 88: 30.00%\nSparsity in Conv1D 89: 30.00%\nSparsity in Conv1D 94: 30.00%\nSparsity in Conv1D 95: 30.00%\nSparsity in Conv1D 100: 30.00%\nSparsity in Conv1D 101: 30.00%\nSparsity in Conv1D 106: 30.00%\nSparsity in Conv1D 107: 30.00%\nSparsity in Conv1D 112: 30.00%\nSparsity in Conv1D 113: 30.00%\nSparsity in Conv1D 118: 30.00%\nSparsity in Conv1D 119: 30.00%\nSparsity in Conv1D 124: 30.00%\nSparsity in Conv1D 125: 30.00%\nSparsity in Conv1D 130: 30.00%\nSparsity in Conv1D 131: 30.00%\nSparsity in Conv1D 136: 30.00%\nSparsity in Conv1D 137: 30.00%\nSparsity in Conv1D 142: 30.00%\nSparsity in Conv1D 143: 30.00%\nSparsity in Conv1D 148: 30.00%\nSparsity in Conv1D 149: 30.00%\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nperplexity\ntime\n\n\n\n\n0\n3.151266\n2.882525\n17.859306\n09:44\n\n\n\n\n\n\nAnd we can check the predicion to the same prompt as before\n\nprompt_ids = tokenizer.encode(prompt)\ninp = tensor(prompt_ids)[None]\n\npreds = learn.model.generate(inp.cuda(), max_length=40, num_beams=5, temperature=1.5)\n\ntokenizer.decode(preds[0].cpu().numpy())\n\nThe attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.\nSetting `pad_token_id` to `eos_token_id`:50256 for open-end generation.\n\n\n'\\n = Unicorn = \\n \\n A unicorn is a magical creature with a rainbow tail and a horn @-@ shaped head. The unicorn is a member of the &lt;unk&gt; &lt;unk&gt;'\n\n\nThat’s it ! You now have a sparse Transformer as performant as the whole model. However, this model is currently not more efficient speed and storage wise. To have such a speed-up, I suggest you to look at the granularity section.",
+    "crumbs": [
+      "Get Started",
+      "Tutorials",
+      "Sparse",
+      "Prune Transformers"
+    ]
+  },
+  {
+    "objectID": "regularize.regularizer.html",
+    "href": "regularize.regularizer.html",
+    "title": "Regularize Callback",
+    "section": "",
+    "text": "RegularizeCallback\n\n RegularizeCallback (g, wd=0.01, layer_type=&lt;class\n                     'torch.nn.modules.conv.Conv2d'&gt;)\n\nCallback to apply grouped weight decay\nThe RegularizeCallbackcan be used to perform \\(l_1\\) regularization on any granularity available in the criteria class.",
+    "crumbs": [
+      "Get Started",
+      "Regularize",
+      "Regularize Callback"
+    ]
+  }
+]
