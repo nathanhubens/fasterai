@@ -1,9 +1,9 @@
 package:
   name: fasterai
-  version: 0.1.13
+  version: 0.2.3
 source:
-  sha256: 61fd53a32080b08543a91cfceaaf28423a5bdf48bfd047bc95704c5fdc10b555
-  url: https://files.pythonhosted.org/packages/59/17/5ace7091abdcf7f8c5e53a84c87d099a77ae6a22eb252c51ce0a28aaae76/fasterai-0.1.13.tar.gz
+  sha256: 0b193741136735bedfa55948c42e8b4f29a2c13e3e9dd0a15ee38294d08fe097
+  url: https://files.pythonhosted.org/packages/5c/19/f57dce01f39f2085cea8c220064ed9547d24cb5cb1f64ddd20fe5fa686ff/fasterai-0.2.3.tar.gz
 about:
   description: "# Fasterai\n\n\n\n![header](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=header&text=fasterai%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=A%20Library%20to%20make%20smaller%20and%20faster%20neural%20networks&descAlignY=51&descAlign=62)\n\
     \n<p align=\"center\">\n    <a href=\"https://pypi.org/project/fasterai/\"><img\
@@ -11,17 +11,18 @@ about:
     \ href=\"https://pypi.org/project/fasterai/\"><img src=\"https://static.pepy.tech/personalized-badge/fasterai?color=%235BAFAFperiod=total&units=international_system&left_color=grey&right_color=%235BAFAF&left_text=downloads\"\
     ></a>\n    <a href=\"https://opensource.org/licenses/MIT\"><img src=\"https://img.shields.io/github/license/nathanhubens/fasterai?color=%235bafaf\"\
     ></a>\n    <a href=\"https://pypi.org/project/fasterai/\"><img src=\"https://img.shields.io/badge/DOI-10.5281%2Fzenodo.6469868-y?color=%235BAFAF\"\
-    ></a>\n</p>\n\n\n<p align=\"center\">\n  <a href=\"#methods\">Methods</a> \u2022\
-    \n  <a href=\"#features\">Features</a> \u2022\n  <a href=\"#installation\">Installation</a>\
-    \ \u2022\n  <a href=\"#tutorials\">Tutorials</a> \u2022\n  <a href=\"#citing\"\
-    >Citing</a> \u2022\n  <a href=\"#license\">License</a>\n</p>\n\n`fasterai` is\
-    \ a library created to make neural network **smaller** and **faster**. It essentially\
-    \ relies on common compression techniques for networks such as pruning, knowledge\
-    \ distillation, Lottery Ticket Hypothesis, ...\n\nThe core feature of `fasterai`\
-    \ is its Sparsifying capabilities, constructed on 4 main modules: **granularity**,\
-    \ **context**, **criteria**, **schedule**. Each of these modules is highly customizable,\
-    \ allowing you to change them according to your needs or even to come up with\
-    \ your own !\n\n## Project Documentation\n\nVisit [Read The Docs Project Page](https://nathanhubens.github.io/fasterai/)\
+    ></a>\n</p>\n\n\n<p align=\"center\">\n  <a href=\"#features\">Features</a> \u2022\
+    \n  <a href=\"#installation\">Installation</a> \u2022\n  <a href=\"#tutorials\"\
+    >Tutorials</a> \u2022\n  <a href=\"#join-the-community\">Community</a> \u2022\n\
+    \  <a href=\"#citing\">Citing</a> \u2022\n  <a href=\"#license\">License</a>\n\
+    </p>\n\n`fasterai` is a library created to make neural network **smaller** and\
+    \ **faster**. It essentially relies on common compression techniques for networks\
+    \ such as pruning, knowledge distillation, Lottery Ticket Hypothesis, ...\n\n\
+    The core feature of `fasterai` is its Sparsifying capabilities, constructed on\
+    \ 4 main modules: **granularity**, **context**, **criteria**, **schedule**. Each\
+    \ of these modules is highly customizable, allowing you to change them according\
+    \ to your needs or even to come up with your own !\n\n## Project Documentation\n\
+    \nVisit [Read The Docs Project Page](https://nathanhubens.github.io/fasterai/)\
     \ or read following README to know more about using `fasterai`.\n\n---\n\n## \
     \ Features\n\n### 1. Sparsifying\n\n![alt text](nbs/imgs/sparsification.png \"\
     Sparsification\")\n\nMake your model sparse (*i.e.* prune it) according to a:\n\
@@ -60,11 +61,13 @@ about:
     - [Find winning tickets using the Lottery Ticket Hypothesis](https://nathanhubens.github.io/fasterai/tutorial.lottery_ticket.html)\n\
     - [Use Knowledge Distillation to help a student model to reach higher performance](https://nathanhubens.github.io/fasterai/tutorial.knowledge_distillation.html)\n\
     - [Sparsify Transformers](https://nathanhubens.github.io/fasterai/tutorial.transformers.html)\n\
-    - More to come...\n\n---\n\n##  Citing\n```\n@software{Hubens,\n  author     \
-    \  = {Nathan Hubens},\n  title        = {fasterai},\n  year         = 2022,\n\
-    \  publisher    = {Zenodo},\n  version      = {v0.1.6},\n  doi          = {10.5281/zenodo.6469868},\n\
-    \  url          = {https://doi.org/10.5281/zenodo.6469868}\n}\n```\n\n---\n\n\
-    ## License\n\n[Apache-2.0](https://www.apache.org/licenses/) License.\n\n![footer](https://capsule-render.vercel.app/api?type=waving&color=008080&height=100&section=footer)\n"
+    - More to come...\n\n---\n\n## Join the community\n\nJoin [our discord server](https://discord.gg/32BwhJSB9u)\
+    \ to meet other FasterAI users and share your projects!\n\n---\n\n##  Citing\n\
+    ```\n@software{Hubens,\n  author       = {Nathan Hubens},\n  title        = {fasterai},\n\
+    \  year         = 2022,\n  publisher    = {Zenodo},\n  version      = {v0.1.6},\n\
+    \  doi          = {10.5281/zenodo.6469868},\n  url          = {https://doi.org/10.5281/zenodo.6469868}\n\
+    }\n```\n\n---\n\n## License\n\n[Apache-2.0](https://www.apache.org/licenses/)\
+    \ License.\n\n![footer](https://capsule-render.vercel.app/api?type=waving&color=008080&height=100&section=footer)\n"
   dev_url: https://github.com/nathanhubens/fasterai/tree/master/
   doc_url: https://nathanhubens.github.io/fasterai/
   home: https://github.com/nathanhubens/fasterai/tree/master/
@@ -81,13 +84,10 @@ extra:
 requirements:
   host:
   - pip
-  - python
   - packaging
-  - fastai>=2.2
+  - python >=3.6
   run:
-  - pip
-  - python
-  - packaging
+  - python >=3.6
   - fastai>=2.2
 test:
   imports:

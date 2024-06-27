@@ -26,7 +26,7 @@ class Granularities:
     def get_dim(cls, m, g):
         for k in cls._granularities:
             if isinstance(m, k):
-                return cls._granularities[k][g]
+                return listify(cls._granularities[k][g])
         raise NotImplementedError("Unsupported module type")
     
     @classmethod

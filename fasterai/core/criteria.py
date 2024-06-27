@@ -24,7 +24,7 @@ class Criteria():
     @torch.no_grad()
     def __call__(self, m, g, squeeze=False):
         try:
-            dim = Granularities.get_dim(m, g)
+            dim = listify(Granularities.get_dim(m, g))
         except KeyError:
             raise NotImplementedError('Invalid granularity')
             

@@ -21,17 +21,26 @@ from fastai.vision.all import *
 
 # %% ../../nbs/03_prune.pruner.ipynb 4
 class Pruner():
-    def __init__(self, model, context, criteria, layer_type=nn.Conv2d, example_inputs=torch.randn(1,3,224,224)):
+    def __init__(self, model, context, criteria, layer_type=[nn.Conv2d, nn.Linear, nn.LSTM], example_inputs=torch.randn(1,3,224,224), ignored_layers=None):
         store_attr()
+        self.ignored_layers = []
+        self.ignored_params = []
+        if ignored_layers is not None:
+            for layer in ignored_layers:
+                if isinstance(layer, nn.Module):
+                    self.ignored_layers.extend(list(layer.modules()))
+                elif isinstance(layer, nn.Parameter):
+                    self.ignored_params.append(layer)
+
         self.DG = tp.DependencyGraph()
-        self.DG.build_dependency(self.model, example_inputs=example_inputs.to(next(model.parameters()).device))
+        self.DG.build_dependency(self.model, example_inputs=example_inputs.to(next(model.parameters()).device), ignored_params=self.ignored_params)
         self._save_init_state()
         self._reset_threshold()
         self.init_num_groups = None
 
     def compute_threshold(self, sparsity):
         self.global_importance = {}
-        for ix, grp in enumerate(self.DG.get_all_groups(root_module_types=[self.layer_type])):
+        for ix, grp in enumerate(self.DG.get_all_groups(root_module_types=self.layer_type, ignored_layers=self.ignored_layers)):
             imp = self.group_importance(grp)
             self.global_importance[ix] = imp
 
@@ -45,13 +54,13 @@ class Pruner():
         module = group[0][0].target.module
         pruning_fn = group[0][0].handler
         pruning_idxs = self.prune_method(group, ix, sparsity, round_to)
+        
         group = self.DG.get_pruning_group(module, pruning_fn, pruning_idxs.tolist())
         group.prune()
     
     def prune_model(self, sparsity, round_to=None):
         if self.context=='global': self.compute_threshold(sparsity)
-
-        for ix, group in enumerate(self.DG.get_all_groups(root_module_types=[self.layer_type])):
+        for ix, group in enumerate(self.DG.get_all_groups(root_module_types=self.layer_type, ignored_layers=self.ignored_layers)):
             self.prune_group(group, ix, sparsity, round_to)
 
     def prune_method(self, group, ix, sparsity, round_to):
@@ -60,10 +69,18 @@ class Pruner():
             n_pruned = max(1, int(imp.ge(self.global_threshold).sum()))
         else:
             imp = self.group_importance(group)
-            n_pruned = max(1, int((1-sparsity/100)*group[0].dep.target.module._init_out_channels))
+            
+            if self.DG.is_out_channel_pruning_fn(group[0].dep.handler):
+                prunable_channels = group[0].dep.target.module._init_out_channels
+            else:
+                prunable_channels = group[0].dep.target.module._init_in_channels
+
+            n_pruned = max(1, int((1-sparsity/100)*prunable_channels))
  
         threshold = torch.topk(imp, int(self._rounded_sparsity(torch.tensor(n_pruned), round_to)))[0].min() if round_to else torch.topk(imp, n_pruned)[0].min()
+
         return imp.lt(threshold).nonzero().view(-1)
+    
                 
     def updated_sparsity(self, m, sparsity):
         init_channels = m._init_out_channels
@@ -71,9 +88,9 @@ class Pruner():
                 
     def _save_init_state(self):
         for m in self.model.modules():
-            if isinstance(m, self.layer_type):
-                if hasattr(m, 'weight'):
-                    setattr(m, '_init_out_channels', self.DG.get_out_channels(m))
+            if hasattr(m, 'weight'):
+                setattr(m, '_init_out_channels', self.DG.get_out_channels(m))
+                setattr(m, '_init_in_channels', self.DG.get_in_channels(m))
 
     def _rounded_sparsity(self, n_to_prune, round_to):
         return max(round_to*torch.floor(n_to_prune/round_to), round_to)
@@ -84,12 +101,28 @@ class Pruner():
     def group_importance(self, group):
         handler_map = {
             function.prune_conv_out_channels: 'filter',
-            function.prune_linear_out_channels: 'column',
+            #function.prune_linear_out_channels: 'row',
+            #function.prune_linear_in_channels: 'column',
             function.prune_conv_in_channels: 'shared_kernel',
             # Additional handlers can be added here
         }
 
-        group_importance = [self.criteria(dep.target.module, handler_map.get(dep.handler), squeeze=True)
-                            for dep, _ in group if dep.handler in handler_map]
+        group_imp = []
+        group_idxs = []
 
-        return torch.stack(group_importance).mean(0)
+        for i, (dep, idxs) in enumerate(group):
+            if dep.handler in handler_map:
+                impo = self.criteria(dep.target.module, handler_map.get(dep.handler), squeeze=True)
+                group_imp.append(impo)
+                group_idxs.append(group[i].root_idxs)
+
+        reduced_imp = torch.zeros_like(group_imp[0])
+
+        for i, (imp, root_idxs) in enumerate(zip(group_imp, group_idxs)):
+            imp = imp.to('cpu')
+            reduced_imp = reduced_imp.to('cpu')
+            reduced_imp.scatter_add_(0, torch.tensor(root_idxs, device=imp.device), imp)
+
+        reduced_imp /= len(group_imp)
+
+        return reduced_imp.to(default_device())

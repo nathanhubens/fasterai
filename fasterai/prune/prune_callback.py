@@ -23,7 +23,7 @@ class PruneCallback(Callback):
     def before_fit(self):
         print(f'Pruning until a sparsity of {self.sparsity}%')
         model = self.model if self.model else self.learn.model
-        self.pruner = Pruner(model, self.context, self.criteria)
+        self.pruner = Pruner(model, self.context, self.criteria, layer_type=self.layer_type)
 
     def before_batch(self):
         self.current_sparsity = self.schedule(self.sparsity, round(self.pct_train,3))
