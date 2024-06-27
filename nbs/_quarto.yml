@@ -65,6 +65,7 @@ website:
         - section: Prune
           contents: 
           - 07d_tutorial.prune_callback.ipynb
+          - 11_tutorial.YOLOV8.ipynb
         - section: Distill
           contents:
           - 08a_tutorial.knowledge_distillation.ipynb
