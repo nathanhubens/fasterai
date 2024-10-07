@@ -1,18 +1,18 @@
 package:
   name: fasterai
-  version: 0.2.3
+  version: 0.2.4
 source:
-  sha256: 0b193741136735bedfa55948c42e8b4f29a2c13e3e9dd0a15ee38294d08fe097
-  url: https://files.pythonhosted.org/packages/5c/19/f57dce01f39f2085cea8c220064ed9547d24cb5cb1f64ddd20fe5fa686ff/fasterai-0.2.3.tar.gz
+  sha256: 0a922cd2655bd365e8e1b7532484e0fe17a52f1998cde331e01ebfbe3877a940
+  url: https://files.pythonhosted.org/packages/df/f2/ed3b1fceba2b6d685d5e1a979c7b2bfb556cd2c737c155f3c28b847adeb5/fasterai-0.2.4.tar.gz
 about:
   description: "# Fasterai\n\n\n\n![header](https://capsule-render.vercel.app/api?type=waving&color=008080&height=300&section=header&text=fasterai%20&fontSize=90&animation=fadeIn&fontAlignY=38&desc=A%20Library%20to%20make%20smaller%20and%20faster%20neural%20networks&descAlignY=51&descAlign=62)\n\
     \n<p align=\"center\">\n    <a href=\"https://pypi.org/project/fasterai/\"><img\
-    \ src=\"https://img.shields.io/pypi/v/fasterai?color=%235BAFAF\"></a>\n    <a\
-    \ href=\"https://pypi.org/project/fasterai/\"><img src=\"https://static.pepy.tech/personalized-badge/fasterai?color=%235BAFAFperiod=total&units=international_system&left_color=grey&right_color=%235BAFAF&left_text=downloads\"\
-    ></a>\n    <a href=\"https://opensource.org/licenses/MIT\"><img src=\"https://img.shields.io/github/license/nathanhubens/fasterai?color=%235bafaf\"\
-    ></a>\n    <a href=\"https://pypi.org/project/fasterai/\"><img src=\"https://img.shields.io/badge/DOI-10.5281%2Fzenodo.6469868-y?color=%235BAFAF\"\
-    ></a>\n</p>\n\n\n<p align=\"center\">\n  <a href=\"#features\">Features</a> \u2022\
-    \n  <a href=\"#installation\">Installation</a> \u2022\n  <a href=\"#tutorials\"\
+    \ src=\"https://img.shields.io/pypi/v/fasterai?color=black\"></a>\n    <a href=\"\
+    https://pypi.org/project/fasterai/\"><img src=\"https://static.pepy.tech/personalized-badge/fasterai?color=black&period=total&units=international_system&left_color=grey&right_color=black&left_text=downloads\"\
+    ></a>\n    <a href=\"https://opensource.org/licenses/MIT\"><img src=\"https://img.shields.io/github/license/nathanhubens/fasterai?color=black\"\
+    ></a>\n    <a href=\"https://pypi.org/project/fasterai/\"><img src=\"https://img.shields.io/badge/DOI-10.5281%2Fzenodo.6469868-y?color=black\"\
+    ></a>\n</p>\n\n\n\n\n\n\n<p align=\"center\">\n  <a href=\"#features\">Features</a>\
+    \ \u2022\n  <a href=\"#installation\">Installation</a> \u2022\n  <a href=\"#tutorials\"\
     >Tutorials</a> \u2022\n  <a href=\"#join-the-community\">Community</a> \u2022\n\
     \  <a href=\"#citing\">Citing</a> \u2022\n  <a href=\"#license\">License</a>\n\
     </p>\n\n`fasterai` is a library created to make neural network **smaller** and\
@@ -89,6 +89,7 @@ requirements:
   run:
   - python >=3.6
   - fastai>=2.2
+  - torch-pruning>=1.2
 test:
   imports:
   - fasterai
