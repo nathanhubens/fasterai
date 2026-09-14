@@ -12,17 +12,20 @@ from ..core.ratio import as_fraction
 from ..core.schedule import *
 
 from collections import defaultdict
+from contextlib import contextmanager
 import torch
 import torch.nn as nn
+from torch_pruning.pruner import function
 
 # %% ../../nbs/prune/prune_callback.ipynb #50598138-7d55-4774-b711-114c1c42dce8
 class PruneCallback(Callback):
     """Prune the model during training, with `fasterai.prune.Pruner`.
     A prune replaces the parameters of every layer it shrinks, so the optimizer is re-pointed at the
-    live ones after each one: the state (momentum, and the rest) of a replaced parameter is dropped,
-    the state of a parameter that survived the prune is kept, and so are the groups, the hypers,
-    fastai's no-weight-decay and force-train marks and the freeze — torch-pruning re-creates the
-    parameters it replaces requiring grad, and a frozen group stays frozen."""
+    live ones after each one: the state of a replaced parameter is carried over, sliced like the
+    parameter (momentum, second moments, step), the state of a parameter that survived the prune is
+    kept, and so are the groups, the hypers, fastai's no-weight-decay and force-train marks and the
+    freeze — torch-pruning re-creates the parameters it replaces requiring grad, and a frozen group
+    stays frozen."""
     def __init__(self,
                  pruning_ratio,  # Filters to remove, a fraction in [0, 1] (0.4 = 40%), or a per-layer dict
                  schedule,       # When to prune, from `fasterai.core.schedule` (e.g. one_shot, agp)
@@ -85,20 +88,39 @@ class PruneCallback(Callback):
         
     def before_step(self) -> None:
         "Apply pruning before optimizer step"
-        if self.training: 
-            self.pruner.prune_model()
-            self._rebind_opt()
+        if self.training:
+            with self._record_replacements() as moves:
+                self.pruner.prune_model()
+            self._rebind_opt(moves)
 
-    def _rebind_opt(self) -> None:
-        "Re-point `learn.opt` at the model's live parameters, keeping the state of those the prune spared"
+    @contextmanager
+    def _record_replacements(self):
+        "Record `(old, new, keep_idxs, dim)`: every layer type's replacement goes through this one function"
+        moves = []
+        original = function.BasePruningFunc._prune_parameter_and_grad
+        def record(func_self, weight, keep_idxs, pruning_dim):
+            new = original(func_self, weight, keep_idxs, pruning_dim)
+            moves.append((weight, new, keep_idxs, pruning_dim))
+            return new
+        function.BasePruningFunc._prune_parameter_and_grad = record
+        try: yield moves
+        finally: function.BasePruningFunc._prune_parameter_and_grad = original
+
+    def _rebind_opt(self, moves) -> None:
+        "Re-point `learn.opt` at the live parameters, carrying their state through the replacements `moves` records"
         opt = self.learn.opt  # re-pointed in place: rebuilding it would lose this fit's state and hypers
         groups = L(self.learn.splitter(self.learn.model))
         opt.param_lists = L(L(g) for g in groups) if isinstance(groups[0], (L, list)) else L([groups])
         live = {id(p) for g in opt.param_lists for p in g}
         for holder in (opt, getattr(opt, 'opt', None)):  # fastai's optimizer, and the torch one a wrapper holds
             state = getattr(holder, 'state', None)
-            if isinstance(state, dict):
-                holder.state = defaultdict(dict, {p: s for p, s in state.items() if id(p) in live})
+            if not isinstance(state, dict): continue
+            for old, new, keep, dim in moves:  # in order, so a parameter pruned twice in one step chains
+                if old not in state: continue
+                idx = torch.as_tensor(keep, device=old.device)
+                state[new] = {k: v.index_select(dim, idx) if torch.is_tensor(v) and v.shape == old.shape else v
+                              for k, v in state.pop(old).items()}
+            holder.state = defaultdict(dict, {p: s for p, s in state.items() if id(p) in live})
         if not self.learn.wd_bn_bias:
             for s in self.learn._bn_bias_state(True): s['do_wd'] = False
         if self.learn.train_bn:
